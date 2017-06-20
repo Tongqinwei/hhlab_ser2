@@ -39,6 +39,15 @@ public class book {
     private String version;
 
     private int storage;
+    private int storage_cb;
+
+    public int getStorage_cb() {
+        return storage_cb;
+    }
+
+    public void setStorage_cb(int storage_cb) {
+        this.storage_cb = storage_cb;
+    }
 
     public bookpage_bean toBookpage_bean(){
         bookpage_bean Bookpage_bean = new bookpage_bean();

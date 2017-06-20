@@ -66,30 +66,29 @@ public class getbook {
                 "\"certificateid\":\"150203199605222137\"" +
                 "}";
 
-//        JSONObject js= JSONObject.fromObject(Jsonstring);
-//        searchresults sr = (searchresults) JSONObject.toBean(js, searchresults.class);
-//
-//        JSONObject sr_user= JSONObject.fromObject(JSON_tong);
-//        user Tong = (user) JSONObject.toBean(sr_user, user.class);
-//
-//        //user_dao.add(Tong);
-//        book[] Books=sr.getBooks();
-//        for (int i=0;i<Books.length;i++) {
-//            book Book = Books[i];
-//            //book_dao testbookdao = new book_dao(Book);
-//            //testbookdao.add_book("A", "A1");
-//            //storage_book_dao.add(Book,"国家图书馆");
-//            //storage_book_dao.add(Book,"北京市图书馆");
-//            //storage_book_dao.add(Book,"北京理工大学图书馆");
-//            //comment_dao.add("novas_ghost",Book.getIsbn13(),"good",5);
-//            //comment_dao.add("novas_ghost",Book.getIsbn13(),"not bad",3);
-//            //comment_dao.add("novas_ghost",Book.getIsbn13(),"bad",1);
-//        }
+        JSONObject js= JSONObject.fromObject(Jsonstring);
+        searchresults sr = (searchresults) JSONObject.toBean(js, searchresults.class);
+
+        JSONObject sr_user= JSONObject.fromObject(JSON_tong);
+        user Tong = (user) JSONObject.toBean(sr_user, user.class);
+
+        user_dao.add(Tong);
+        book[] Books=sr.getBooks();
+        for (int i=0;i<Books.length;i++) {
+            book Book = Books[i];
+            book_dao testbookdao = new book_dao(Book);
+            testbookdao.add_book("A", "A1");
+            storage_book_dao.add(Book,"国家图书馆");
+            storage_book_dao.add(Book,"北京市图书馆");
+            storage_book_dao.add(Book,"北京理工大学图书馆");
+            comment_dao.add("novas_ghost",Book.getIsbn13(),"good",5);
+            comment_dao.add("novas_ghost",Book.getIsbn13(),"not bad",3);
+            comment_dao.add("novas_ghost",Book.getIsbn13(),"bad",1);
+        }
 //        int i=0;
 //        abstruct_dao.close();
-        book[] Books = book_dao.getRecommendBook_index(1,5);
+        //book[] Books = book_dao.getRecommendBook_index(1,5);
         abstruct_dao.close();
-        //JSONObject book_json= JSONObject.fromObject(Books);
         JSONArray book_json = JSONArray.fromObject(Books);
         System.out.println(book_json.toString());
     }
