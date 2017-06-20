@@ -11,10 +11,10 @@ public class JDBC {
     private static String myurl = "jdbc:mysql://127.0.0.1/hhlab?" +
             "useUnicode=true" +
             "&characterEncoding=UTF-8";
-    private static String user = "root";
-    private static String password = "";
-    //private static String user = "remote_user";
-    //private static String password = "remote";
+    //private static String user = "root";
+    //private static String password = "";
+    private static String user = "remote_user";
+    private static String password = "remote";
     private static String driverClass = "com.mysql.jdbc.Driver";
     private static Connection conn;
 
