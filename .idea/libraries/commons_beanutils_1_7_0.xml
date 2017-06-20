@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="commons-beanutils-1.7.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-beanutils-1.7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ezmorph-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jdom.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-lib-2.2.2-jdk15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-lib-2.2.3-jdk13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.0.5-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10-tests.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.5-tests.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/SMSMethod_v1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.10-test-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.5-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.5-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

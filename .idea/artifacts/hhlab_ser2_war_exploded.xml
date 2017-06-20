@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="hhlab_ser2:war exploded">
+    <output-path>C:/apache-tomcat-7.0.57/webapps/hhlab_ser2</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="hhlab_ser2/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="hhlab_ser2" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-beanutils-1.7.0" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/json-lib-2.2.3-jdk13.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/json-lib-2.2.2-jdk15.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/jdom.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/ezmorph-1.0.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-logging-1.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-beanutils-1.7.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-collections-3.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-lang-2.4.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
