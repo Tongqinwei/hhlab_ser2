@@ -78,6 +78,33 @@ public class user_dao extends abstruct_dao{
         }
     }
 
+    public boolean update_user_byUnionID(){
+        /*user
+        * 利用unionid更新user
+        * */
+        try {
+            String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  ,tel=? where unionid = ? ;", table_user);        //9
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, User.getDegree());
+            ps.setString(2, User.getBirthday());
+            ps.setString(3, User.getEmail());
+            ps.setString(4, User.getAddress());
+            ps.setString(5, User.getPostcode());
+            ps.setString(6, User.getName());
+            ps.setInt(7, User.getCertificate());
+            ps.setString(8,User.getCertificateid());
+            ps.setString(9,User.getTel());
+            ps.setString(10,User.getUnionid());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return false;
+        }
+    }
+
     public boolean isExistByUserid(){
         try {
             Statement stat = conn.createStatement();
@@ -180,5 +207,34 @@ public class user_dao extends abstruct_dao{
         User.setUserid(userid);
         user_dao User_dao = new user_dao(User);
         return User_dao.getTrueNameByUserid();
+    }
+
+    public static user getUserByUnionId(String unionId){
+        /*
+        * 通过unionid获取
+        * */
+        if (unionId==null||unionId=="") return new user();
+        try {
+            Statement stat = conn.createStatement();
+            String sql = String.format("select userid from %s where unionid='%s';", table_user, unionId);
+            ResultSet rs = stat.executeQuery(sql);
+            rs.last();
+            user User = new user();
+            User.setTel(rs.getString("tel"));
+            User.setUnionid(rs.getString("unionid"));
+            User.setDegree(rs.getInt("degree"));
+            User.setBirthday(rs.getDate("birthday").toString());
+            User.setEmail(rs.getString("email"));
+            User.setAddress(rs.getString("address"));
+            User.setPostcode(rs.getString("postcode"));
+            User.setName(rs.getString("name"));
+            User.setCertificate(rs.getInt("certificate"));
+            User.setCertificateid(rs.getString("certificateid"));
+            return User;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }
