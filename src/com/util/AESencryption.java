@@ -24,7 +24,7 @@ public class AESencryption {
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
 
     public static void main(String[] args) throws Exception {
-        String content = "13708721234LiYu=1234";
+        String content = "游戏引擎课上利用游戏引擎开发游戏";
         System.out.println("加密前：" + content);
 
         System.out.println("加密密钥和解密密钥：" + KEY);

@@ -41,6 +41,8 @@ public class book {
     private int storage;
     private int storage_cb;
 
+    private String pinyin;
+
     public int getStorage_cb() {
         return storage_cb;
     }
@@ -328,5 +330,13 @@ public class book {
 
     public void setStorage(int storage) {
         this.storage = storage;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
     }
 }

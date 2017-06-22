@@ -30,7 +30,7 @@ public class search_book extends HttpServlet {
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setContentType("application/json");
         Writer out = response.getWriter();
-        out.write(book_json.toString());
+        out.write(key+book_json.toString());
         out.flush();
         out.close();
         response.flushBuffer();

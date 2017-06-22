@@ -29,7 +29,7 @@ public class book_dao extends abstruct_dao{
         this.Book=Book;
     }
 
-    public ResultSet getResultSetByIsbn13(String isbn13){
+    private ResultSet getResultSetByIsbn13(String isbn13){
         /*
         * 查询isbn13，返回结果集
         * */
@@ -70,19 +70,22 @@ public class book_dao extends abstruct_dao{
             book _Book = null;
             while(rs.next()) {
                 _Book = new book();
-                _Book.set_class(rs.getString(1));
-                _Book.setSubclass(rs.getString(2));
-                _Book.setImage(rs.getString(3));
-                _Book.setTitle(rs.getString(4));
-                String[] author = authorutil.string2Authorarr(rs.getString(5));
+                _Book.set_class(rs.getString("class"));
+                _Book.setSubclass(rs.getString("subclass"));
+                _Book.setImage(rs.getString("cover"));
+                _Book.setTitle(rs.getString("title"));
+                _Book.setPinyin(rs.getString("pinyin"));
+                String[] author=authorutil.string2Authorarr(rs.getString("author"));
                 _Book.setAuthor(author);
-                _Book.setIsbn13(rs.getString(6));
-                _Book.setIsbn10(rs.getString(7));
-                _Book.setPreface(rs.getString(8));
-                _Book.setContents(rs.getString(9));
-                _Book.setPublisher(rs.getString(10));
-                _Book.setVersion(rs.getString(11));
-                _Book.setSummary(rs.getString(12));
+                _Book.setIsbn13(rs.getString("isbn13"));
+                _Book.setIsbn10(rs.getString("isbn10"));
+                _Book.setPreface(rs.getString("preface"));
+                _Book.setContents(rs.getString("contents"));
+                _Book.setPublisher(rs.getString("press"));
+                _Book.setVersion(rs.getString("version"));
+                _Book.setSummary(rs.getString("introduction"));
+                _Book.setStorage(rs.getInt("storage"));
+                _Book.setStorage_cb(rs.getInt("storage_cb"));
             }
             return _Book;
         } catch (SQLException e) {
@@ -99,19 +102,22 @@ public class book_dao extends abstruct_dao{
             List<book> Books= new Vector();
             while(rs.next()){
                 book _Book = new book();
-                _Book.set_class(rs.getString(1));
-                _Book.setSubclass(rs.getString(2));
-                _Book.setImage(rs.getString(3));
-                _Book.setTitle(rs.getString(4));
-                String[] author=authorutil.string2Authorarr(rs.getString(5));
+                _Book.set_class(rs.getString("class"));
+                _Book.setSubclass(rs.getString("subclass"));
+                _Book.setImage(rs.getString("cover"));
+                _Book.setTitle(rs.getString("title"));
+                _Book.setPinyin(rs.getString("pinyin"));
+                String[] author=authorutil.string2Authorarr(rs.getString("author"));
                 _Book.setAuthor(author);
-                _Book.setIsbn13(rs.getString(6));
-                _Book.setIsbn10(rs.getString(7));
-                _Book.setPreface(rs.getString(8));
-                _Book.setContents(rs.getString(9));
-                _Book.setPublisher(rs.getString(10));
-                _Book.setVersion(rs.getString(11));
-                _Book.setSummary(rs.getString(12));
+                _Book.setIsbn13(rs.getString("isbn13"));
+                _Book.setIsbn10(rs.getString("isbn10"));
+                _Book.setPreface(rs.getString("preface"));
+                _Book.setContents(rs.getString("contents"));
+                _Book.setPublisher(rs.getString("press"));
+                _Book.setVersion(rs.getString("version"));
+                _Book.setSummary(rs.getString("introduction"));
+                _Book.setStorage(rs.getInt("storage"));
+                _Book.setStorage_cb(rs.getInt("storage_cb"));
                 Books.add(_Book);
             }
             return Books;
@@ -127,7 +133,7 @@ public class book_dao extends abstruct_dao{
         * */
         try {
             Statement stat = conn.createStatement();
-            String sql = "select * from "+table_book+" where isbn13=\'"+Book.getIsbn13()+"\';";
+            String sql = String.format("select * from %s where isbn13='%s';", table_book, Book.getIsbn13());
             ResultSet rs = stat.executeQuery(sql);
             rs.last();
             if (rs.getRow()==0) return false;
@@ -224,23 +230,34 @@ public class book_dao extends abstruct_dao{
     public static book[] getRecommendBook_index(int _begin,int _end){
         book_dao Book_dao= new book_dao(new book());
         List<book> books=getBooksByResultSet(Book_dao.getResultSetByRecommend_index(_begin,_end));
+        assert books != null;
         book[] array =new book[books.size()];
         return books.toArray(array);
+    }
+
+    private static ResultSet searchToGetResultSet(String key){
+        /*
+        * 查找书籍，按照isbn13，书名，书名首字母，书名拼音
+        * */
+        try {
+            String sql=String.format("select distinct * from %s where isbn13=? or title like ? or pinyin like ?",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,key);
+            ps.setString(2,"%"+key+"%");
+            ps.setString(3,"%"+key+"%");
+            ResultSet rs = rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     public static book[] search(String key){
         /*
         * 查找书籍，按照isbn13，书名，书名首字母，书名拼音
         * */
-        List<book> books = new Vector();
-        books.clear();
-
-        //isbn13
-        book Book;
-        Book=getBookByIsbn13(key);
-        Book.setStorage(storage_book_dao.count_transcript(key));
-        if (Book!=null) books.add(Book);
-
+        List<book> books = book_dao.getBooksByResultSet(searchToGetResultSet(key));
 
         book[] array =new book[books.size()];
         return books.toArray(array);

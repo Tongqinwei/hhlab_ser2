@@ -91,7 +91,7 @@ public class RSAencryption {
     public static void main(String[] args){
         RSAencryption test = new RSAencryption();
 
-        String liyu="13708721234LiYu=1234";
+        String liyu="游戏引擎课上利用游戏引擎开发游戏";
         String miwen=RSAencryption.encrypt(liyu);
         String jiemi=RSAencryption.decrypt(miwen);
         System.out.println(liyu);
