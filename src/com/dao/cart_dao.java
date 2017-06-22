@@ -1,9 +1,6 @@
 package com.dao;
 
-import com.beans.book;
-import com.beans.book_cart;
-import com.beans.storage_book;
-import com.beans.user;
+import com.beans.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,10 +86,10 @@ public class cart_dao extends abstruct_dao{
         return cart.getUsersCart();
     }
 
-    public static book[] getbooks(int userid){
+    public static book_brief[] getbooks(int userid){
         if (!user_dao.isExistByUserid(userid)) {
             System.err.printf("The user whose id is \"%d\" is not exist!%n", userid);
-            return new book[0];
+            return new book_brief[0];
         }
         cart_dao cart = new cart_dao(null,userid);
 
@@ -101,13 +98,13 @@ public class cart_dao extends abstruct_dao{
 
         //转换为书籍信息
         book_dao Book_dao= new book_dao(new book());
-        List<book> books= new Vector();
+        List<book_brief> books= new Vector();
         int len = Book_carts.length;
         for (int i=0;i<len;i++){
             book Book=book_dao.getBookByIsbn13(Book_carts[i].getIsbn13());
-            books.add(Book);
+            books.add(new book_brief(Book));
         }
-        book[] array =new book[books.size()];
+        book_brief[] array =new book_brief[books.size()];
         return books.toArray(array);
     }
 

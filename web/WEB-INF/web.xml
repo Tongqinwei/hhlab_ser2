@@ -56,4 +56,13 @@
         <servlet-name>CreateSessionServlet</servlet-name>
         <url-pattern>/login/create_session</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cartHandler</servlet-name>
+        <servlet-class>com.servlet.cartHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cartHandler</servlet-name>
+        <url-pattern>/cartHandler</url-pattern>
+    </servlet-mapping>
 </web-app>

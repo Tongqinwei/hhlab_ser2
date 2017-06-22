@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.beans.book;
+import com.beans.book_brief;
 import com.dao.abstruct_dao;
 import com.dao.cart_dao;
 import com.dao.user_dao;
@@ -41,9 +42,9 @@ public class cartHandler extends HttpServlet{
         int userid = user_dao.getUserByUnionId(unionid).getUserid();
         switch (operation) {
             case "show":
-                book[] books= cart_dao.getbooks(userid);
-                JSONArray book_json = JSONArray.fromObject(books);
-                retString = book_json.toString();
+                book_brief[] books= cart_dao.getbooks(userid);
+                JSONArray book_brief_json = JSONArray.fromObject(books);
+                retString = book_brief_json.toString();
                 break;
             case "add":
                 if (cart_dao.add(isbn13,userid)) retString="success";
