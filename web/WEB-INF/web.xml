@@ -50,7 +50,7 @@
 
     <servlet>
         <servlet-name>CreateSessionServlet</servlet-name>
-        <servlet-class>com.Login.Servlet.CreateSessionServlet</servlet-class>
+        <servlet-class>com.servlet.CreateSessionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateSessionServlet</servlet-name>

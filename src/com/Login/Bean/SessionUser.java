@@ -1,6 +1,9 @@
 package com.Login.Bean;
 
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lee on 2017/6/17.
@@ -17,12 +20,13 @@ public class SessionUser {
     private String SessionKey;
 //    用户的权限设置
     private int power;
-//    用户的独立ID 用户检查用户是否已经登录等
-    private String UnionID;
+
 //    用户的登录手机号，用户检查用户是否已经登录
     private String CellPhone;
 
     public Date LastUpdate;
+
+    public Map<String,Object> ObjectMap;
 
     public SessionUser(){
         OpenID = null;
@@ -32,10 +36,11 @@ public class SessionUser {
         SessionKey = null;
 //    用户的权限设置
         power = 0;
-//    用户的独立ID 用户检查用户是否已经登录等
-        UnionID = null;
+
 //    用户的登录手机号，用户检查用户是否已经登录
         CellPhone = null;
+
+        ObjectMap = new HashMap<>();
 
         LastUpdate = new Date();
     }
@@ -46,12 +51,12 @@ public class SessionUser {
 
     public boolean isUserLogged(){
 //      返回用户是否登录的状态
-        return !(UnionID == null && CellPhone == null);
+        return !(OpenID == null && CellPhone == null);
     }
 
     public boolean isLoggedByWechat(){
 //      查询用户是否通过微信登录
-        return UnionID != null;
+        return OpenID != null;
     }
 
     public boolean isLoggedByPhone(){
@@ -92,13 +97,6 @@ public class SessionUser {
         this.power = power;
     }
 
-    public String getUnionID() {
-        return UnionID;
-    }
-
-    public void setUnionID(String unionID) {
-        UnionID = unionID;
-    }
 
     public String getCellPhone() {
         return CellPhone;
