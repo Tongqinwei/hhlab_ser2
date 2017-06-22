@@ -16,6 +16,7 @@ public class getbook {
     public static void  main(String argc[]){
         String url="https://api.douban.com/v2/book/search";
         String param="tag=文学";
+        abstruct_dao.connect();
         //发送 GET 请求
 //        String Jsonstring="{\"rating\":{\"max\":10,\"numRaters\":19,\"average\":\"9.0\",\"min\":0}," +
 //                "\"author\":[\"[美] 布鲁克·诺埃尔·穆尔\",\"肯尼思·布鲁德\"]," +
@@ -71,7 +72,7 @@ public class getbook {
 
         JSONObject sr_user= JSONObject.fromObject(JSON_tong);
         user Tong = (user) JSONObject.toBean(sr_user, user.class);
-
+        /*
         user_dao.add(Tong);
         book[] Books=sr.getBooks();
         for (int i=0;i<Books.length;i++) {
@@ -88,8 +89,14 @@ public class getbook {
 //        int i=0;
 //        abstruct_dao.close();
         //book[] Books = book_dao.getRecommendBook_index(1,5);
-        abstruct_dao.close();
+
         JSONArray book_json = JSONArray.fromObject(Books);
-        System.out.println(book_json.toString());
+        System.out.println(book_json.toString());*/
+        book[] Books=sr.getBooks();
+        for (int i=0;i<Books.length-5;i++) {
+            book Book = Books[i];
+            cart_dao.add(Book.getIsbn13(),"novas_ghost");
+        }
+        abstruct_dao.close();
     }
 }

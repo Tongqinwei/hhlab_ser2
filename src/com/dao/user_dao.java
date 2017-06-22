@@ -216,10 +216,11 @@ public class user_dao extends abstruct_dao{
         if (unionId==null||unionId=="") return new user();
         try {
             Statement stat = conn.createStatement();
-            String sql = String.format("select userid from %s where unionid='%s';", table_user, unionId);
+            String sql = String.format("select * from %s where unionid='%s';", table_user, unionId);
             ResultSet rs = stat.executeQuery(sql);
             rs.last();
             user User = new user();
+            User.setUserid(rs.getInt("userid"));
             User.setTel(rs.getString("tel"));
             User.setUnionid(rs.getString("unionid"));
             User.setDegree(rs.getInt("degree"));

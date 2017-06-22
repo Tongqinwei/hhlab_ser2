@@ -40,7 +40,7 @@ public class cart_dao extends abstruct_dao{
         * */
         try {
             Statement stat = conn.createStatement();
-            String sql = String.format("select * from %s where userid=\"%d\";", Book_cart.getUserid(), table_cart);
+            String sql = String.format("select * from %s where userid=\"%d\";", table_cart, Book_cart.getUserid());
             ResultSet rs = stat.executeQuery(sql);
             return rs;
         } catch (SQLException e) {
@@ -116,9 +116,8 @@ public class cart_dao extends abstruct_dao{
             System.err.printf("The book \"%s\" is in your cart!%n", Book_cart.getIsbn13());
             return false;
         }
-        book Book=book_dao.getBookByIsbn13(Book_cart.getIsbn13());
         try {
-            String sql = String.format("insert into %s(userid , isbn13 , image , title)values (?,?,?,?);", table_cart);
+            String sql = String.format("insert into %s(userid , isbn13)values (?,?);", table_cart);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Book_cart.getUserid());
             ps.setString(2, Book_cart.getIsbn13());
@@ -133,6 +132,12 @@ public class cart_dao extends abstruct_dao{
     }
 
     public static boolean add(String isbn13,int userid){
+        cart_dao cart = new cart_dao(isbn13,userid);
+        return cart.add();
+    }
+
+    public static boolean add(String isbn13,String  unionid){
+        int userid = user_dao.getUserByUnionId(unionid).getUserid();
         cart_dao cart = new cart_dao(isbn13,userid);
         return cart.add();
     }

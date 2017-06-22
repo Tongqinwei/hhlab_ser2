@@ -68,8 +68,6 @@ public class book {
     public book_cart toBook_cart(int userid){
         book_cart Book_cart = new book_cart();
         Book_cart.setUserid(userid);
-        Book_cart.setTitle(title);
-        Book_cart.setImage(image);
         Book_cart.setIsbn13(isbn13);
         return Book_cart;
     }
