@@ -29,6 +29,7 @@ public class user_dao extends abstruct_dao{
         /*user
         * 加入新用户
         * */
+        boolean success=false;
         try {
             String sql = String.format("insert into %s(tel , unionid , degree , birthday , email , address , postcode ,name , certificate , certificateid)values (?,?,?,?,?,?,?,?,?,?);", table_user);
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -43,12 +44,12 @@ public class user_dao extends abstruct_dao{
             ps.setInt(9, User.getCertificate());
             ps.setString(10,User.getCertificateid());
             ps.execute();
-            return true;
+            success =  true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
@@ -56,6 +57,7 @@ public class user_dao extends abstruct_dao{
         /*user
         * 利用电话更新user
         * */
+        boolean success=false;
         try {
             String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  where tel = ? ;", table_user);        //9
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -69,12 +71,12 @@ public class user_dao extends abstruct_dao{
             ps.setString(8,User.getCertificateid());
             ps.setString(9,User.getTel());
             ps.execute();
-            return true;
+            success=true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
@@ -82,6 +84,7 @@ public class user_dao extends abstruct_dao{
         /*user
         * 利用unionid更新user
         * */
+        boolean success=false;
         try {
             String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  ,tel=? where unionid = ? ;", table_user);        //9
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -96,12 +99,12 @@ public class user_dao extends abstruct_dao{
             ps.setString(9,User.getTel());
             ps.setString(10,User.getUnionid());
             ps.execute();
-            return true;
+            success= true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 

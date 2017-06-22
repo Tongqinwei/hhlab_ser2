@@ -39,6 +39,7 @@ public class comment_dao extends abstruct_dao{
             System.err.println("The user \""+Comment.getUser_name()+"\" is not existed!");
             return false;
         }
+        boolean success=false;
         Comment.setUserid(userid);
         try {
             String sql = String.format("insert into %s(userid , isbn13 , comment , grade )values (?,?,?,?);", table_comment);
@@ -48,12 +49,12 @@ public class comment_dao extends abstruct_dao{
             ps.setString(3, Comment.getContent());
             ps.setInt(4, Comment.getRate());
             ps.execute();
-            return true;
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 

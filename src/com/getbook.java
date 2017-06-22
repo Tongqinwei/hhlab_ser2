@@ -92,11 +92,12 @@ public class getbook {
 
         JSONArray book_json = JSONArray.fromObject(Books);
         System.out.println(book_json.toString());*/
-        book[] Books=sr.getBooks();
-        for (int i=0;i<Books.length-5;i++) {
-            book Book = Books[i];
-            cart_dao.add(Book.getIsbn13(),"novas_ghost");
-        }
+//        book[] Books=sr.getBooks();
+//        for (int i=0;i<Books.length-5;i++) {
+//            book Book = Books[i];
+//            cart_dao.add(Book.getIsbn13(),"novas_ghost");
+//        }
+        cart_dao.rid("9787536023918",1);
         abstruct_dao.close();
     }
 }

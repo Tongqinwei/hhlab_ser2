@@ -109,6 +109,7 @@ public class cart_dao extends abstruct_dao{
     }
 
     public boolean add(){
+        boolean success=false;
         if (isExist()) {
             System.err.printf("The book \"%s\" is in your cart!%n", Book_cart.getIsbn13());
             return false;
@@ -119,12 +120,12 @@ public class cart_dao extends abstruct_dao{
             ps.setInt(1, Book_cart.getUserid());
             ps.setString(2, Book_cart.getIsbn13());
             ps.execute();
-            return true;
+            success= true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
@@ -140,18 +141,19 @@ public class cart_dao extends abstruct_dao{
     }
 
     public boolean rid(){
+        boolean success=false;
         try {
-            String sql = String.format("delete * from table %s where userid=? and isbn13=? ;", table_cart);
+            String sql = String.format("delete from %s where userid=? and isbn13=? ;", table_cart);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Book_cart.getUserid());
             ps.setString(2, Book_cart.getIsbn13());
             ps.execute();
-            return true;
+            success=true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 

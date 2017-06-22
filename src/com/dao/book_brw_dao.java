@@ -23,6 +23,7 @@ public class book_brw_dao extends abstruct_dao{
         this.Book_brw=Book_brw;
     }
     public boolean addBorrow() {
+        boolean success=false;
         try{
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
@@ -33,16 +34,17 @@ public class book_brw_dao extends abstruct_dao{
             ps.setString(2, Book_brw.getOrderid());
             ps.setString(3, time);
             ps.execute();
-            return true;
+            success=true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
     public boolean isExist(){
+        boolean success=false;
         try{
             String sql = String.format("select * from %s where barcode = ? and orderid = ?;", table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -50,17 +52,17 @@ public class book_brw_dao extends abstruct_dao{
             ps.setString(2,Book_brw.getOrderid());
             ResultSet rs = ps.executeQuery();
             rs.last();
-            if (rs.getRow()==0) return false;
-            else return true;
+            if (rs.getRow()!=0) success=true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
     public boolean markBorrow(){
+        boolean success=false;
         if (!isExist()) {
             System.err.println("the book is not in the table");
             return false;
@@ -76,13 +78,12 @@ public class book_brw_dao extends abstruct_dao{
             ps.setString(3,time);
             ResultSet rs = ps.executeQuery();
             rs.last();
-            if (rs.getRow()==0) return false;
-            else return true;
+            if (rs.getRow()!=0) success=true;
         }catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 }

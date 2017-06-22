@@ -96,6 +96,7 @@ public class storage_book_dao extends abstruct_dao{
             System.err.println("The book "+Storage_book.getIsbn()+" was not in table "+table_book+".");
             return false;
         }
+        boolean success=false;
         int no=this.count_transcript()+1;
         String _no=_math.getSerial_number(no);
         try {
@@ -110,12 +111,12 @@ public class storage_book_dao extends abstruct_dao{
             ps = conn.prepareStatement(sql);
             ps.setString(1, Storage_book.getIsbn());
             ps.execute();
-            return true;
+            success =  true;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
-            return false;
+            return success;
         }
     }
 
