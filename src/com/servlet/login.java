@@ -1,9 +1,11 @@
 package com.servlet;
 
 import com.Login.Bean.SessionUser;
+import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.user;
 import com.dao.user_dao;
+import com.google.gson.JsonObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +26,25 @@ public class login extends HttpServlet {
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String unionid = request.getParameter("UNIONID");
-        String session_id= request.getParameter("session_id");
+
+        JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
+
+        String openID = null;
+        String session_id= null;
+
+        try {
+            openID = jsonObject.get("open_id").getAsString();
+            session_id = jsonObject.get("session_id").getAsString();
+        } catch (Exception e){
+            // if there is error in json handling then send the error message
+            Writer out = response.getWriter();
+            out.write("failure: error json type");
+            out.flush();
+            out.close();
+            response.flushBuffer();
+            return;
+        }
+
         String retString="failure";
 
         //创建session，保存unionid
@@ -35,22 +54,30 @@ public class login extends HttpServlet {
             retString="failure:cannot get session";
         }else {
             //可以获得session
-            sessionUser.setUnionID(unionid);
-            int UserIsExist=user_dao.isExistByUnionid(unionid);
+
+            if(!sessionUser.getOpenID().contentEquals(openID)){
+//                if the open id is not match
+                Writer out = response.getWriter();
+                out.write("failure: openID is not match");
+                out.flush();
+                out.close();
+                response.flushBuffer();
+                return;
+            }
+
+            int UserIsExist=user_dao.isExistByUnionid(openID);
             if (UserIsExist!=-1){
                 retString="success";
             }else {
                 user User= new user();
-                User.setUnionid(unionid);
+                User.setUnionid(openID);
                 user_dao.add(User);
-                int userid=user_dao.isExistByUnionid(unionid);
+                int userid=user_dao.isExistByUnionid(openID);
                 if (userid!=-1){
                     retString="success";
                 }
             }
         }
-
-
 
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type","text/html;charset=UTF-8");

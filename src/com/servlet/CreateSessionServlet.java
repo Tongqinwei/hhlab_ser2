@@ -1,4 +1,4 @@
-package com.Login.Servlet;
+package com.servlet;
 
 
 import com.Login.Bean.SessionUser;
@@ -100,7 +100,7 @@ public class CreateSessionServlet extends HttpServlet {
                     SessionManager manager = SessionManager.getInstance();
                     manager.AddUser(user);
                     // 返回成功的json
-                    out.write(MyJsonParser.GetSessionSuccess(user.getSessionID()));
+                    out.write(MyJsonParser.GetSessionSuccess(user.getSessionID(),user.getOpenID()));
 
                 } else {
                     out.write(MyJsonParser.GetSessionError());

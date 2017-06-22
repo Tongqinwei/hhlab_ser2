@@ -16,8 +16,8 @@ public class MyJsonParser {
         return "{\"state\":\"error\",\"sessionID\":\"\"}";
     }
 
-    public static String GetSessionSuccess(String sessionID){
-        return "{\"state\":\"success\",\"sessionID\":\""+sessionID+"\"}";
+    public static String GetSessionSuccess(String sessionID, String OpenID){
+        return "{\"state\":\"success\",\"sessionID\":\""+sessionID+"\",\"openID\" : \""+OpenID+"\"}";
     }
 
     public static String CodeJsonToString(String initialString){
