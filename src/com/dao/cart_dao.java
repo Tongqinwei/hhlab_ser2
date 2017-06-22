@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by hasee on 2017/5/27.
@@ -33,9 +34,9 @@ public class cart_dao extends abstruct_dao{
         Book_cart.setUserid(User.getUserid());
     }
 
-    public ResultSet getbooksToRs(){
+    public ResultSet getuserscartToRs(){
         /*
-        * 查询isbn13，返回结果集
+        * 某个用户的购物车
         * */
         try {
             Statement stat = conn.createStatement();
@@ -49,7 +50,7 @@ public class cart_dao extends abstruct_dao{
     }
 
     public boolean isExist(){
-        ResultSet rs=this.getbooksToRs();
+        ResultSet rs=this.getuserscartToRs();
         try {
             while (rs.next()){
                 if (rs.getString("isbn13").equals(Book_cart.getIsbn13())) return true;
@@ -60,8 +61,8 @@ public class cart_dao extends abstruct_dao{
         return false;
     }
 
-    public book_cart[] getbooks(){
-        ResultSet rs=this.getbooksToRs();
+    public book_cart[] getUsersCart(){
+        ResultSet rs=this.getuserscartToRs();
         try {
             List<book_cart> cart = new ArrayList<book_cart>() ;
             cart.clear();
@@ -69,8 +70,6 @@ public class cart_dao extends abstruct_dao{
                 book_cart Book = new book_cart();
                 Book.setUserid(rs.getInt("userid"));
                 Book.setIsbn13(rs.getString("isbn13"));
-                Book.setImage(rs.getString("image"));
-                Book.setTitle(rs.getString("title"));
                 cart.add(Book);
             }
             book_cart[] array =new book_cart[cart.size()];
@@ -81,13 +80,35 @@ public class cart_dao extends abstruct_dao{
         return new book_cart[0];
     }
 
-    public static book_cart[] getbooks(int userid){
+    public static book_cart[] getbooks_cart(int userid){
         if (!user_dao.isExistByUserid(userid)) {
             System.err.printf("The user whose id is \"%d\" is not exist!%n", userid);
             return new book_cart[0];
         }
         cart_dao cart = new cart_dao(null,userid);
-        return cart.getbooks();
+        return cart.getUsersCart();
+    }
+
+    public static book[] getbooks(int userid){
+        if (!user_dao.isExistByUserid(userid)) {
+            System.err.printf("The user whose id is \"%d\" is not exist!%n", userid);
+            return new book[0];
+        }
+        cart_dao cart = new cart_dao(null,userid);
+
+        //购物车信息
+        book_cart[] Book_carts=cart.getUsersCart();
+
+        //转换为书籍信息
+        book_dao Book_dao= new book_dao(new book());
+        List<book> books= new Vector();
+        int len = Book_carts.length;
+        for (int i=0;i<len;i++){
+            book Book=book_dao.getBookByIsbn13(Book_carts[i].getIsbn13());
+            books.add(Book);
+        }
+        book[] array =new book[books.size()];
+        return books.toArray(array);
     }
 
     public boolean add(){
@@ -96,15 +117,11 @@ public class cart_dao extends abstruct_dao{
             return false;
         }
         book Book=book_dao.getBookByIsbn13(Book_cart.getIsbn13());
-        Book_cart.setImage(Book.getImage());
-        Book_cart.setTitle(Book.getTitle());
         try {
             String sql = String.format("insert into %s(userid , isbn13 , image , title)values (?,?,?,?);", table_cart);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Book_cart.getUserid());
             ps.setString(2, Book_cart.getIsbn13());
-            ps.setString(2, Book_cart.getImage());
-            ps.setString(2, Book_cart.getTitle());
             ps.execute();
             return true;
         } catch (SQLException e) {

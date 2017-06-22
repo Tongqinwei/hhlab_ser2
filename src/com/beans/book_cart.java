@@ -6,8 +6,6 @@ package com.beans;
 public class book_cart {
     private String isbn13;
     private int userid;
-    private String title;
-    private String image;
 
     public book_cart(){}
 
@@ -25,21 +23,5 @@ public class book_cart {
 
     public void setUserid(int userid) {
         this.userid = userid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }
