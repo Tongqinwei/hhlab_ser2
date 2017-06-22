@@ -150,7 +150,9 @@ public class book_dao extends abstruct_dao{
         * 在book中加入新书，输入为分类和子类
         * */
         try {
-            String sql = String.format("insert into %s(class , subclass , cover , title , author , isbn13 , isbn10 ,preface , contents , press , version , introduction )values (?,?,?,?,?,?,?,?,?,?,?,?);", table_book);
+            String sql = String.format("insert into %s(class , subclass , cover , title , author , isbn13 , isbn10 " +
+                    ",preface , contents , press , version , introduction ,pinyin)" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?,?,to_pinyin(?));", table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, first_class);
             ps.setString(2, sub_class);
@@ -166,6 +168,7 @@ public class book_dao extends abstruct_dao{
             ps.setString(10,Book.getPublisher());
             ps.setString(11,"");
             ps.setString(12,Book.getSummary());
+            ps.setString(13,Book.getTitle());
             ps.execute();
             return true;
         } catch (SQLException e) {

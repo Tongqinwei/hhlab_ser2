@@ -51,10 +51,10 @@ public class storage_book_dao extends abstruct_dao{
         * */
         try {
             Statement stat = conn.createStatement();
-            String sql = "select * from "+table_book_mng+" where isbn13=\'"+Storage_book.getIsbn()+"\';";
+            String sql = "select storage from "+table_book+" where isbn13=\'"+Storage_book.getIsbn()+"\';";
             ResultSet rs = stat.executeQuery(sql);
             rs.last();
-            return rs.getRow();
+            return rs.getInt("storage");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -105,6 +105,10 @@ public class storage_book_dao extends abstruct_dao{
             ps.setString(2, Storage_book.getIsbn()+_no);
             ps.setString(3, Storage_book.getBook_location());
             ps.setInt(4, state2Num(Storage_book.getBook_state()));
+            ps.execute();
+            sql = String.format("update %s set storage=storage+1, storage_cb=storage_cb+1 where isbn13 = ?",table_book);
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, Storage_book.getIsbn());
             ps.execute();
             return true;
         } catch (SQLException e) {
