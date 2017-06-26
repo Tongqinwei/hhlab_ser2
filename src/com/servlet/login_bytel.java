@@ -4,6 +4,7 @@ import com.Login.Bean.SessionUser;
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.user;
+import com.dao.abstruct_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
 import com.util._math;
@@ -28,6 +29,7 @@ public class login_bytel extends HttpServlet {
         doPost(request,response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        abstruct_dao.connect();
         String retString="failure";
 
         String mode= null;
@@ -35,8 +37,10 @@ public class login_bytel extends HttpServlet {
         String captchare = null;
         String sessionID = null;
 
-        JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
-        log("log in by tel : get json string :"+CreateSessionServlet.getBody(request));
+        String reqString = CreateSessionServlet.getBody(request);
+
+        JsonObject jsonObject = MyJsonParser.String2Json(reqString);
+        log("log in by tel : get json string :"+reqString);
         try {
             mode = jsonObject.get("mode").getAsString();
             tel = jsonObject.get("TEL").getAsString();
@@ -48,6 +52,7 @@ public class login_bytel extends HttpServlet {
             out.flush();
             out.close();
             response.flushBuffer();
+            abstruct_dao.close();
             return;
         }
 
@@ -60,29 +65,39 @@ public class login_bytel extends HttpServlet {
             out.flush();
             out.close();
             response.flushBuffer();
+            abstruct_dao.close();
             return;
         } else  {
 
             if (mode.equals("1")){
                 //读取用户信息
                 user User;
-                User = user_dao.getUserByUnionId(sessionUser.getOpenID());
-                if (User != null){
+                int result = user_dao.isExistByUnionid(sessionUser.getOpenID());
+                if (result != -1){
+                    // 用户已经存在，直接加入
                     retString="success";
+                    User = user_dao.getUserByUnionId(sessionUser.getOpenID());
+                    User.setTel(tel);
                     sessionUser.ObjectMap.put("User",User);
                 } else {
+
+                    // 用户不存在，需要创建用户
                     User = new user();
                     User.setUnionid(sessionUser.getOpenID());
 
-                    int userid=user_dao.isExistByTel(tel);
-                    if (userid!=-1) {
+                    int userid = user_dao.isExistByTel(tel);
+
+                    if (userid == -1) {
+                        // 没有重复的电话
                         retString="success";
                         user_dao.add(User);
+                        User.setTel(tel);
                         sessionUser.ObjectMap.put("User",User);
-
                     } else {
+                        // 有重复的电话号码
                         retString = "failure: duplicated PhoneNumber";
                     }
+
                 }
 
                 if (retString.equals("success")){
@@ -112,7 +127,8 @@ public class login_bytel extends HttpServlet {
                 user User2= (user) sessionUser.ObjectMap.get("User");
                 String CaptchaString2= (String) sessionUser.ObjectMap.get("CaptchaString");
                 retString = "failure: captcha not match";
-                if (tel.equals(User2.getTel())&&CaptchaString2.equals(captchare)) {
+
+                if (tel.contentEquals(User2.getTel())&&CaptchaString2.contentEquals(captchare)) {
                     retString = "success";
                     user tem_user = user_dao.getUserByUnionId(sessionUser.getOpenID());
 
@@ -137,5 +153,6 @@ public class login_bytel extends HttpServlet {
         out.flush();
         out.close();
         response.flushBuffer();
+        abstruct_dao.close();
     }
 }

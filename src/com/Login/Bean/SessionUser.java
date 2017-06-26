@@ -49,6 +49,10 @@ public class SessionUser {
         this.LastUpdate = new Date();
     }
 
+    public boolean isAdministrator(){
+        return this.power > 5;
+    }
+
     public boolean isUserLogged(){
 //      返回用户是否登录的状态
         return !(OpenID == null && CellPhone == null);

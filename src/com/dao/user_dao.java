@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.Date;
 import java.util.Vector;
 /**
  * Created by hasee on 2017/5/9.
@@ -219,6 +220,7 @@ public class user_dao extends abstruct_dao{
         /*
         * 通过unionid获取
         * */
+        abstruct_dao.connect();
         if (unionId==null||unionId=="") return new user();
         try {
             Statement stat = conn.createStatement();
@@ -230,7 +232,8 @@ public class user_dao extends abstruct_dao{
             User.setTel(rs.getString("tel"));
             User.setUnionid(rs.getString("unionid"));
             User.setDegree(rs.getInt("degree"));
-            User.setBirthday(rs.getDate("birthday").toString());
+            Date tempbir=rs.getDate("birthday");
+            if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
             User.setEmail(rs.getString("email"));
             User.setAddress(rs.getString("address"));
             User.setPostcode(rs.getString("postcode"));

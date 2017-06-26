@@ -56,6 +56,24 @@
         <servlet-name>CreateSessionServlet</servlet-name>
         <url-pattern>/login/create_session</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>UserInfoModify</servlet-name>
+        <servlet-class>com.servlet.UserInfoModificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserInfoModify</servlet-name>
+        <url-pattern>/user/info_modify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getUserInfo</servlet-name>
+        <servlet-class>com.servlet.GetUserINFOServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getUserInfo</servlet-name>
+        <url-pattern>/user/info</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>cartHandler</servlet-name>

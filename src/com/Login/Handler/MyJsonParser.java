@@ -20,6 +20,13 @@ public class MyJsonParser {
         return "{\"state\":\"success\",\"sessionID\":\""+sessionID+"\",\"openID\" : \""+OpenID+"\"}";
     }
 
+    public static String SetUserInfoModifyResult(boolean result, String msg){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("state",result);
+        jsonObject.addProperty("message",msg);
+        return jsonObject.toString();
+    }
+
     public static String CodeJsonToString(String initialString){
         // return the code inside the request json
         JsonParser jsonParser = new JsonParser();
