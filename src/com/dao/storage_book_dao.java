@@ -202,8 +202,8 @@ public class storage_book_dao extends abstruct_dao{
             //更新本张表格
             String sql = String.format("update %s set state=? where barcode = ? ;", table_book_mng);
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, Storage_book.getBook_id());
-            ps.setInt(2, newState);
+            ps.setInt(1, newState);
+            ps.setString(2, Storage_book.getBook_id());
             ps.execute();
 
             //更新book表

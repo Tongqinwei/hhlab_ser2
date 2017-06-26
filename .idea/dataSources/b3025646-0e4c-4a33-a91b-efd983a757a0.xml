@@ -370,7 +370,11 @@ isbn13</ColNames>
       <Position>11</Position>
       <DataType>varchar(31)|0</DataType>
     </column>
-    <key id="88" parent="12" name="PRIMARY">
+    <column id="88" parent="12" name="recommendFrequency">
+      <Position>12</Position>
+      <DataType>int(8)|0</DataType>
+    </column>
+    <key id="89" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid</ColNames>
       <Primary>1</Primary>

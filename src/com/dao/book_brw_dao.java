@@ -23,19 +23,26 @@ public class book_brw_dao extends abstruct_dao{
         this.Book_brw=Book_brw;
     }
     public boolean addBorrow() {
+        int state = storage_book_dao.getState(Book_brw.getBarcode());
+        if (state==1){
+                /*
+                * 此书已被借走，发生异常
+                * */
+            return false;
+        }
         boolean success=false;
         try{
-            int state = storage_book_dao.getState(Book_brw.getBarcode());
-
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );
-            String sql=String.format("insert into %s (barcode, orderid, borrowtime, mark) values(?,?,?,0)",table_book_mng);
+            String sql=String.format("insert into %s (barcode, orderid, borrowtime, mark) values(?,?,?,0)",table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, Book_brw.getBarcode());
             ps.setString(2, Book_brw.getOrderid());
             ps.setString(3, time);
             ps.execute();
+            //标记被借，自动修改库存。
+            storage_book_dao.updateState(Book_brw.getBarcode(),1);
             success=true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,23 +76,49 @@ public class book_brw_dao extends abstruct_dao{
             System.err.println("the book is not in the table");
             return false;
         }
+        int state = storage_book_dao.getState(Book_brw.getBarcode());
+        if (state!=1){
+                /*
+                * 此书未被借走，发生异常
+                * */
+            return false;
+        }
         try{
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );
-            String sql = String.format("update %s where barcode = ? and orderid = ? set returntime=? ,mark=1 ;", table_book_brw);
+            String sql = String.format("update %s set returntime=? ,mark=1 where barcode = ? and orderid = ?;", table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,Book_brw.getBarcode());
-            ps.setString(2,Book_brw.getOrderid());
-            ps.setString(3,time);
-            ResultSet rs = ps.executeQuery();
-            rs.last();
-            if (rs.getRow()!=0) success=true;
+            ps.setString(1,time);
+            ps.setString(2,Book_brw.getBarcode());
+            ps.setString(3,Book_brw.getOrderid());
+            ps.execute();
+
+            //标记被借，自动修改库存。
+            storage_book_dao.updateState(Book_brw.getBarcode(),4);
+
+            success=true;
         }catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
             return success;
         }
+    }
+
+    public static boolean borrowBook(String unionid, String orderid, String barcode){
+        book_brw Book_brw = new book_brw();
+        Book_brw.setBarcode(barcode);
+        Book_brw.setOrderid(orderid);
+        book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
+        return Book_brw_dao.addBorrow();
+    }
+
+    public static boolean returnBook(String orderid, String barcode){
+        book_brw Book_brw = new book_brw();
+        Book_brw.setBarcode(barcode);
+        Book_brw.setOrderid(orderid);
+        book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
+        return Book_brw_dao.markReturn();
     }
 }
