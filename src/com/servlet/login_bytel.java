@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -29,20 +28,15 @@ public class login_bytel extends HttpServlet {
         doPost(request,response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
         String retString="failure";
 
-//        String mode= request.getParameter("mode");
-//        String tel = request.getParameter("TEL");
-//        String captchare = request.getParameter("captchare");
-//
         String mode= null;
         String tel = null;
         String captchare = null;
         String sessionID = null;
 
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
-
+        log("log in by tel : get json string :"+CreateSessionServlet.getBody(request));
         try {
             mode = jsonObject.get("mode").getAsString();
             tel = jsonObject.get("TEL").getAsString();
@@ -79,14 +73,13 @@ public class login_bytel extends HttpServlet {
                 } else {
                     User = new user();
                     User.setUnionid(sessionUser.getOpenID());
-//                    user_dao.add(User);
 
                     int userid=user_dao.isExistByTel(tel);
                     if (userid!=-1) {
                         retString="success";
-//                        User.setUserid(UserIsExist);
                         user_dao.add(User);
                         sessionUser.ObjectMap.put("User",User);
+
                     } else {
                         retString = "failure: duplicated PhoneNumber";
                     }
@@ -95,6 +88,8 @@ public class login_bytel extends HttpServlet {
                 if (retString.equals("success")){
                     String CaptchaString=_math.getCaptcha();
                     //retString+=CaptchaString;
+                    log("send captcha to user: "+ User.getTel() + "with captcha : " + CaptchaString);
+
                     sessionUser.ObjectMap.put("CaptchaString",CaptchaString);
 
                     //发短信验证手机
@@ -104,7 +99,7 @@ public class login_bytel extends HttpServlet {
                     smsHandler.send();
 
                 }
-            }else {
+            }else if(mode.contentEquals( "2")){
                 try {
                     captchare = jsonObject.get("captchare").getAsString();
                 } catch (Exception e){
@@ -112,9 +107,25 @@ public class login_bytel extends HttpServlet {
                     captchare = "";
                 }
 
+                log("receive from user : " + tel + " AND Captcha: " + captchare);
+
                 user User2= (user) sessionUser.ObjectMap.get("User");
                 String CaptchaString2= (String) sessionUser.ObjectMap.get("CaptchaString");
-                if (tel.equals(User2.getTel())&&CaptchaString2.equals(captchare)) retString="success";
+                retString = "failure: captcha not match";
+                if (tel.equals(User2.getTel())&&CaptchaString2.equals(captchare)) {
+                    retString = "success";
+                    user tem_user = user_dao.getUserByUnionId(sessionUser.getOpenID());
+
+                    // update the database
+                    if (tem_user.getTel() == null || tem_user.getTel().contentEquals("") || !tem_user.getTel().contentEquals(User2.getTel())){
+                        log("update user tel from " + User2.getTel() + "  to " + tel);
+                        user_dao.update_user_byUnionID(User2);
+                    }
+
+                    sessionUser.setOpenID(User2.getUnionid());
+                    sessionUser.setCellPhone(tel);
+
+                }
             }
         }
 
