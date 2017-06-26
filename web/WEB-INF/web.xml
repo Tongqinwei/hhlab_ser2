@@ -83,7 +83,15 @@
         <servlet-name>cartHandler</servlet-name>
         <url-pattern>/cartHandler</url-pattern>
     </servlet-mapping>
-
+    
+    <servlet>
+        <servlet-name>recFreServlet</servlet-name>
+        <servlet-class>com.servlet.recommendSettingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>recFreServlet</servlet-name>
+        <url-pattern>/user/recommend</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>borrowHandler</servlet-name>
         <servlet-class>com.servlet.boReBook</servlet-class>

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by lee on 2017/6/26.
@@ -74,13 +73,15 @@ public class UserInfoModificationServlet extends HttpServlet {
             if(user.getUnionid().contentEquals(sessionUser.getOpenID())){
                 // if the user is him self
                 try {
-                    user.setAddress(jsonObject.get("address").getAsString());
-                    user.setDegree(jsonObject.get("degree").getAsInt());
-                    user.setEmail(jsonObject.get("email").getAsString());
-                    user.setName(jsonObject.get("name").getAsString());
-                    user.setCertificate(jsonObject.get("cert").getAsInt());
-                    user.setCertificateid(jsonObject.get("cert_id").getAsString());
-                    user.setBirthday(jsonObject.get("birthday").getAsString());
+                    JsonObject formObject = jsonObject.get("form").getAsJsonObject();
+                    user.setAddress(formObject.get("address").getAsString());
+                    user.setDegree(formObject.get("degree").getAsInt());
+                    user.setEmail(formObject.get("email").getAsString());
+                    user.setName(formObject.get("name").getAsString());
+                    user.setCertificate(formObject.get("cert").getAsInt());
+                    user.setCertificateid(formObject.get("cert_id").getAsString());
+                    user.setBirthday(formObject.get("birthday").getAsString());
+                    user.setPostcode(formObject.get("post_code").getAsString());
                 } catch (Exception e){
                     e.printStackTrace();
                     log("error when saving the user info");
