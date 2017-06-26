@@ -25,6 +25,8 @@ public class book_brw_dao extends abstruct_dao{
     public boolean addBorrow() {
         boolean success=false;
         try{
+            int state = storage_book_dao.getState(Book_brw.getBarcode());
+
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );

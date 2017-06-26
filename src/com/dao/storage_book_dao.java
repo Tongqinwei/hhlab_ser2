@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class storage_book_dao extends abstruct_dao{
     private storage_book Storage_book;
-    private static String[] stateString={"","borrowed","booked","reserved","available"};//空，借出，保留，可获得
+    private static String[] stateString={"","borrowed","booked","reserved","available"};//空，借出，预定，保留，可获得
     public storage_book_dao(storage_book Storage_book){
         super();
         this.Storage_book=Storage_book;
@@ -77,7 +77,7 @@ public class storage_book_dao extends abstruct_dao{
                 newstorage_book.setIsbn(rs.getString("isbn13"));
                 newstorage_book.setBook_id(rs.getString("barcode"));
                 newstorage_book.setBook_location(rs.getString("location"));
-                newstorage_book.setBook_state(rs.getString("state"));
+                newstorage_book.setBook_state( num2State( rs.getInt("state")));
                 storage_books.add(newstorage_book);
             }
             storage_book[] array =new storage_book[storage_books.size()];
@@ -140,5 +140,101 @@ public class storage_book_dao extends abstruct_dao{
         Storage_book.setIsbn(isbn13);
         storage_book_dao Storage_book_dao = new storage_book_dao(Storage_book);
         return Storage_book_dao.getStorage_books();
+    }
+
+    public static storage_book getStorage_book(String barcode){
+        /*
+        * 通过barcode获取库存信息,返回null出错。
+        * */
+        try {
+            String sql = String.format("select * from %s where barcode = ? ;", table_book_mng);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,barcode);
+            ResultSet rs = ps.executeQuery();
+            storage_book newstorage_book = null;
+            while (rs.next()){
+                newstorage_book = new storage_book();
+                newstorage_book.setIsbn(rs.getString("isbn13"));
+                newstorage_book.setBook_id(rs.getString("barcode"));
+                newstorage_book.setBook_location(rs.getString("location"));
+                newstorage_book.setBook_state( num2State( rs.getInt("state")));
+            }
+            return newstorage_book;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int getState(String barcode){
+        /*
+        * 通过barcode获取状态数值,返回0出错。
+        * */
+        try {
+            String sql = String.format("select state from %s where barcode = ? ;", table_book_mng);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,barcode);
+            ResultSet rs = ps.executeQuery();
+            int state = 0;
+            while (rs.next()){
+                state=rs.getInt("state");
+            }
+            return state;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private boolean updateState(){
+        /*
+        * 更新状态，无输入，通过成员变量传参，返回是否成功
+        * */
+        if (!book_dao.isExistByIsbn13(Storage_book.getIsbn())) {
+            System.err.println("The book "+Storage_book.getIsbn()+" was not in table "+table_book+".");
+            return false;
+        }
+        int lastState=getState(Storage_book.getBook_id());
+        int newState= state2Num(Storage_book.getBook_state());
+        boolean success=false;
+        if (newState==lastState) return true;
+        try {
+            //更新本张表格
+            String sql = String.format("update %s set state=? where barcode = ? ;", table_book_mng);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, Storage_book.getBook_id());
+            ps.setInt(2, newState);
+            ps.execute();
+
+            //更新book表
+            if (lastState==4){
+                //原来是空闲，先在应该库存减一。
+                book_dao.decStorage_cb(Storage_book.getIsbn());
+            }
+            if (newState==4){
+                //新状态是空闲，库存应该加一。
+                book_dao.incStorage_cb(Storage_book.getIsbn());
+            }
+
+            success =  true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return success;
+        }
+    }
+
+    public static boolean updateState(String barcode,int state){
+        storage_book st_book = storage_book_dao.getStorage_book(barcode);
+        st_book.setBook_state(num2State(state));
+        storage_book_dao Storage_book_dao= new storage_book_dao(st_book);
+        return Storage_book_dao.updateState();
+    }
+    public static boolean updateState(String barcode,String state){
+        storage_book st_book = storage_book_dao.getStorage_book(barcode);
+        st_book.setBook_state(state);
+        storage_book_dao Storage_book_dao= new storage_book_dao(st_book);
+        return Storage_book_dao.updateState();
     }
 }
