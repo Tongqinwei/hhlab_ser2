@@ -82,6 +82,7 @@ public class UserInfoModificationServlet extends HttpServlet {
                     user.setCertificateid(formObject.get("cert_id").getAsString());
                     user.setBirthday(formObject.get("birthday").getAsString());
                     user.setPostcode(formObject.get("post_code").getAsString());
+                    user_dao.update_user_byUnionID(user);
                 } catch (Exception e){
                     e.printStackTrace();
                     log("error when saving the user info");
