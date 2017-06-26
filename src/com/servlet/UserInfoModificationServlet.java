@@ -36,6 +36,11 @@ public class UserInfoModificationServlet extends HttpServlet {
         String sessionID = null;
         SessionUser sessionUser = null;
 
+        resp.setContentType("text/html;charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Content-Type","text/html;charset=UTF-8");
+        resp.setContentType("application/json");
+
         Writer out = resp.getWriter();
 
         // try to get the json and the session user

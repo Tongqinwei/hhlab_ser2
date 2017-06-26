@@ -31,6 +31,12 @@ public class GetUserINFOServlet extends HttpServlet {
         String sessionID = null;
         SessionUser sessionUser = null;
 
+
+        response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-Type","text/html;charset=UTF-8");
+        response.setContentType("application/json");
+
         Writer out = response.getWriter();
 
         // try to get the json and the session user
@@ -86,10 +92,11 @@ public class GetUserINFOServlet extends HttpServlet {
         object.addProperty("id_num",userData.getCertificateid());
         object.addProperty("mail_address",userData.getAddress());
         object.addProperty("mail_code",userData.getPostcode());
+        object.addProperty("birthday",userData.getBirthday());
 
         object.addProperty("state",true);
         JsonObject retObject = new JsonObject();
-        retObject.addProperty("state",true);
+//        retObject.addProperty("state",true);
         retObject.addProperty("message", "success");
         retObject.addProperty("user_detail", object.toString());
 
