@@ -61,7 +61,7 @@ public class book_brw_dao extends abstruct_dao{
         }
     }
 
-    public boolean markBorrow(){
+    public boolean markReturn(){
         boolean success=false;
         if (!isExist()) {
             System.err.println("the book is not in the table");

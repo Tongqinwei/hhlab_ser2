@@ -186,6 +186,63 @@ public class book_dao extends abstruct_dao{
         }
     }
 
+    private boolean changeStorageOrS_cb(boolean isStorage,boolean isInc){
+        /*
+        * 用于有修改库存
+        * T T 总库存加
+        * T F 总库存减
+        * F T 可借库存加
+        * F F 可借库存减
+        * 暂时只在借书订单中有调用，添加新书新库存不掉用
+        * */
+        if (!isExist()) return false;
+        String attribute="storage";
+        if (!isStorage) attribute+="_cb";
+        String op="+";
+        if (!isInc) op="-";
+        boolean success =false;
+        try {
+            String sql = String.format("update %s set %s=%s%s1 where isbn13 = ?",table_book,attribute,attribute,op);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, Book.getIsbn13());
+            ps.execute();
+            success =  true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return success;
+        }
+    }
+
+    public static boolean incStorage(String isbn13){
+        book Book=new book();
+        Book.setIsbn13(isbn13);
+        book_dao Book_dao = new book_dao(Book);
+        return Book_dao.changeStorageOrS_cb(true,true);
+    }
+
+    public static boolean decStorage(String isbn13){
+        book Book=new book();
+        Book.setIsbn13(isbn13);
+        book_dao Book_dao = new book_dao(Book);
+        return Book_dao.changeStorageOrS_cb(true,false);
+    }
+
+    public static boolean incStorage_cb(String isbn13){
+        book Book=new book();
+        Book.setIsbn13(isbn13);
+        book_dao Book_dao = new book_dao(Book);
+        return Book_dao.changeStorageOrS_cb(false,true);
+    }
+
+    public static boolean decStorage_cb(String isbn13){
+        book Book=new book();
+        Book.setIsbn13(isbn13);
+        book_dao Book_dao = new book_dao(Book);
+        return Book_dao.changeStorageOrS_cb(false,false);
+    }
+
     public book[] getRecommendedByIsbn13(int _begin,int _end){
         /*
         * 根据isbn13返回推荐的书目，

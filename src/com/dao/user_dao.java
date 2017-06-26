@@ -31,7 +31,7 @@ public class user_dao extends abstruct_dao{
         * */
         boolean success=false;
         try {
-            String sql = String.format("insert into %s(tel , unionid , degree , birthday , email , address , postcode ,name , certificate , certificateid)values (?,?,?,?,?,?,?,?,?,?);", table_user);
+            String sql = String.format("insert into %s(tel , unionid , degree , birthday , email , address , postcode ,name , certificate , certificateid , recommendFrequency)values (?,?,?,?,?,?,?,?,?,?,?);", table_user);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, User.getTel());
             ps.setString(2, User.getUnionid());
@@ -43,6 +43,7 @@ public class user_dao extends abstruct_dao{
             ps.setString(8, User.getName());
             ps.setInt(9, User.getCertificate());
             ps.setString(10,User.getCertificateid());
+            ps.setInt(11,User.getRecommendFrequency());
             ps.execute();
             success =  true;
         } catch (SQLException e) {
@@ -59,7 +60,7 @@ public class user_dao extends abstruct_dao{
         * */
         boolean success=false;
         try {
-            String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  where tel = ? ;", table_user);        //9
+            String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ? , recommendFrequency = ? where tel = ? ;", table_user);        //9
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, User.getDegree());
             ps.setString(2, User.getBirthday());
@@ -69,7 +70,8 @@ public class user_dao extends abstruct_dao{
             ps.setString(6, User.getName());
             ps.setInt(7, User.getCertificate());
             ps.setString(8,User.getCertificateid());
-            ps.setString(9,User.getTel());
+            ps.setInt(9,User.getRecommendFrequency());
+            ps.setString(10,User.getTel());
             ps.execute();
             success=true;
         } catch (SQLException e) {
@@ -86,7 +88,7 @@ public class user_dao extends abstruct_dao{
         * */
         boolean success=false;
         try {
-            String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  ,tel=? where unionid = ? ;", table_user);        //9
+            String sql = String.format("update %s set degree = ? , birthday = ? , email = ? , address = ? , postcode = ?  ,name = ? , certificate = ? , certificateid = ?  ,tel=?,recommendFrequency= ? where unionid = ? ;", table_user);        //9
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, User.getDegree());
             ps.setString(2, User.getBirthday());
@@ -97,7 +99,8 @@ public class user_dao extends abstruct_dao{
             ps.setInt(7, User.getCertificate());
             ps.setString(8,User.getCertificateid());
             ps.setString(9,User.getTel());
-            ps.setString(10,User.getUnionid());
+            ps.setInt(10,User.getRecommendFrequency());
+            ps.setString(11,User.getUnionid());
             ps.execute();
             success= true;
         } catch (SQLException e) {
@@ -234,11 +237,17 @@ public class user_dao extends abstruct_dao{
             User.setName(rs.getString("name"));
             User.setCertificate(rs.getInt("certificate"));
             User.setCertificateid(rs.getString("certificateid"));
+            User.setRecommendFrequency(rs.getInt("recommendFrequency"));
             return User;
 
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public static boolean update_user_byUnionID(user User){
+        user_dao User_dao = new user_dao(User);
+        return User_dao.update_user_byUnionID();
     }
 }

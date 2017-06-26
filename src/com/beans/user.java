@@ -15,6 +15,9 @@ public class user {
     private String name;
     private int certificate;
     private String certificateid;
+
+    private int recommendFrequency;
+
     public user(){}
     public int getUserid() {
         return userid;
@@ -102,5 +105,13 @@ public class user {
 
     public void setCertificateid(String certificateid) {
         this.certificateid = certificateid;
+    }
+
+    public int getRecommendFrequency() {
+        return recommendFrequency;
+    }
+
+    public void setRecommendFrequency(int recommendFrequency) {
+        this.recommendFrequency = recommendFrequency;
     }
 }
