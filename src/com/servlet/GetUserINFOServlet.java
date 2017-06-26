@@ -97,6 +97,7 @@ public class GetUserINFOServlet extends HttpServlet {
         object.addProperty("state",true);
         JsonObject retObject = new JsonObject();
 //        retObject.addProperty("state",true);
+        retObject.addProperty("state",true);
         retObject.addProperty("message", "success");
         retObject.addProperty("user_detail", object.toString());
 
