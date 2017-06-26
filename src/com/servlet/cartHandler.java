@@ -44,7 +44,7 @@ public class cartHandler extends HttpServlet{
         try {
             //unionid = jsonObject.get("open_id").getAsString();
             operation = jsonObject.get("operation").getAsString();
-            isbn13 = jsonObject.get("isbn13").getAsString();
+            if (!operation.equals("show")) isbn13 = jsonObject.get("isbn13").getAsString();
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");

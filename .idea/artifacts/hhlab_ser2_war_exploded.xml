@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="hhlab_ser2:war exploded">
-    <output-path>$USER_HOME$/J2EE/apache-tomcat-8.5.5/webapps/hhlab_login</output-path>
+    <output-path>C:/apache-tomcat-7.0.57/webapps/hhlab_ser2</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="hhlab_ser2/web/Web" />
       <element id="directory" name="WEB-INF">
