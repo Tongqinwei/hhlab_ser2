@@ -43,11 +43,11 @@ public class boReBook extends HttpServlet{
         String orderid="123";
         switch (operation) {
             case "borrow":
-                if (book_brw_dao.borrowBook(unionid,orderid,barcode))
+                if (book_brw_dao.borrowBook(unionid,orderid,barcode,true))
                     retString="success";
                 break;
             case "return":
-                if (book_brw_dao.returnBook(orderid,barcode))
+                if (book_brw_dao.returnBook(orderid,barcode,true))
                     retString="success";
                 break;
         }

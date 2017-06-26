@@ -22,13 +22,17 @@ public class testservlet {
         String orderid="123";
         String res="falure";
         switch (operation) {
+            case "add":
+                if (book_brw_dao.addBorrrowList(unionid,orderid,barcode,true))
+                    res="success:add";
+                break;
             case "borrow":
-                if (book_brw_dao.borrowBook(unionid,orderid,barcode))
-                    res="success1";
+                if (book_brw_dao.borrowBook(unionid,orderid,barcode,true))
+                    res="success:borrow";
                 break;
             case "return":
-                if (book_brw_dao.returnBook(orderid,barcode))
-                    res="success2";
+                if (book_brw_dao.returnBook(orderid,barcode,true))
+                    res="success:return";
                 break;
         }
         System.out.println(res);
