@@ -25,10 +25,6 @@ import java.io.Writer;
 @WebServlet(name = "GetUserINFOServlet")
 public class GetUserINFOServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         abstruct_dao.connect();
         // 获取登录信息
         JsonObject jsonObject = null;
@@ -61,16 +57,17 @@ public class GetUserINFOServlet extends HttpServlet {
         }
 
         // get user info
-        /*"user_detail":{
+        /*
+            "user_detail":{
             "user_name":"",
-                    "birthday":"",
-                    "diploma":null,
-                    "email":"",
-                    "phone_num":"",
-                    "id_type":null,
-                    "id_num":"",
-                    "mail_address":"",
-                    "mail_code":""
+            "birthday":"",
+            "diploma":null,
+            "email":"",
+            "phone_num":"",
+            "id_type":null,
+            "id_num":"",
+            "mail_address":"",
+            "mail_code":""
         },*/
 
         user userData;
@@ -101,5 +98,9 @@ public class GetUserINFOServlet extends HttpServlet {
         out.close();
         response.flushBuffer();
         abstruct_dao.close();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 }
