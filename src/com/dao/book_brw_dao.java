@@ -22,29 +22,72 @@ public class book_brw_dao extends abstruct_dao{
         super(conn);
         this.Book_brw=Book_brw;
     }
-    public boolean addBorrow() {
+    public boolean addBorrowList(boolean isWork) {
         int state = storage_book_dao.getState(Book_brw.getBarcode());
         if (state==1){
                 /*
                 * 此书已被借走，发生异常
                 * */
+            System.err.println("The book has been borrowed.");
             return false;
         }
         boolean success=false;
         try{
-            Date now = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
-            String time = dateFormat.format( now );
-            String sql=String.format("insert into %s (barcode, orderid, borrowtime, mark) values(?,?,?,0)",table_book_brw);
+            if (isWork) abstruct_dao.work_begin();
+            String sql=String.format("insert into %s (barcode, orderid, mark) values(?,?,2);",table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, Book_brw.getBarcode());
             ps.setString(2, Book_brw.getOrderid());
-            ps.setString(3, time);
+            ps.execute();
+            //标记预定，自动修改库存。
+            if (storage_book_dao.getState(Book_brw.getBarcode())!=4) {
+                //书不为可借状态，回滚
+                if (isWork) abstruct_dao.work_rollback();
+                return false;
+            }
+            storage_book_dao.updateState(Book_brw.getBarcode(),2);
+            //abstruct_dao.work_commit();
+            success=true;
+        } catch (SQLException e) {
+            if (isWork) abstruct_dao.work_rollback();
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return success;
+        }
+    }
+
+    public boolean markBorrow(boolean isWork) {
+        if (!isExist()) {
+            System.err.println("the (barcode,orderid) is not in the table");
+            return false;
+        }
+        int state = storage_book_dao.getState(Book_brw.getBarcode());
+        if (state==1){
+                /*
+                * 此书已被借走，发生异常
+                * */
+            System.err.println("The book has not been borrowed.");
+            return false;
+        }
+        boolean success=false;
+        try{
+            if (isWork) abstruct_dao.work_begin();
+            Date now = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+            String time = dateFormat.format( now );
+            String sql=String.format("update %s set borrowtime=? ,mark=0 where barcode = ? and orderid = ?;",table_book_brw);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,time);
+            ps.setString(2,Book_brw.getBarcode());
+            ps.setString(3,Book_brw.getOrderid());
             ps.execute();
             //标记被借，自动修改库存。
             storage_book_dao.updateState(Book_brw.getBarcode(),1);
+            if (isWork) abstruct_dao.work_commit();
             success=true;
         } catch (SQLException e) {
+            if (isWork) abstruct_dao.work_rollback();
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
@@ -70,10 +113,10 @@ public class book_brw_dao extends abstruct_dao{
         }
     }
 
-    public boolean markReturn(){
+    public boolean markReturn(boolean isWork){
         boolean success=false;
         if (!isExist()) {
-            System.err.println("the book is not in the table");
+            System.err.println("the (barcode,orderid) is not in the table");
             return false;
         }
         int state = storage_book_dao.getState(Book_brw.getBarcode());
@@ -84,6 +127,7 @@ public class book_brw_dao extends abstruct_dao{
             return false;
         }
         try{
+            if (isWork) abstruct_dao.work_begin();
             Date now = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );
@@ -96,9 +140,10 @@ public class book_brw_dao extends abstruct_dao{
 
             //标记被借，自动修改库存。
             storage_book_dao.updateState(Book_brw.getBarcode(),4);
-
+            if (isWork) abstruct_dao.work_commit();
             success=true;
         }catch (SQLException e) {
+            if (isWork) abstruct_dao.work_rollback();
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
@@ -106,19 +151,26 @@ public class book_brw_dao extends abstruct_dao{
         }
     }
 
-    public static boolean borrowBook(String unionid, String orderid, String barcode){
+    public static boolean addBorrrowList(String unionid, String orderid, String barcode,boolean isWork){
         book_brw Book_brw = new book_brw();
         Book_brw.setBarcode(barcode);
         Book_brw.setOrderid(orderid);
         book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
-        return Book_brw_dao.addBorrow();
+        return Book_brw_dao.addBorrowList(isWork);
+    }
+    public static boolean borrowBook(String unionid, String orderid, String barcode,boolean isWork){
+        book_brw Book_brw = new book_brw();
+        Book_brw.setBarcode(barcode);
+        Book_brw.setOrderid(orderid);
+        book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
+        return Book_brw_dao.markBorrow(isWork);
     }
 
-    public static boolean returnBook(String orderid, String barcode){
+    public static boolean returnBook(String orderid, String barcode,boolean isWork){
         book_brw Book_brw = new book_brw();
         Book_brw.setBarcode(barcode);
         Book_brw.setOrderid(orderid);
         book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
-        return Book_brw_dao.markReturn();
+        return Book_brw_dao.markReturn(isWork);
     }
 }

@@ -32,11 +32,11 @@ public abstract class abstruct_dao {
 
     public abstruct_dao(){
         try {
-            if (this.conn==null) conn= JDBC.getConnection();
+            if (conn==null) conn= JDBC.getConnection();
             Statement stat = conn.createStatement();
             String sql = String.format("use %s;", database_hhlab);
             boolean flag=stat.execute(sql);
-            if (flag==true) System.err.println("Can't find database \""+ database_hhlab +"\".");
+            if (flag) System.err.println("Can't find database \""+ database_hhlab +"\".");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -45,11 +45,11 @@ public abstract class abstruct_dao {
 
     public abstruct_dao(Connection conn){
         try {
-            this.conn = conn;
+            conn = conn;
             Statement stat = conn.createStatement();
             String sql = String.format("use %s;", database_hhlab);
             boolean flag=stat.execute(sql);
-            if (flag==true) System.err.println("Can't find database \""+ database_hhlab +"\".");
+            if (flag) System.err.println("Can't find database \""+ database_hhlab +"\".");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -63,5 +63,53 @@ public abstract class abstruct_dao {
 
     public static void connect(){
         if (conn==null) conn= JDBC.getConnection();
+    }
+
+    public static void work_begin(){
+        /*
+        * 用于开启一个事务
+        * */
+        connect();
+        try {
+            Statement stat = conn.createStatement();
+            String sql = "BEGIN ;";
+            boolean flag=stat.execute(sql);
+            if (flag) System.err.println("Cannot begin a work.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void work_rollback(){
+        /*
+        * 用于回滚一个事务
+        * */
+        connect();
+        try {
+            Statement stat = conn.createStatement();
+            String sql = "ROLLBACK ;";
+            boolean flag=stat.execute(sql);
+            if (flag) System.err.println("Cannot begin a work.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void work_commit(){
+        /*
+        * 用于提交一个事务
+        * */
+        connect();
+        try {
+            Statement stat = conn.createStatement();
+            String sql = "COMMIT ;";
+            boolean flag=stat.execute(sql);
+            if (flag) System.err.println("Cannot begin a work.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }
