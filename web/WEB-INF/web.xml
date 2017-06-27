@@ -109,4 +109,13 @@
         <servlet-name>makeOrderForm</servlet-name>
         <url-pattern>/createOrderForm</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addComment</servlet-name>
+        <servlet-class>com.servlet.addComment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addComment</servlet-name>
+        <url-pattern>/addComment</url-pattern>
+    </servlet-mapping>
 </web-app>

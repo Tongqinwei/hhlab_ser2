@@ -53,6 +53,8 @@ public class book {
 
     public bookpage_bean toBookpage_bean(){
         bookpage_bean Bookpage_bean = new bookpage_bean();
+        Bookpage_bean.set_class(_class);
+        Bookpage_bean.setSubclass(subclass);
         Bookpage_bean.setRating(rating);
         Bookpage_bean.setAuthor(author);
         Bookpage_bean.setImage(image);

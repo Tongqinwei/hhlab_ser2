@@ -106,6 +106,7 @@ public class comment_dao extends abstruct_dao{
                 newcomment.setUserid(rs.getInt("userid"));
                 newcomment.setContent(rs.getString("comment"));
                 newcomment.setRate(rs.getInt("grade"));
+                newcomment.setUser_name(user_dao.getTrueNameByUserid(newcomment.getUserid()));
 
                 comments.add(newcomment);
             }

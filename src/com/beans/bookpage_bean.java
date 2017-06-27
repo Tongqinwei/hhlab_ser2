@@ -12,6 +12,8 @@ public class bookpage_bean {
     private String isbn13;
     private String title;
     private String guide_read;//introduction
+    private String _class;
+    private String subclass;
     private comment[] comments;
     private int storage;
     private storage_book[] storage_books;
@@ -118,5 +120,21 @@ public class bookpage_bean {
 
     public void setStorage_books(storage_book[] storage_books) {
         this.storage_books = storage_books;
+    }
+
+    public String get_class() {
+        return _class;
+    }
+
+    public void set_class(String _class) {
+        this._class = _class;
+    }
+
+    public String getSubclass() {
+        return subclass;
+    }
+
+    public void setSubclass(String subclass) {
+        this.subclass = subclass;
     }
 }

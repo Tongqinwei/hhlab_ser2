@@ -35,7 +35,7 @@
     </column>
     <column id="17" parent="4" name="author">
       <Position>6</Position>
-      <DataType>varchar(31)|0</DataType>
+      <DataType>varchar(63)|0</DataType>
     </column>
     <column id="18" parent="4" name="isbn13">
       <Position>7</Position>
@@ -222,7 +222,7 @@ barcode</ColNames>
     </column>
     <column id="55" parent="8" name="grade">
       <Position>5</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
     <index id="56" parent="8" name="isbn13">
