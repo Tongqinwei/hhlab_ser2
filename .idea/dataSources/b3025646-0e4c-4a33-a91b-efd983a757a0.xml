@@ -174,18 +174,18 @@ orderid</ColNames>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="46" parent="7" name="isbn13">
+    <column id="46" parent="7" name="barcode">
       <Position>2</Position>
-      <DataType>char(13)|0</DataType>
+      <DataType>char(16)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="47" parent="7" name="isbn13">
-      <ColNames>isbn13</ColNames>
+    <index id="47" parent="7" name="barcode">
+      <ColNames>barcode</ColNames>
     </index>
     <key id="48" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid
-isbn13</ColNames>
+barcode</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="49" parent="7" name="cart_ibfk_2">
@@ -195,10 +195,10 @@ isbn13</ColNames>
       <RefColNames>userid</RefColNames>
     </foreign-key>
     <foreign-key id="50" parent="7" name="cart_ibfk_1">
-      <ColNames>isbn13</ColNames>
+      <ColNames>barcode</ColNames>
       <RefSchemaName>hhlab</RefSchemaName>
-      <RefTableName>book</RefTableName>
-      <RefColNames>isbn13</RefColNames>
+      <RefTableName>book_mng</RefTableName>
+      <RefColNames>barcode</RefColNames>
     </foreign-key>
     <column id="51" parent="8" name="id">
       <Position>1</Position>

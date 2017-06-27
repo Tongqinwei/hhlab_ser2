@@ -100,4 +100,13 @@
         <servlet-name>borrowHandler</servlet-name>
         <url-pattern>/borrowHandler</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>makeOrderForm</servlet-name>
+        <servlet-class>com.servlet.makeOrderForm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>makeOrderForm</servlet-name>
+        <url-pattern>/createOrderForm</url-pattern>
+    </servlet-mapping>
 </web-app>
