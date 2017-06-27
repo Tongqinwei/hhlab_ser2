@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class comment_dao extends abstruct_dao{
     private comment Comment;
-    public comment_dao(String user_name,String isbn13,String Comment,int grade){
+    public comment_dao(String user_name,String isbn13,String Comment,double grade){
         super();
         this.Comment = new comment();
         this.Comment.setUser_name(user_name);
@@ -48,7 +48,7 @@ public class comment_dao extends abstruct_dao{
             ps.setInt(1, Comment.getUserid());
             ps.setString(2, Comment.getIsbn13());
             ps.setString(3, Comment.getContent());
-            ps.setInt(4, Comment.getRate());
+            ps.setDouble(4, Comment.getRate());
             ps.execute();
             if ( Comment.getRate()>=1) book_dao.addNewGrade(Comment.getIsbn13(),Comment.getRate(),isWork);
             if (isWork) abstruct_dao.work_commit();
@@ -128,7 +128,7 @@ public class comment_dao extends abstruct_dao{
         comment_dao Comment_dao = new comment_dao(Comment);
         return Comment_dao.add(isWork);
     }
-    public static boolean add(String user_name,String isbn13,String Comment,int grade,boolean isWork){
+    public static boolean add(String user_name,String isbn13,String Comment,double grade,boolean isWork){
         comment_dao Comment_dao = new comment_dao(user_name,isbn13,Comment,grade);
         return Comment_dao.add(isWork);
     }

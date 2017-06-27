@@ -21,15 +21,33 @@ public class search_book extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String key = request.getParameter("key");
-        abstruct_dao.connect();
+        int beginindex=1;
+        int endindex=1;
+        String mode ="0";
+        if (request.getParameter("beginindex")!=null){
+            beginindex=Integer.parseInt( request.getParameter("beginindex"));
+        }
+        if (request.getParameter("mode")!=null){
+            mode=request.getParameter("mode");
+        }
+        if (beginindex>=endindex) endindex=beginindex+20;
 
-        book[] books= book_dao.search(key);
-        JSONArray book_json= JSONArray.fromObject(books);
+
+        abstruct_dao.connect();
+        JSONArray book_json=null;
+        if (mode.equals("0")){
+            book[] books= book_dao.search(key,beginindex,endindex);
+            book_json= JSONArray.fromObject(books);
+        }else if (mode.equals("1")){
+            book[] books= book_dao.searchBySubclass(key,beginindex,endindex);
+            book_json= JSONArray.fromObject(books);
+        }
 
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setContentType("application/json");
         Writer out = response.getWriter();
+        assert book_json != null;
         out.write(book_json.toString());
         out.flush();
         out.close();

@@ -155,6 +155,7 @@ public class book_dao extends abstruct_dao{
         /*
         * 在book中加入新书，输入为分类和子类
         * */
+        if (isExist()) return true;
         boolean success=false;
         try {
             String sql = String.format("insert into %s(class , subclass , cover , title , author , isbn13 , isbn10 " +
@@ -293,17 +294,20 @@ public class book_dao extends abstruct_dao{
         return books.toArray(array);
     }
 
-    private static ResultSet searchToGetResultSet(String key){
+    private static ResultSet searchToGetResultSet(String key,int _begin,int _end){
         /*
         * 查找书籍，按照isbn13，书名，书名首字母，书名拼音
         * */
+        abstruct_dao.connect();
         try {
-            String sql=String.format("select distinct * from %s where isbn13=? or title like ? or pinyin like ?",table_book);
+            String sql=String.format("select distinct * from %s where isbn13=? or title like ? or pinyin like ? limit ?,?",table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,key);
             ps.setString(2,"%"+key+"%");
             ps.setString(3,"%"+key+"%");
-            ResultSet rs = rs = ps.executeQuery();
+            ps.setInt(4,_begin-1);
+            ps.setInt(5,_end-1);
+            ResultSet rs = ps.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -311,11 +315,38 @@ public class book_dao extends abstruct_dao{
         }
     }
 
-    public static book[] search(String key){
+    private static ResultSet searchBySubclassToRs(String subclass,int _begin,int _end){
+        /*
+        * 通过分类查找书籍
+        * */
+        abstruct_dao.connect();
+        try {
+            String sql=String.format("select * from %s where subclass=? limit ?,?",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,subclass);
+            ps.setInt(2,_begin-1);
+            ps.setInt(3,_end-1);
+            ResultSet  rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static book[] search(String key,int _begin,int _end){
         /*
         * 查找书籍，按照isbn13，书名，书名首字母，书名拼音
         * */
-        List<book> books = book_dao.getBooksByResultSet(searchToGetResultSet(key));
+        List<book> books = book_dao.getBooksByResultSet(searchToGetResultSet(key, _begin,_end));
+
+        assert books != null;
+        book[] array =new book[books.size()];
+        return books.toArray(array);
+    }
+
+    public static book[] searchBySubclass(String subclass,int _begin,int _end){
+        List<book> books = book_dao.getBooksByResultSet(searchBySubclassToRs(subclass,_begin,_end));
 
         assert books != null;
         book[] array =new book[books.size()];

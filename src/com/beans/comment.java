@@ -8,7 +8,7 @@ public class comment {
     private String user_name;
     private int userid;
     private String isbn13;
-    private int rate;
+    private double rate;
     private String content;
     public comment(){}
     public int getId() {
@@ -27,11 +27,11 @@ public class comment {
         this.user_name = user_name;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
