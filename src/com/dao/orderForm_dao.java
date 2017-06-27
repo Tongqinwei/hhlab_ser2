@@ -1,6 +1,8 @@
 package com.dao;
 
 import com.beans.orderForm;
+import com.beans.storage_book;
+import com.util.OF_util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -98,5 +100,33 @@ public class orderForm_dao extends abstruct_dao {
         //提交事务
         work_commit();
         return true;
+    }
+
+    public static orderForm getOrderForm (String orderid,boolean isWork){
+        orderForm OrderForm = new orderForm();
+        abstruct_dao.connect();
+        try{
+            String sql = String.format("select * from %s where orderid = ?;", table_ordertable);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,orderid);
+            ResultSet rs = ps.executeQuery();            rs.last();
+            if (rs.getRow()!=0) {
+//                OF_util of_util =  new OF_util(user_dao,orderid);
+//                storage_book book1 = new storage_book();
+//                book1.setBook_id("9787020049295001");
+//                of_util.add(book1);
+//                storage_book book2 = new storage_book();
+//                book2.setBook_id("9787208061644001");
+//                of_util.add(book2);
+//                OrderForm = of_util.toOrderForm();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return OrderForm;
+        }
+
+
     }
 }

@@ -38,13 +38,13 @@ public class cartHandler extends HttpServlet{
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
         String unionid = null;
         String operation = null;
-        String isbn13 = null;
+        String barcode = null;
         String session_id = null;
 
         try {
             //unionid = jsonObject.get("open_id").getAsString();
             operation = jsonObject.get("operation").getAsString();
-            if (!operation.equals("show")) isbn13 = jsonObject.get("isbn13").getAsString();
+            if (!operation.equals("show")) barcode = jsonObject.get("barcode").getAsString();
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
@@ -68,10 +68,10 @@ public class cartHandler extends HttpServlet{
                 retString = book_brief_json.toString();
                 break;
             case "add":
-                if (cart_dao.add(isbn13,userid)) retString="success";
+                retString=cart_dao.add(barcode,userid,true);
                 break;
             case "delete":
-                if (cart_dao.rid(isbn13,userid)) retString="success";
+                retString=cart_dao.rid(barcode,userid,true);
                 break;
         }
 
@@ -94,7 +94,7 @@ public class cartHandler extends HttpServlet{
 
         //取参数
         String operation = request.getParameter("operation");
-        String isbn13 = request.getParameter("isbn13");
+        String barcode = request.getParameter("barcode");
         String unionid = request.getParameter("unionid");
 
         //book[] books= book_dao.search(key);
@@ -110,10 +110,10 @@ public class cartHandler extends HttpServlet{
                 int k;
                 break;
             case "add":
-                if (cart_dao.add(isbn13,userid)) retString="success";
+                retString=cart_dao.add(barcode,userid,true);
                 break;
             case "delete":
-                if (cart_dao.rid(isbn13,userid)) retString="success";
+                retString=cart_dao.rid(barcode,userid,true);
                 break;
         }
 

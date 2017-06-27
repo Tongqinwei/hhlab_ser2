@@ -105,7 +105,7 @@ public class storage_book_dao extends abstruct_dao{
             ps.setString(1, Storage_book.getIsbn());
             ps.setString(2, Storage_book.getIsbn()+_no);
             ps.setString(3, Storage_book.getBook_location());
-            ps.setInt(4, Integer.getInteger( Storage_book.getBook_state()));
+            ps.setInt(4, 4);
             ps.execute();
             sql = String.format("update %s set storage=storage+1, storage_cb=storage_cb+1 where isbn13 = ?",table_book);
             ps = conn.prepareStatement(sql);

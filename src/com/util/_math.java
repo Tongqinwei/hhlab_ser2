@@ -26,4 +26,8 @@ public class _math {
         int ans =r.nextInt(900000)+100000;
         return ""+ans;
     }
+
+    public static String barcodeToIsbn13(String barcode){
+        return barcode.substring(0,13);
+    }
 }

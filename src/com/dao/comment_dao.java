@@ -26,11 +26,11 @@ public class comment_dao extends abstruct_dao{
         this.Comment = Comment;
     }
 
-    public boolean add(){
+    public boolean add(boolean isWork){
         /*
         * 在comment中加入评论
         * */
-        if (book_dao.isExistByIsbn13(Comment.getIsbn13())==false){
+        if (!book_dao.isExistByIsbn13(Comment.getIsbn13())){
             System.err.println("The book \"" + Comment.getIsbn13() + "\" is not existed!");
             return false;
         }
@@ -42,6 +42,7 @@ public class comment_dao extends abstruct_dao{
         boolean success=false;
         Comment.setUserid(userid);
         try {
+            if (isWork) abstruct_dao.work_begin();
             String sql = String.format("insert into %s(userid , isbn13 , comment , grade )values (?,?,?,?);", table_comment);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Comment.getUserid());
@@ -49,8 +50,11 @@ public class comment_dao extends abstruct_dao{
             ps.setString(3, Comment.getContent());
             ps.setInt(4, Comment.getRate());
             ps.execute();
+            if ( Comment.getRate()>=1) book_dao.addNewGrade(Comment.getIsbn13(),Comment.getRate(),isWork);
+            if (isWork) abstruct_dao.work_commit();
             success = true;
         } catch (SQLException e) {
+            if (isWork) abstruct_dao.work_rollback();
             e.printStackTrace();
             throw new RuntimeException(e);
         }finally {
@@ -120,12 +124,12 @@ public class comment_dao extends abstruct_dao{
         return Comment_dao.getComments(_begin,_end);
     }
 
-    public static boolean add(comment Comment){
+    public static boolean add(comment Comment,boolean isWork){
         comment_dao Comment_dao = new comment_dao(Comment);
-        return Comment_dao.add();
+        return Comment_dao.add(isWork);
     }
-    public static boolean add(String user_name,String isbn13,String Comment,int grade){
+    public static boolean add(String user_name,String isbn13,String Comment,int grade,boolean isWork){
         comment_dao Comment_dao = new comment_dao(user_name,isbn13,Comment,grade);
-        return Comment_dao.add();
+        return Comment_dao.add(isWork);
     }
 }

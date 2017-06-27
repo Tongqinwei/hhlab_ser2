@@ -11,6 +11,7 @@ public class book_brief {
     private String title;
     private String image;
     private String isbn13;
+    private String barcode;
     private int storage;
     private int storage_cb;
 
@@ -24,6 +25,15 @@ public class book_brief {
         isbn13=Book.getIsbn13();
         storage=Book.getStorage();
         storage_cb=Book.getStorage_cb();
+    }
+
+    public book_brief(book Book,String barcode){
+        title=Book.getTitle();
+        image=Book.getImage();
+        isbn13=Book.getIsbn13();
+        storage=Book.getStorage();
+        storage_cb=Book.getStorage_cb();
+        this.barcode=barcode;
     }
 
     public String getTitle() {
@@ -48,6 +58,14 @@ public class book_brief {
 
     public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public int getStorage() {

@@ -5,6 +5,7 @@ package com.beans;
  */
 public class book_cart {
     private String isbn13;
+    private String barcode;
     private int userid;
 
     public book_cart(){}
@@ -23,5 +24,13 @@ public class book_cart {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 }

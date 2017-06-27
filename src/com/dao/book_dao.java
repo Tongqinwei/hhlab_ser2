@@ -50,7 +50,7 @@ public class book_dao extends abstruct_dao{
         * */
         try {
             Statement stat = conn.createStatement();
-            String sql = String.format("select * from %s limit ?,?;",table_book);
+            String sql = String.format("select * from %s order by grade_ave desc limit ?,?;",table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,_begin-1);
             ps.setInt(2,_end-1);
@@ -317,7 +317,41 @@ public class book_dao extends abstruct_dao{
         * */
         List<book> books = book_dao.getBooksByResultSet(searchToGetResultSet(key));
 
+        assert books != null;
         book[] array =new book[books.size()];
         return books.toArray(array);
     }
+
+    public boolean addNewGrade(double grade,boolean isWork){
+        /*
+        * 添加新分数
+        * */
+        if (!isExist()) return false;
+        boolean success =false;
+        try {
+            if (isWork) abstruct_dao.work_begin();
+            String sql = String.format("update %s set grade_ave=(grade_ave*grade_times+?)/(grade_times+1), grade_times=grade_times+1 where isbn13 = ?",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, grade);
+            ps.setString(2, Book.getIsbn13());
+            ps.execute();
+            if (isWork) abstruct_dao.work_commit();
+            success =  true;
+        } catch (SQLException e) {
+            if (isWork) abstruct_dao.work_rollback();
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }finally {
+            return success;
+        }
+    }
+
+    public static boolean addNewGrade(String isbn13,double grade,boolean isWork) {
+        book Book=new book();
+        Book.setIsbn13(isbn13);
+        book_dao Book_dao = new book_dao(Book);
+        return Book_dao.addNewGrade(grade,isWork);
+    }
+
+
 }
