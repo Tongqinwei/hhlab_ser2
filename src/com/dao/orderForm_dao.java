@@ -109,16 +109,13 @@ public class orderForm_dao extends abstruct_dao {
             String sql = String.format("select * from %s where orderid = ?;", table_ordertable);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,orderid);
-            ResultSet rs = ps.executeQuery();            rs.last();
+            ResultSet rs = ps.executeQuery();
+            rs.last();
             if (rs.getRow()!=0) {
-//                OF_util of_util =  new OF_util(user_dao,orderid);
-//                storage_book book1 = new storage_book();
-//                book1.setBook_id("9787020049295001");
-//                of_util.add(book1);
-//                storage_book book2 = new storage_book();
-//                book2.setBook_id("9787208061644001");
-//                of_util.add(book2);
-//                OrderForm = of_util.toOrderForm();
+                OrderForm.setUserid(rs.getInt("userid"));
+                //OrderForm.setUnionid();
+            }else {
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -253,4 +253,34 @@ public class user_dao extends abstruct_dao{
         user_dao User_dao = new user_dao(User);
         return User_dao.update_user_byUnionID();
     }
+
+    public static user getUserByUserid(int userid){
+        abstruct_dao.connect();
+        if (userid<=0) return null;
+        try {
+            Statement stat = conn.createStatement();
+            String sql = String.format("select * from %s where userid=%s;", table_user, userid);
+            ResultSet rs = stat.executeQuery(sql);
+            rs.last();
+            user User = new user();
+            User.setUserid(rs.getInt("userid"));
+            User.setTel(rs.getString("tel"));
+            User.setUnionid(rs.getString("unionid"));
+            User.setDegree(rs.getInt("degree"));
+            Date tempbir=rs.getDate("birthday");
+            if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+            User.setEmail(rs.getString("email"));
+            User.setAddress(rs.getString("address"));
+            User.setPostcode(rs.getString("postcode"));
+            User.setName(rs.getString("name"));
+            User.setCertificate(rs.getInt("certificate"));
+            User.setCertificateid(rs.getString("certificateid"));
+            User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+            return User;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }
