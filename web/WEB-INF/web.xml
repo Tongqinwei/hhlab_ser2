@@ -92,6 +92,7 @@
         <servlet-name>recFreServlet</servlet-name>
         <url-pattern>/user/recommend</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>borrowHandler</servlet-name>
         <servlet-class>com.servlet.boReBook</servlet-class>
@@ -118,4 +119,33 @@
         <servlet-name>addComment</servlet-name>
         <url-pattern>/addComment</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getPublicKey</servlet-name>
+        <servlet-class>com.servlet.getPublicKeyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getPublicKey</servlet-name>
+        <url-pattern>/admin/get_pk_key</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>adminLogInWeb</servlet-name>
+        <servlet-class>com.servlet.AdminLoginWebServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminLogInWeb</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminLogInWeChat</servlet-name>
+        <servlet-class>com.servlet.AdminLoginWeChatServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminLogInWeChat</servlet-name>
+        <url-pattern>/admin/login_wc</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

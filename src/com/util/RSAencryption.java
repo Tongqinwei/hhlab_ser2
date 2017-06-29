@@ -34,7 +34,7 @@ public class RSAencryption {
 //        return null;
     }
 
-    protected static byte[] encrypt(RSAPublicKey publicKey,byte[] srcBytes){
+    public static byte[] encrypt(RSAPublicKey publicKey,byte[] srcBytes){
         if(publicKey != null){
             try{
                 //Cipher负责完成加密或解密工作，基于RSA
@@ -62,7 +62,7 @@ public class RSAencryption {
         return result;
     }
 
-    protected static byte[] decrypt(RSAPrivateKey privateKey,byte[] encBytes){
+    public static byte[] decrypt(RSAPrivateKey privateKey,byte[] encBytes){
         if(privateKey != null){
             try{
                 Cipher cipher = Cipher.getInstance("RSA");
@@ -83,9 +83,8 @@ public class RSAencryption {
     public static String decrypt(String src){
         if (privateKey==null ||resultBytes==null) return null;
         byte[] decBytes = RSAencryption.decrypt(privateKey, resultBytes);
-        String dec = new String(decBytes);
 
-        return dec;
+        return new String(decBytes);
     }
 
     public static void main(String[] args){

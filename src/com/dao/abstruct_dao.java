@@ -20,6 +20,7 @@ public abstract class abstruct_dao {
     protected static final String table_orderlist="orderlist";
     protected static final String table_ordertable="ordertable";
     protected static final String table_cart="cart";
+    protected static final String table_admin="admin_table";
 
     protected static Connection conn = null;
     public static Connection getConn(){
