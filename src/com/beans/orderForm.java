@@ -10,7 +10,7 @@ public class orderForm {
     private String ordertime;
     private int orderstate;
     private int book_tot;
-    private storage_book[] books;
+    private book_brw[] books;
 
     public int getUserid() {
         return userid;
@@ -60,11 +60,11 @@ public class orderForm {
         this.book_tot = book_tot;
     }
 
-    public storage_book[] getBooks() {
+    public book_brw[] getBooks() {
         return books;
     }
 
-    public void setBooks(storage_book[] books) {
+    public void setBooks(book_brw[] books) {
         this.books = books;
     }
 }

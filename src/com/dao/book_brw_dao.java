@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by hasee on 2017/5/29.
@@ -46,7 +48,7 @@ public class book_brw_dao extends abstruct_dao{
                 return false;
             }
             storage_book_dao.updateState(Book_brw.getBarcode(),2);
-            //abstruct_dao.work_commit();
+            if (isWork) abstruct_dao.work_commit();
             success=true;
         } catch (SQLException e) {
             if (isWork) abstruct_dao.work_rollback();
@@ -74,7 +76,7 @@ public class book_brw_dao extends abstruct_dao{
         try{
             if (isWork) abstruct_dao.work_begin();
             Date now = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );
             String sql=String.format("update %s set borrowtime=? ,mark=0 where barcode = ? and orderid = ?;",table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -120,7 +122,7 @@ public class book_brw_dao extends abstruct_dao{
             return false;
         }
         int state = storage_book_dao.getState(Book_brw.getBarcode());
-        if (state!=1){
+        if (state==4){
                 /*
                 * 此书未被借走，发生异常
                 * */
@@ -129,7 +131,7 @@ public class book_brw_dao extends abstruct_dao{
         try{
             if (isWork) abstruct_dao.work_begin();
             Date now = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
             String time = dateFormat.format( now );
             String sql = String.format("update %s set returntime=? ,mark=1 where barcode = ? and orderid = ?;", table_book_brw);
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -172,5 +174,30 @@ public class book_brw_dao extends abstruct_dao{
         Book_brw.setOrderid(orderid);
         book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
         return Book_brw_dao.markReturn(isWork);
+    }
+
+    public static book_brw[] getBook_brwsByOrderid(String orderid){
+        abstruct_dao.connect();
+        try {
+            String sql = String.format("select * from %s where orderid = ? ;", table_book_brw);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,orderid);
+            ResultSet rs = ps.executeQuery();
+            List<book_brw> book_brws= new ArrayList<book_brw>();
+            book_brws.clear();
+            while (rs.next()){
+                book_brw Book_brw = new book_brw();
+                Book_brw.setOrderid(rs.getString("orderid"));
+                Book_brw.setBarcode(rs.getString("barcode"));
+                Book_brw.setBorrowtime(rs.getString("borrowtime"));
+                Book_brw.setReturntime(rs.getString("returntime"));
+                book_brws.add(Book_brw);
+            }
+            book_brw[] array =new book_brw[book_brws.size()];
+            return book_brws.toArray(array);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -118,4 +118,22 @@
         <servlet-name>addComment</servlet-name>
         <url-pattern>/addComment</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>showOrderForm</servlet-name>
+        <servlet-class>com.servlet.showOrderForm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showOrderForm</servlet-name>
+        <url-pattern>/showOrderForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OFchangeState</servlet-name>
+        <servlet-class>com.servlet.OFchangeState</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OFchangeState</servlet-name>
+        <url-pattern>/OFchangeState</url-pattern>
+    </servlet-mapping>
 </web-app>

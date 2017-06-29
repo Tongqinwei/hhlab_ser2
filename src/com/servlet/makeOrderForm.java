@@ -3,6 +3,7 @@ package com.servlet;
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.book_brief;
+import com.beans.book_brw;
 import com.beans.orderForm;
 import com.beans.storage_book;
 import com.dao.abstruct_dao;
@@ -50,17 +51,17 @@ public class makeOrderForm  extends HttpServlet {
             //至少有一本书
             String orderid= OF_util.getNewOrderid();
             OF_util of_util =  new OF_util(unionid,orderid);
-            storage_book book1 = new storage_book();
-            book1.setBook_id(barcode1);
+            book_brw book1 = new book_brw();
+            book1.setBarcode(barcode1);
             of_util.add(book1);
             if (barcode2!=null){
-                storage_book book2 = new storage_book();
-                book2.setBook_id(barcode2);
+                book_brw book2 = new book_brw();
+                book2.setBarcode(barcode2);
                 of_util.add(book2);
             }
             orderForm OrderForm = of_util.toOrderForm();
             orderForm_dao OFD = new orderForm_dao(OrderForm);
-            if (!OFD.add()) retString="create order form failure";
+            if (!OFD.add(true)) retString="create order form failure";
             else retString=orderid;
         }
 
@@ -110,18 +111,18 @@ public class makeOrderForm  extends HttpServlet {
             //至少有一本书
             String orderid= OF_util.getNewOrderid();
             OF_util of_util =  new OF_util(unionid,orderid);
-            storage_book book1 = new storage_book();
-            book1.setBook_id(barcode1);
+            book_brw book1 = new book_brw();
+            book1.setBarcode(barcode1);
             of_util.add(book1);
-            int j;
+            int d123124;
             if (barcode2!=null){
-                storage_book book2 = new storage_book();
-                book2.setBook_id(barcode2);
+                book_brw book2 = new book_brw();
+                book2.setBarcode(barcode2);
                 of_util.add(book2);
             }
             orderForm OrderForm = of_util.toOrderForm();
             orderForm_dao OFD = new orderForm_dao(OrderForm);
-            if (!OFD.add()) retString="create order form failure";
+            if (!OFD.add(true)) retString="create order form failure";
             else retString=orderid;
         }
 

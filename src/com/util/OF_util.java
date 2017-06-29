@@ -1,5 +1,6 @@
 package com.util;
 
+import com.beans.book_brw;
 import com.beans.storage_book;
 import com.beans.orderForm;
 import com.dao.orderForm_dao;
@@ -16,17 +17,17 @@ import java.util.Vector;
  */
 public class OF_util {
     private orderForm OrderForm;
-    private List<storage_book> temp_books;
+    private List<book_brw> temp_books;
     public OF_util(String unionid, String orderid){
         temp_books = new Vector();
         temp_books.clear();
         OrderForm=new orderForm();
         OrderForm.setBook_tot(0);
-        OrderForm.setBooks(new storage_book[0]);
+        OrderForm.setBooks(new book_brw[0]);
         OrderForm.setOrderid(orderid);
         OrderForm.setOrderstate(1);
         Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
         String time = dateFormat.format( now );
         OrderForm.setOrdertime(time);
         OrderForm.setUnionid(unionid);
@@ -35,11 +36,11 @@ public class OF_util {
     public orderForm toOrderForm(){
         assert temp_books != null;
         OrderForm.setBook_tot(temp_books.size());
-        storage_book[] array =new storage_book[temp_books.size()];
+        book_brw[] array =new book_brw[temp_books.size()];
         OrderForm.setBooks(temp_books.toArray(array));
         return OrderForm;
     }
-    public void add(storage_book sbook){
+    public void add(book_brw sbook){
         temp_books.add(sbook);
     }
     public static String getNewOrderid(){
