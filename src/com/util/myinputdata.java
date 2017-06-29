@@ -25,7 +25,7 @@ public class myinputdata {
                 "\"email\":\"tongqinw@163.com\"," +
                 "\"address\":\"3#_114\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"仝秦玮\"," +
+                "\"name\":\"阿花\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"150203199605222137\"" +
                 "}";
@@ -39,7 +39,7 @@ public class myinputdata {
                 "\"email\":\"871858041@qq.com\"," +
                 "\"address\":\"3#_113\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"李瑜\"," +
+                "\"name\":\"阿发\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"1234123434652342343\"" +
                 "}";
@@ -53,7 +53,7 @@ public class myinputdata {
                 "\"email\":\"2831616471@qq.com\"," +
                 "\"address\":\"6#_113\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"苏长青\"," +
+                "\"name\":\"阿虎\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"1234123434652342343\"" +
                 "}";
@@ -67,7 +67,7 @@ public class myinputdata {
                 "\"email\":\"871858041@qq.com\"," +
                 "\"address\":\"3#_113\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"李瑜\"," +
+                "\"name\":\"阿哈\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"1234123434652342343\"" +
                 "}";
@@ -81,7 +81,7 @@ public class myinputdata {
                 "\"email\":\"871858041@qq.com\"," +
                 "\"address\":\"3#_113\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"李瑜\"," +
+                "\"name\":\"阿呜\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"1234123434652342343\"" +
                 "}";
@@ -95,7 +95,7 @@ public class myinputdata {
                 "\"email\":\"871858041@qq.com\"," +
                 "\"address\":\"3#_113\"," +
                 "\"postcode\":\"100086\"," +
-                "\"name\":\"李瑜\"," +
+                "\"name\":\"阿福\"," +
                 "\"certificate\":1," +
                 "\"certificateid\":\"1234123434652342343\"" +
                 "}";

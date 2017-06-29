@@ -102,7 +102,7 @@ public class orderForm_dao extends abstruct_dao {
         return true;
     }
 
-    public static orderForm getOrderForm (String orderid,boolean isWork){
+    public static orderForm getOrderFormByOrderid (String orderid,boolean isWork){
         orderForm OrderForm = new orderForm();
         abstruct_dao.connect();
         try{
