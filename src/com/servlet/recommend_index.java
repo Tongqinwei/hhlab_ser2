@@ -20,7 +20,6 @@ import java.io.Writer;
 public class recommend_index extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String isbn13 = request.getParameter("username");
         abstruct_dao.connect();
         book[] Books = book_dao.getRecommendBook_index(1,5);
         abstruct_dao.close();

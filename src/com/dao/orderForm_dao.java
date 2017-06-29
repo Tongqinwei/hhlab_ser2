@@ -273,11 +273,43 @@ public class orderForm_dao extends abstruct_dao {
 
     public static boolean stateChange_2failure(String orderid){
         orderForm OrderForm = getOrderFormByOrderid(orderid);
-        if (OrderForm==null||OrderForm.getOrderstate()!=1||OrderForm.getOrderstate()!=2) {
+        if (OrderForm==null||OrderForm.getOrderstate()!=1&&OrderForm.getOrderstate()!=2) {
             System.err.println("OrderForm may not exist or its state is not 1(no pay) or 2(comfirm).");
             return false;
         }
         orderForm_dao OrderForm_dao = new orderForm_dao(OrderForm);
         return OrderForm_dao.changeState(5,true);
+    }
+
+    public static void autofailure(int failureMin){
+        /*
+        * 用于自动使订单失效
+        * */
+        abstruct_dao.connect();
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long k=now.getTime();
+        long minutes=now.getTime()-failureMin*1000*60;
+        Date minsAgo = new Date(minutes);//计算数分钟前的时间
+        String time=dateFormat.format( minsAgo );
+        List<String> Orderids= new ArrayList<String>();
+        Orderids.clear();
+        try{
+            String sql = String.format("select orderid from %s where ordertime < ? and (orderstate= 1 or orderstate=2);", table_ordertable);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,time);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Orderids.add(rs.getString("orderid"));
+            }
+            //abstruct_dao.locktable(table_ordertable,false);
+            for (String Orderid : Orderids) {
+                stateChange_2failure(Orderid);
+            }
+            //abstruct_dao.unlock(table_ordertable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

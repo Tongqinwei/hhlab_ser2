@@ -136,4 +136,13 @@
         <servlet-name>OFchangeState</servlet-name>
         <url-pattern>/OFchangeState</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>recommend_subclass</servlet-name>
+        <servlet-class>com.servlet.recommend_subclass</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>recommend_subclass</servlet-name>
+        <url-pattern>/recommend_subclass</url-pattern>
+    </servlet-mapping>
 </web-app>
