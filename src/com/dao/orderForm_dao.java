@@ -49,6 +49,7 @@ public class orderForm_dao extends abstruct_dao {
                     if (isWork) work_rollback();
                     return false;
                 }
+                cart_dao.rid(OrderForm.getBooks()[i].getBarcode(),OrderForm.getUserid(),false);
             }
 
             //提交事务
