@@ -91,7 +91,7 @@ public abstract class abstruct_dao {
             Statement stat = conn.createStatement();
             String sql = "ROLLBACK ;";
             boolean flag=stat.execute(sql);
-            if (flag) System.err.println("Cannot begin a work.");
+            if (flag) System.err.println("Cannot rollback a work.");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -107,10 +107,37 @@ public abstract class abstruct_dao {
             Statement stat = conn.createStatement();
             String sql = "COMMIT ;";
             boolean flag=stat.execute(sql);
-            if (flag) System.err.println("Cannot begin a work.");
+            if (flag) System.err.println("Cannot commit a work.");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    private static void runSQL(String sql){
+        connect();
+        try {
+            Statement stat = conn.createStatement();
+            boolean flag=stat.execute(sql);
+            if (flag) System.err.println("Cannot run the sql "+sql+" .");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void locktable(String tablename,boolean isReadLock){
+        String lockname;
+        if (isReadLock) lockname= "READ";
+        else lockname="WRITE";
+        String sql= String.format("LOCK TABLE %s %s", tablename, lockname);
+        runSQL(sql);
+        return ;
+    }
+
+    public static void unlock(String tablename){
+        String sql= String.format("UNLOCK %s", tablename);
+        runSQL(sql);
+        return ;
     }
 }

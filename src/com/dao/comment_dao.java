@@ -91,7 +91,7 @@ public class comment_dao extends abstruct_dao{
         * 返回userid 失败返回-1
         * */
         try {
-            String sql = String.format("select * from %s where isbn13 = ? limit ?,? ;", table_comment);
+            String sql = String.format("select * from %s where isbn13 = ? and not (comment is null) limit ?,? ;", table_comment);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,Comment.getIsbn13());
             ps.setInt(2,_begin-1);

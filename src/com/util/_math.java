@@ -1,5 +1,9 @@
 package com.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by hasee on 2017/5/9.
  */
@@ -29,5 +33,23 @@ public class _math {
 
     public static String barcodeToIsbn13(String barcode){
         return barcode.substring(0,13);
+    }
+
+    public static int culmindiff(String time){
+        /*
+        * 根据yyyy-MM-dd hh:mm:ss形式时间计算和先在的差距，返回分钟数
+        * */
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        format.setLenient(false);
+        Date date1 = null;
+        try {
+            date1 = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date2 = new Date();
+        //计算差值，分钟数
+        long minutes=(date2.getTime()-date1.getTime())/(1000*60);
+        return (int) minutes;
     }
 }

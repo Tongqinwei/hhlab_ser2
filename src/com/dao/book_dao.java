@@ -321,7 +321,7 @@ public class book_dao extends abstruct_dao{
         * */
         abstruct_dao.connect();
         try {
-            String sql=String.format("select * from %s where subclass=? limit ?,?",table_book);
+            String sql=String.format("select * from %s where subclass=? order by grade_ave limit ?,?",table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,subclass);
             ps.setInt(2,_begin-1);

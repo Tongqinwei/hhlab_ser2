@@ -28,19 +28,24 @@ public class getbook extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String isbn13 = request.getParameter("isbn13");
         book Book = book_dao.getBookByIsbn13(isbn13);
-        bookpage_bean Bookpage_bean=Book.toBookpage_bean();
-        comment[] comments = comment_dao.getComments(isbn13,1,5);
-        Bookpage_bean.setComments(comments);
-        Bookpage_bean.setStorage(storage_book_dao.count_transcript(isbn13));
-        storage_book[] Storage_books =  storage_book_dao.getStorage_books(isbn13);
-        abstruct_dao.close();
-        Bookpage_bean.setStorage_books(Storage_books);
-        JSONObject book_json= JSONObject.fromObject(Bookpage_bean);
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Type","text/html;charset=UTF-8");
-        response.setContentType("application/json");
         Writer out = response.getWriter();
-        out.write(book_json.toString());
+        if (Book!=null) {
+            bookpage_bean Bookpage_bean=Book.toBookpage_bean();
+            comment[] comments = comment_dao.getComments(isbn13,1,5);
+            Bookpage_bean.setComments(comments);
+            Bookpage_bean.setStorage(storage_book_dao.count_transcript(isbn13));
+            storage_book[] Storage_books =  storage_book_dao.getStorage_books(isbn13);
+            abstruct_dao.close();
+            Bookpage_bean.setStorage_books(Storage_books);
+            JSONObject book_json= JSONObject.fromObject(Bookpage_bean);
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Type","text/html;charset=UTF-8");
+            response.setContentType("application/json");
+            out.write(book_json.toString());
+        }else {
+            out.write("not exist!");
+        }
+
         out.flush();
         out.close();
         response.flushBuffer();

@@ -339,4 +339,13 @@ public class book {
     public void setPinyin(String pinyin) {
         this.pinyin = pinyin;
     }
+
+    public book_brief toBook_brief(String barcode){
+        book_brief Book_brief =new book_brief();
+        Book_brief.setImage(image);
+        Book_brief.setIsbn13(isbn13);
+        Book_brief.setImage(title);
+        Book_brief.setBarcode(barcode);
+        return Book_brief;
+    }
 }

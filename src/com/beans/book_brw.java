@@ -9,6 +9,7 @@ public class book_brw {
     private String borrowtime;
     private String returntime;
     private int mark;
+    private book_brief book;
 
     public String getBarcode() {
         return barcode;
@@ -48,5 +49,13 @@ public class book_brw {
 
     public void setMark(int mark) {
         this.mark = mark;
+    }
+
+    public book_brief getBook() {
+        return book;
+    }
+
+    public void setBook(book_brief book) {
+        this.book = book;
     }
 }
