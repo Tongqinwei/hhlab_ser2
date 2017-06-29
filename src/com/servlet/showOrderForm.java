@@ -97,6 +97,7 @@ public class showOrderForm extends HttpServlet {
             jsonString= JSONArray.fromObject(OrderForm);
             retString=jsonString.toString();
         }else if ("2".equals(mode)){
+            int aa123sdfkjsalifoe2;
             OrderForms= orderForm_dao.getOrderFormsByUnionid(unionid);
             jsonString= JSONArray.fromObject(OrderForms);
             retString=jsonString.toString();

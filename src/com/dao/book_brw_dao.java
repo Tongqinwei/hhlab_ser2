@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.beans.book_brw;
+import com.util._math;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -191,6 +192,8 @@ public class book_brw_dao extends abstruct_dao{
                 Book_brw.setBarcode(rs.getString("barcode"));
                 Book_brw.setBorrowtime(rs.getString("borrowtime"));
                 Book_brw.setReturntime(rs.getString("returntime"));
+                String isbn13= _math.barcodeToIsbn13(Book_brw.getBarcode());
+                Book_brw.setBook(book_dao.getBookByIsbn13(isbn13).toBook_brief(Book_brw.getBarcode()));
                 book_brws.add(Book_brw);
             }
             book_brw[] array =new book_brw[book_brws.size()];
