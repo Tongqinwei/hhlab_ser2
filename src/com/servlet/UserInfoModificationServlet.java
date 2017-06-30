@@ -82,6 +82,11 @@ public class UserInfoModificationServlet extends HttpServlet {
                     user.setCertificateid(formObject.get("cert_id").getAsString());
                     user.setBirthday(formObject.get("birthday").getAsString());
                     user.setPostcode(formObject.get("post_code").getAsString());
+
+                    if(user.getBirthday().contentEquals("")){
+                        user.setBirthday("0000-00-00");
+                    }
+
                     user_dao.update_user_byUnionID(user);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -93,9 +98,6 @@ public class UserInfoModificationServlet extends HttpServlet {
                     abstruct_dao.close();
                     return;
                 }
-
-                // update the user info
-                user_dao.update_user_byUnionID(user);
 
 
             } else {

@@ -92,7 +92,12 @@ public class GetUserINFOServlet extends HttpServlet {
         object.addProperty("id_num",userData.getCertificateid());
         object.addProperty("mail_address",userData.getAddress());
         object.addProperty("mail_code",userData.getPostcode());
-        object.addProperty("birthday",userData.getBirthday());
+
+        if(userData.getBirthday().contentEquals("0000-00-00")){
+            object.addProperty("birthday", "");
+        } else {
+            object.addProperty("birthday",userData.getBirthday());
+        }
 
         object.addProperty("state",true);
         JsonObject retObject = new JsonObject();
