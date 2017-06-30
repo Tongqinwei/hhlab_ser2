@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 /**
  * Created by hasee on 2017/5/9.
@@ -209,14 +210,14 @@ public class user_dao extends abstruct_dao{
         }
     }
 
-    public static String getTrueNameByUserid(int userid){
+    public static String getTrueNameByUserid(int userid)throws NullPointerException{
         user User = new user();
         User.setUserid(userid);
         user_dao User_dao = new user_dao(User);
         return User_dao.getTrueNameByUserid();
     }
 
-    public static user getUserByUnionId(String unionId){
+    public static user getUserByUnionId(String unionId)throws NullPointerException{
         /*
         * 通过unionid获取
         * */
@@ -249,12 +250,12 @@ public class user_dao extends abstruct_dao{
         }
     }
 
-    public static boolean update_user_byUnionID(user User){
+    public static boolean update_user_byUnionID(user User)throws NullPointerException{
         user_dao User_dao = new user_dao(User);
         return User_dao.update_user_byUnionID();
     }
 
-    public static user getUserByUserid(int userid){
+    public static user getUserByUserid(int userid)throws NullPointerException{
         abstruct_dao.connect();
         if (userid<=0) return null;
         try {
@@ -282,5 +283,48 @@ public class user_dao extends abstruct_dao{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public static user[] getAllUsers(int _begin,int _end)throws NullPointerException{
+        abstruct_dao.connect();
+        try {
+            Statement stat = conn.createStatement();
+            String sql = String.format("select * from %s limit %d,%d;", table_user, _begin-1,_end-1);
+            ResultSet rs = stat.executeQuery(sql);
+            List<user> users=new Vector<user>();
+            users.clear();
+            while (rs.next()){
+                user User = new user();
+                User.setUserid(rs.getInt("userid"));
+                User.setTel(rs.getString("tel"));
+                User.setUnionid(rs.getString("unionid"));
+                User.setDegree(rs.getInt("degree"));
+                Date tempbir=rs.getDate("birthday");
+                if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+                User.setEmail(rs.getString("email"));
+                User.setAddress(rs.getString("address"));
+                User.setPostcode(rs.getString("postcode"));
+                User.setName(rs.getString("name"));
+                User.setCertificate(rs.getInt("certificate"));
+                User.setCertificateid(rs.getString("certificateid"));
+                User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+                users.add(User);
+            }
+            user[] array =new user[users.size()];
+            return users.toArray(array);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static user_brief[] getAllUser_bf(int _begin,int _end)throws NullPointerException{
+        user[] users=getAllUsers(_begin,_end);
+        user_brief[] user_briefs= new user_brief[users.length];
+        for (int i=0;i<users.length;i++){
+            user_briefs[i]=users[i].toBrief();
+        }
+        return user_briefs;
     }
 }

@@ -140,4 +140,23 @@ public abstract class abstruct_dao {
         runSQL(sql);
         return ;
     }
+
+    public static void importFileLinux(String tablename,String filename){
+        String sql=String.format("LOAD DATA INFILE '%s'\n" +
+                "INTO TABLE %s\n" +
+                "CHARACTER SET utf8\n" +
+                "FIELDS TERMINATED BY ',' ENCLOSED BY '\"'\n" +
+                "IGNORE 1 LINES;",filename,tablename);
+        runSQL(sql);
+    }
+
+    public static void importFileWindows(String tablename,String filename){
+        String sql=String.format("LOAD DATA INFILE \"%s\"\n" +
+                "REPLACE INTO TABLE %s\n" +
+                "CHARACTER SET gb2312\n" +
+                "FIELDS TERMINATED BY \",\" ENCLOSED BY \"\"\n" +
+                "LINES TERMINATED BY \"\\r\\n\"\n" +
+                "IGNORE 1 LINES;",filename,tablename);
+        runSQL(sql);
+    }
 }

@@ -114,4 +114,16 @@ public class user {
     public void setRecommendFrequency(int recommendFrequency) {
         this.recommendFrequency = recommendFrequency;
     }
+
+    public user_brief toBrief(){
+        user_brief User_brief = new user_brief();
+        User_brief.setCertificate(certificate);
+        User_brief.setCertificateid(certificateid);
+        User_brief.setEmail(email);
+        User_brief.setName(name);
+        User_brief.setTel(tel);
+        User_brief.setUserid(userid);
+        User_brief.setUnionid(unionid);
+        return User_brief;
+    }
 }
