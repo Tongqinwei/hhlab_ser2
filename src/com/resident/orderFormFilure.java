@@ -13,6 +13,7 @@ public class orderFormFilure extends Thread{
     }
 
     private orderFormFilure() {
+        this.start();
     }
 
     @Override
