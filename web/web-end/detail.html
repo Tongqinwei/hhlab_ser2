@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="" name="description" />
+    <title>霍哈图书馆系统</title>
+    <!-- Bootstrap Styles-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+        <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <!-- Google Fonts-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 霍哈图书馆</strong></a>
+                <div id="sideNav" href="">
+        <i class="fa fa-bars icon"></i> 
+        </div>
+            </div>
+        </nav>
+        <!--/. NAV TOP  -->
+          <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard"></i>主页</a>
+                    </li>
+                     <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>图书管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="LI_info.html">图书信息查询</a>
+                            </li>
+                            <li>
+                                <a href="LI_up.html">图书信息上传</a>
+                            </li>
+                            </ul>
+                        </li>   
+                            
+                    <li>
+                        <a href="order.html" class="active-menu"><i class="fa fa-qrcode"></i>订单查询</a>
+                    </li>
+                    
+                    <li>
+                        <a href="user.html"><i class="fa fa-table"></i>用户查询</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+          <div class="header"> 
+                      <h1 class="page-header">
+                       <small>霍哈图书馆</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                      <li>目前所在位置： </li>
+                      <li>订单查询</li>
+                      <li class="active"><a href="#">订单详情</a></li>
+                    </ol> 
+                                    
+        </div>
+            <div id="page-inner"> 
+                  <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="card-title">
+                                        <div class="title">订单详情</div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label ">订单编号</label>
+                                            <div class="col-sm-10" style="text-align: center;">
+                                               <p id="order_num" style="margin-top: -15px">12334578</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-sm-2 control-label">创建时间</label>
+                                            <div class="col-sm-10" style="text-align: center;">
+                                                <p id="time" style="margin-top: -15px" >2017-7-28</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-sm-2 control-label">用户</label>
+                                            <div class="col-sm-10" style="text-align: center;">
+                                                <p id="user" style="margin-top: -15px">小阿花</p>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group">
+                                            <label  class="col-sm-2 control-label">状态</label>
+                                            <div class="col-sm-10" style="text-align: center;">
+                                                <p id="state" style="margin-top: -15px">进行中</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label  class="col-sm-2 control-label">详情</label>
+                                            <div class="col-sm-10">
+                                                 <div class="panel panel-default">
+                                                    <div class="panel-body" style="margin-top: -15px;">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>封面</th>
+                                                                        <th>编号</th>
+                                                                        <th>书名</th>
+                                                                        <th>作者</th>
+                                                                        <th>实际还书时间</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="tbody">
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 <footer><p>Copyright &copy; 霍哈图书馆管理系统</p></footer>
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+     <script src="assets/js/jquery-1.10.2.js"></script>
+      <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').dataTable();
+            });
+    </script>
+         <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+    <script type="text/javascript" src="js/detail.js"></script>
+    
+   
+</body>
+</html>
