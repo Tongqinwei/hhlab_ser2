@@ -1,8 +1,6 @@
 package com.servlet;
 
-import com.Login.Handler.KeyManager;
 import com.Login.Handler.MyJsonParser;
-import com.google.gson.JsonObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,9 +23,9 @@ public class getPublicKeyServlet extends HttpServlet {
         response.addHeader("Access-Control-Allow-Origin", "*");
         String retString = "";
         try {
-            KeyManager manager = KeyManager.getInstance();
-            Properties properties = manager.getKey();
-            retString = MyJsonParser.SetUserInfoModifyResult(true, properties.getProperty("publicKey"));
+//            KeyManager manager = KeyManager.getInstance();
+//            Properties properties = manager.getKey();
+//            retString = MyJsonParser.SetUserInfoModifyResult(true, properties.getProperty("publicKey"));
         } catch (Exception e){
             retString = MyJsonParser.SetUserInfoModifyResult(true, "error when get the public key");
         }

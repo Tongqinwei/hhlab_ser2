@@ -1,7 +1,6 @@
 package com.servlet;
 
 import com.Login.Bean.SessionUser;
-import com.Login.Handler.KeyManager;
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.adminUser;
@@ -10,9 +9,7 @@ import com.dao.abstruct_dao;
 import com.dao.admin_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
-import com.util.RASTool;
 
-import javax.crypto.Cipher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -31,8 +28,7 @@ import java.io.Writer;
 @WebServlet(name = "AdminLoginWebServlet")
 public class AdminLoginWebServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-
+//        response.addHeader("Access-Control-Allow-Origin", "*");
         response.setContentType("text/html;charset=UTF-8");
         JsonObject jsonObject = null;
         String logName = null;
@@ -56,29 +52,28 @@ public class AdminLoginWebServlet extends HttpServlet {
         }
 
 
-        try {
-            // 尝试解密
-            KeyManager keyManager = KeyManager.getInstance();
-
-//            passWord = RASTool.decryptByPrivateKey(passWord.getBytes(),keyManager.getRsaManager().getPrivateKey().getEncoded());
-
-
-        } catch (Exception e){
-            e.printStackTrace();
-            Writer out = response.getWriter();
-            out.write(MyJsonParser.SetUserInfoModifyResult(false,"error while decrypting"));
-            out.flush();
-            out.close();
-            response.flushBuffer();
-            return;
-        }
+//        try {
+//            // 尝试解密
+//
+////            passWord = RASTool.decryptByPrivateKey(passWord.getBytes(),keyManager.getRsaManager().getPrivateKey().getEncoded());
+//
+//
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            Writer out = response.getWriter();
+//            out.write(MyJsonParser.SetUserInfoModifyResult(false,"error while decrypting"));
+//            out.flush();
+//            out.close();
+//            response.flushBuffer();
+//            return;
+//        }
 
 
 
         adminUser adminUser ;
         try {
             adminUser = admin_dao.getAdminByLogName(logName);
-            if(adminUser == null || adminUser.isPasswordMatch(passWord)){
+            if(adminUser == null || !adminUser.isPasswordMatch(passWord)){
                 throw new Exception("不存在该管理员 ： "+logName);
             }
 
