@@ -204,4 +204,13 @@
         <url-pattern>/reservation/update</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>importFile</servlet-name>
+        <servlet-class>com.servlet.importFile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>importFile</servlet-name>
+        <url-pattern>/importFile</url-pattern>
+    </servlet-mapping>
 </web-app>

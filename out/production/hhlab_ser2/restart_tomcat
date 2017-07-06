@@ -1,0 +1,3 @@
+cd ../usr/local/tomcat-9.0.0/bin
+./shutdown.sh
+./startup.sh

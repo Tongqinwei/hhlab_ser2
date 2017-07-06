@@ -384,5 +384,32 @@ public class book_dao extends abstruct_dao{
         return Book_dao.addNewGrade(grade,isWork);
     }
 
+    public static void importFile(String filename){
+        abstruct_dao.importFileLinux(table_book,filename);
+    }
 
+    public ResultSet searchOfAdmin(int _begin,int _end){
+        /*
+        * 返回结果集
+        * */
+        try {
+            Statement stat = conn.createStatement();
+            String sql = String.format("select * from %s order by isbn13 limit ?,?;",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,_begin-1);
+            ps.setInt(2,_end-1);
+            ResultSet rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    public static book[] searchOfAdmins(int _begin,int _end){
+        book_dao Book_dao= new book_dao(new book());
+        List<book> books=getBooksByResultSet(Book_dao.searchOfAdmin(_begin,_end));
+        assert books != null;
+        book[] array =new book[books.size()];
+        return books.toArray(array);
+    }
 }

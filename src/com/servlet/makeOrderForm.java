@@ -89,8 +89,10 @@ public class makeOrderForm  extends HttpServlet {
         String session_id = null;
 
         try {
-            barcode1 = jsonObject.get("barcode1").getAsString();
-            barcode2 = jsonObject.get("barcode2").getAsString();
+            //jsonObject.get("barcode1").getAsString();
+            //barcode2 = jsonObject.get("barcode2").getAsString();
+            if (jsonObject.get("barcode1")!=null) barcode1=jsonObject.get("barcode1").getAsString();
+            if (jsonObject.get("barcode2")!=null) barcode2=jsonObject.get("barcode2").getAsString();
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
