@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.Reservation.ReservationManager;
 import com.beans.book;
 import com.beans.storage_book;
 import com.util.*;
@@ -112,6 +113,8 @@ public class storage_book_dao extends abstruct_dao{
             ps.setString(1, Storage_book.getIsbn());
             ps.execute();
             success =  true;
+            // 启动线程，更新预订信息
+            ReservationManager.update();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

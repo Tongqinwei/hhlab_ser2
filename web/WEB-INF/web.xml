@@ -175,6 +175,36 @@
         <url-pattern>/recommend_subclass</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>ReservationGetServlet</servlet-name>
+        <servlet-class>com.servlet.ReservationGetServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationGetServlet</servlet-name>
+        <url-pattern>/reservation/get</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>ReservationCreateServlet</servlet-name>
+        <servlet-class>com.servlet.ReservationCreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationCreateServlet</servlet-name>
+        <url-pattern>/reservation/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationUpdateServlet</servlet-name>
+        <servlet-class>com.servlet.ReservationUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationUpdateServlet</servlet-name>
+        <url-pattern>/reservation/update</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>importFile</servlet-name>
         <servlet-class>com.servlet.importFile</servlet-class>

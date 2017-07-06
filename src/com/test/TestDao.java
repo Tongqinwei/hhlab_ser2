@@ -1,10 +1,13 @@
 package com.test;
 
-import com.beans.adminUser;
-import com.beans.user;
-import com.dao.abstruct_dao;
-import com.dao.admin_dao;
-import com.dao.user_dao;
+
+import com.Reservation.ReservationTool;
+import com.beans.ReservationOrder;
+import com.dao.ReservationDao;
+import com.google.gson.JsonArray;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lee on 2017/6/30.
@@ -15,15 +18,10 @@ import com.dao.user_dao;
 public class TestDao {
     public static void main(String args[])
     {
-        abstruct_dao.connect();
-
-        user user = new user();
-        adminUser user1 = admin_dao.getAdminByLogName("244liyu");
-
-        if(user1.isPasswordMatch("1234")){
-            System.out.println("hahha");
-        }
-
-        abstruct_dao.close();
+        JsonArray array = new JsonArray();
+        array.add("adasd");
+        array.add("asdasd");
+        System.out.println(array.toString());
+        System.out.println(ReservationTool.returnAsJson(true,"aa","su",array));
     }
 }

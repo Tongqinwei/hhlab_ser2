@@ -3,6 +3,7 @@ package com.Login.Sessions;
 
 
 import com.Login.Bean.SessionUser;
+import com.Reservation.ReservationManager;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -47,6 +48,9 @@ public class SessionTimeOutChecker extends Thread {
                     it.remove();
                 }
             }
+
+            // 启动线程，更新预订信息
+            ReservationManager.update();
 
             // 默认一分钟检查一次超时的对象
             try {

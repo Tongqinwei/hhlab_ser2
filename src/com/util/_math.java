@@ -52,4 +52,9 @@ public class _math {
         long minutes=(date2.getTime()-date1.getTime())/(1000*60);
         return (int) minutes;
     }
+
+    public static String date2TimeFormat(Date date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return format.format(date);
+    }
 }
