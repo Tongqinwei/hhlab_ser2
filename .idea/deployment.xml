@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="hhlab_Ser">
+  <component name="PublishConfigData" autoUpload="Always">
     <serverData>
-      <paths name="hhlab_Ser">
+      <paths name="biuli (1)">
         <serverdata>
           <mappings>
-            <mapping deploy="/usr/local/tomcat-9.0.0/webapps/hhlab" local="C:/apache-tomcat-7.0.57/webapps/hhlab_ser2" web="/" />
+            <mapping deploy="/usr/local/tomcat-9.0.0/webapps/hhlab" local="$USER_HOME$/J2EE/apache-tomcat-8.5.5/webapps/hhlab" web="/" />
           </mappings>
         </serverdata>
       </paths>
