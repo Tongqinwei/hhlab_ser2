@@ -1,10 +1,11 @@
 package com.test;
 
-import com.beans.adminUser;
-import com.beans.user;
-import com.dao.abstruct_dao;
-import com.dao.admin_dao;
-import com.dao.user_dao;
+
+import com.beans.ReservationOrder;
+import com.dao.ReservationDao;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lee on 2017/6/30.
@@ -15,15 +16,18 @@ import com.dao.user_dao;
 public class TestDao {
     public static void main(String args[])
     {
-        abstruct_dao.connect();
-
-        user user = new user();
-        adminUser user1 = admin_dao.getAdminByLogName("244liyu");
-
-        if(user1.isPasswordMatch("1234")){
-            System.out.println("hahha");
+        ReservationOrder order = null;
+        if(ReservationDao.inputReservation("oycMK0dvrOENuSmjJHXxUs_15Aik","9780316346627",new Date())){
+            List<ReservationOrder> orderList = ReservationDao.getOrderByUserID("oycMK0dvrOENuSmjJHXxUs_15Aik");
+            order = orderList.get(0);
+        }
+        assert order != null;
+        order.setState(5);
+        try {
+            ReservationDao.updateOrder(order);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        abstruct_dao.close();
     }
 }

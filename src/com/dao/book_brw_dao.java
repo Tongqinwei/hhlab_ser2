@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.Reservation.ReservationManager;
 import com.beans.book_brw;
 import com.util._math;
 
@@ -145,6 +146,8 @@ public class book_brw_dao extends abstruct_dao{
             storage_book_dao.updateState(Book_brw.getBarcode(),4);
             if (isWork) abstruct_dao.work_commit();
             success=true;
+            // 启动线程，更新预订信息
+            ReservationManager.update();
         }catch (SQLException e) {
             if (isWork) abstruct_dao.work_rollback();
             e.printStackTrace();
