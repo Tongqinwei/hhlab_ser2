@@ -38,6 +38,7 @@ public class testCF_JDBC {
 
             for (int j = 0; j < brandIDs.size(); j++) {
                 scoretemp = recommender.estimatePreference(userIDs.get(i), brandIDs.get(j));
+                System.out.print(" "+scoretemp);
                 if (scoretemp > score) {
                     score = scoretemp;
                     bestBrand = brandIDs.get(j);
