@@ -29,14 +29,13 @@ import java.util.List;
  */
 @WebServlet(name = "ReservationCreateServlet")
 public class ReservationCreateServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setStatus(404);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
 
         String session_id = null;
         String isbn = null;
@@ -45,6 +44,7 @@ public class ReservationCreateServlet extends HttpServlet {
         SessionUser sessionUser = null;
 
         try {
+            JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
             session_id = jsonObject.get("session_id").getAsString();
             isbn = jsonObject.get("isbn").getAsString();
         } catch (Exception e){

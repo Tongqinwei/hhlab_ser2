@@ -1,8 +1,10 @@
 package com.test;
 
 
+import com.Reservation.ReservationTool;
 import com.beans.ReservationOrder;
 import com.dao.ReservationDao;
+import com.google.gson.JsonArray;
 
 import java.util.Date;
 import java.util.List;
@@ -16,18 +18,10 @@ import java.util.List;
 public class TestDao {
     public static void main(String args[])
     {
-        ReservationOrder order = null;
-        if(ReservationDao.inputReservation("oycMK0dvrOENuSmjJHXxUs_15Aik","9780316346627",new Date())){
-            List<ReservationOrder> orderList = ReservationDao.getOrderByUserID("oycMK0dvrOENuSmjJHXxUs_15Aik");
-            order = orderList.get(0);
-        }
-        assert order != null;
-        order.setState(5);
-        try {
-            ReservationDao.updateOrder(order);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        JsonArray array = new JsonArray();
+        array.add("adasd");
+        array.add("asdasd");
+        System.out.println(array.toString());
+        System.out.println(ReservationTool.returnAsJson(true,"aa","su",array));
     }
 }

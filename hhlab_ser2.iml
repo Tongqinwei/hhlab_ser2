@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="web" name="Web">
-      <configuration>
-        <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
-        </descriptors>
-        <webroots>
-          <root url="file://$MODULE_DIR$/web" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
-  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -19,8 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.57" level="application_server_libraries" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library" exported="" scope="RUNTIME">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/commons-beanutils-1.7.0.jar!/" />
@@ -93,5 +80,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" name="commons-beanutils-1.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.5" level="application_server_libraries" />
   </component>
 </module>

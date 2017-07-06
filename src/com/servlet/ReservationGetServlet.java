@@ -33,7 +33,6 @@ public class ReservationGetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
 
         String session_id = null;
 
@@ -41,6 +40,7 @@ public class ReservationGetServlet extends HttpServlet {
         SessionUser sessionUser = null;
 
         try {
+            JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             // if there is error in json handling then send the error message
@@ -89,7 +89,7 @@ public class ReservationGetServlet extends HttpServlet {
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setContentType("application/json");
         Writer out = response.getWriter();
-        out.write(MyJsonParser.SetUserInfoModifyResult(true,array.getAsString()));
+        out.write(ReservationTool.returnAsJson(true,"success","success",array));
         out.flush();
         out.close();
         response.flushBuffer();

@@ -115,7 +115,7 @@ public class AdminLoginWebServlet extends HttpServlet {
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setContentType("application/json");
         Writer out = response.getWriter();
-        out.write(MyJsonParser.SetUserInfoModifyResult(true,"success"));
+        out.write(MyJsonParser.SetUserInfoModifyResult(true,user.getSessionID()));
         out.flush();
         out.close();
         response.flushBuffer();

@@ -33,8 +33,6 @@ public class ReservationUpdateServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
-
         String session_id = null;
         String order_id = null;
         String action = null;
@@ -43,6 +41,7 @@ public class ReservationUpdateServlet extends HttpServlet {
         SessionUser sessionUser = null;
 
         try {
+            JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
             session_id = jsonObject.get("session_id").getAsString();
             order_id = jsonObject.get("order_id").getAsString();
             action = jsonObject.get("action").getAsString();
@@ -86,7 +85,7 @@ public class ReservationUpdateServlet extends HttpServlet {
             }
 
 
-            if (order.getUser_id().contentEquals(sessionUser.getOpenID())) {
+            if (!order.getUser_id().contentEquals(sessionUser.getOpenID())) {
                 retString = MyJsonParser.SetUserInfoModifyResult(false, "not your order");
                 throw new Exception("order owner error");
             }
