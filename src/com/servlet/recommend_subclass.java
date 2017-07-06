@@ -15,6 +15,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/6/30.
+ * 用于每本书的推荐
  */
 @WebServlet(name = "recommend_subclass")
 public class recommend_subclass extends HttpServlet{

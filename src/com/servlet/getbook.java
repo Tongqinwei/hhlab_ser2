@@ -21,6 +21,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/5/17.
+ * 用于获取书籍详细信息
  */
 @WebServlet(name = "getbook")
 public class getbook extends HttpServlet {

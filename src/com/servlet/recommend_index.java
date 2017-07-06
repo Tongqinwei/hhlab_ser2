@@ -15,6 +15,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/5/29.
+ * 用于首页推荐
  */
 @WebServlet(name = "recommend_index")
 public class recommend_index extends HttpServlet {

@@ -21,6 +21,7 @@ public abstract class abstruct_dao {
     protected static final String table_ordertable="ordertable";
     protected static final String table_cart="cart";
     protected static final String table_admin="admin_table";
+    protected static final String table_ubhvor="ubhvor";
 
     protected static Connection conn = null;
     public static Connection getConn(){
@@ -114,7 +115,7 @@ public abstract class abstruct_dao {
         }
     }
 
-    private static void runSQL(String sql){
+    public static void runSQL(String sql){
         connect();
         try {
             Statement stat = conn.createStatement();

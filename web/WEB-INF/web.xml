@@ -183,4 +183,25 @@
         <servlet-name>importFile</servlet-name>
         <url-pattern>/importFile</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>showAllUsers</servlet-name>
+        <servlet-class>com.servlet.showAllUsers</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showAllUsers</servlet-name>
+        <url-pattern>/admin/showAllUsers</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>autoFailureOF</servlet-name>
+        <servlet-class>com.resident.servlet.autoFailureOF</servlet-class>
+        <!-- <load-on-startup>0</load-on-startup> -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>autoFailureOF</servlet-name>
+        <url-pattern>/autoFailureOF</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

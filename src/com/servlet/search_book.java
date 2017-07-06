@@ -15,6 +15,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/6/17.
+ * 用于书籍搜索
  */
 @WebServlet(name = "search_book")
 public class search_book extends HttpServlet {

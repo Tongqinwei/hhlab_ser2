@@ -15,6 +15,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/6/29.
+ * 用于订单状态改变
  */
 @WebServlet(name = "OFchangeState")
 public class OFchangeState extends HttpServlet{

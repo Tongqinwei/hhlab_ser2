@@ -24,6 +24,7 @@ import java.io.Writer;
 
 /**
  * Created by hasee on 2017/6/27.
+ * 用于创建订单
  */
 @WebServlet(name = "makeOrderForm")
 public class makeOrderForm  extends HttpServlet {
