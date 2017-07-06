@@ -76,7 +76,7 @@ class ReserveThread extends Thread{
                         // 已经超时了，就修改状态
 
                         // 更新图书状态，将其改为空闲
-                        storage_book_dao.updateState(order.getBarCode(),"available");
+                        storage_book_dao.updateState(order.getBarCode(),4);
 
                         System.out.println("reservation order : " + order.getOrderID() + " out of time");
                         // 更新订单状态

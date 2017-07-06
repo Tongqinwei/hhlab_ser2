@@ -174,7 +174,29 @@ public class ReservationDao extends abstruct_dao {
         }
     }
 
-
+    public static ReservationOrder getOrderbyOrderID(String id){
+        ReservationOrder order = null;
+        try {
+            String sql = String.format("SELECT * FROM %s WHERE order_id = ?;", table_orderlist);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.execute();
+            ResultSet resultSet = ps.getResultSet();
+            while (resultSet.next()) {
+                order = new ReservationOrder();
+                order.setISBN(resultSet.getString("isbn13"));
+                order.setReserveTime(resultSet.getTimestamp("ordertime"));
+                order.setStartTime(resultSet.getTimestamp("start_time"));
+                order.setState(resultSet.getInt("mark"));
+                order.setUser_id(resultSet.getString("user_id"));
+                order.setOrderID(resultSet.getString("order_id"));
+                order.setBarCode(resultSet.getString("barcode"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
 
 
 }

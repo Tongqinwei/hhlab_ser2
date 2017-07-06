@@ -5,9 +5,7 @@ import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.Reservation.ReservationTool;
 import com.beans.ReservationOrder;
-import com.beans.user;
 import com.dao.ReservationDao;
-import com.dao.user_dao;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -28,11 +26,11 @@ import java.util.List;
  */
 @WebServlet(name = "ReservationGetServlet")
 public class ReservationGetServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setStatus(404);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
