@@ -70,7 +70,7 @@ public class HttpConnector {
         String httpStr = null;
 
         try {
-            httpPost.setConfig(requestConfig);
+            //httpPost.setConfig(requestConfig);
             List<NameValuePair> pairList = new ArrayList<NameValuePair>(params.size());
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 NameValuePair pair = new BasicNameValuePair(entry.getKey(), entry.getValue());
@@ -107,25 +107,25 @@ public class HttpConnector {
      */
     private static SSLConnectionSocketFactory createSSLConnSocketFactory() {
         SSLConnectionSocketFactory sslsf = null;
-        try {
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
-
-                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    return true;
-                }
-
-            }).build();
-
-            // ignore the host name
-            sslsf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
-                public boolean verify(String s, SSLSession sslSession) {
-                    return true;
-                }
-            });
-
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+//
+//                public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+//                    return true;
+//                }
+//
+//            }).build();
+//
+//            // ignore the host name
+//            sslsf = new SSLConnectionSocketFactory(sslContext, new HostnameVerifier() {
+//                public boolean verify(String s, SSLSession sslSession) {
+//                    return true;
+//                }
+//            });
+//
+//        } catch (GeneralSecurityException e) {
+//            e.printStackTrace();
+//        }
         return sslsf;
     }
 

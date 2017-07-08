@@ -38,6 +38,7 @@ public class testCF_JDBC {
 
             for (int j = 0; j < brandIDs.size(); j++) {
                 scoretemp = recommender.estimatePreference(userIDs.get(i), brandIDs.get(j));
+                System.out.print(" "+scoretemp);
                 if (scoretemp > score) {
                     score = scoretemp;
                     bestBrand = brandIDs.get(j);
@@ -75,17 +76,22 @@ public class testCF_JDBC {
         //model.refresh(null);
 
         //测试的brandIds可以从自己的数据库中获得，这里为了简单，只是加了几个做测试。
-        ArrayList<Long> brandIDs = new ArrayList<Long>();
-        brandIDs.add(2215L);
-        brandIDs.add(458L);
-        brandIDs.add(691L);
-        brandIDs.add(3027L);
-        brandIDs.add(1143L);
-
         ArrayList<Long> userIDs = new ArrayList<Long>();
-        userIDs.add(2640L);
-        userIDs.add(1640L);
-        userIDs.add(22845512L);
+        userIDs.add(1L);
+        userIDs.add(2L);
+        userIDs.add(3L);
+
+        ArrayList<Long> brandIDs = new ArrayList<Long>();
+        brandIDs.add(9787020002207L);
+        //brandIDs.add(9787020042494L);
+        //brandIDs.add(9787208061644L);
+        //brandIDs.add(9787506261579L);
+        brandIDs.add(9787512500983L);
+        brandIDs.add(9787532731077L);
+        brandIDs.add(9787532736874L);
+        brandIDs.add(9787020024759L);
+        brandIDs.add(9787532725694L);
+        //brandIDs.add(9787020049295L);
         testCF_JDBC test = new testCF_JDBC();
         hashMap = test.SVDlist(model, userIDs, brandIDs);
         //在之后你可以把这数据写入自己的数据库，或者直接post给他前端，让前端显示相应的产品给用户。

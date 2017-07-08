@@ -169,7 +169,11 @@ public class book_brw_dao extends abstruct_dao{
         Book_brw.setBarcode(barcode);
         Book_brw.setOrderid(orderid);
         book_brw_dao Book_brw_dao = new book_brw_dao(Book_brw);
-        return Book_brw_dao.markBorrow(isWork);
+        boolean ans = Book_brw_dao.markBorrow(isWork);
+        //标记用户喜好
+        if (ans) ubhvor_dao.bhv_borrow(user_dao.getUserByUnionId(unionid).getUserid(),_math.barcodeToIsbn13(barcode));
+
+        return ans;
     }
 
     public static boolean returnBook(String orderid, String barcode,boolean isWork){

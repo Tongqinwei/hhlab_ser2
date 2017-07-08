@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="hhlab_ser2 - 副本:war exploded">
+    <output-path>C:/apache-tomcat-7.0.57/webapps/hhlab</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="hhlab_ser2 - 副本" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-beanutils-1.7.0" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="hhlab_ser2 - 副本/web/Web" />
+    </root>
+  </artifact>
+</component>

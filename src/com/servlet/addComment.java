@@ -2,10 +2,7 @@ package com.servlet;
 
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
-import com.dao.abstruct_dao;
-import com.dao.book_brw_dao;
-import com.dao.comment_dao;
-import com.dao.user_dao;
+import com.dao.*;
 import com.google.gson.JsonObject;
 
 import javax.servlet.ServletException;
@@ -85,6 +82,9 @@ public class addComment extends HttpServlet{
         int userid = user_dao.getUserByUnionId(unionid).getUserid();
 
         if(comment_dao.add(unionid,isbn13,comment,grade,true))retString="add success";
+
+        //添加用户行为
+        ubhvor_dao.bhv_comment(userid,isbn13, (float) grade);
 
         out.write(retString);
         //结尾
