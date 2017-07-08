@@ -1,23 +1,19 @@
 package com.resident.servlet;
 
 import com.dao.orderForm_dao;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import static java.lang.Thread.sleep;
+import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 
 /**
- * Created by hasee on 2017/7/5.
+ * Created by hasee on 2017/7/8.
  */
-public class autoFailureOF extends HttpServlet{
+public class autofailureOrderForm extends Thread {
+    public autofailureOrderForm(){}
     @Override
-    public void init() throws ServletException {
-        super.init();
+    public void run(){
         while (true){
             orderForm_dao.autofailure(20);
             try {
-                sleep(2000);
+                sleep(10000);
             } catch (InterruptedException e) {
                 System.err.println("can not sleep");
                 e.printStackTrace();

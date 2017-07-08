@@ -225,8 +225,8 @@
 
     <servlet>
         <servlet-name>autoFailureOF</servlet-name>
-        <servlet-class>com.resident.servlet.autoFailureOF</servlet-class>
-        <!-- <load-on-startup>0</load-on-startup> -->
+        <servlet-class>com.resident.servlet.resident</servlet-class>
+         <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>autoFailureOF</servlet-name>

@@ -8,6 +8,7 @@ import com.Reservation.ReservationTool;
 import com.beans.ReservationOrder;
 import com.beans.user;
 import com.dao.ReservationDao;
+import com.dao.ubhvor_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
 
@@ -124,6 +125,7 @@ public class ReservationCreateServlet extends HttpServlet {
             // 唤醒
             ReservationManager.update();
             retString = ReservationTool.returnAsJson(true,"success","预订成功",null);
+            ubhvor_dao.bhv_order(user_dao.getUserByUnionId( sessionUser.getOpenID()).getUserid(),isbn);
         } catch (Exception e){
             Writer out = response.getWriter();
             out.write(retString);
