@@ -81,8 +81,8 @@ public class showAllUsers extends HttpServlet {
             _end=_begin+20;
         }
         SessionUser sessionUser = SessionManager.getInstance().getUser(session_id);
-        //if (sessionUser.isAdministrator()) {
-        if (true) {
+        if (sessionUser.isAdministrator()) {
+        //if (true) {
             user_brief[] user_briefs = user_dao.getAllUser_bf(_begin,_end);
             JSONArray jsonString= JSONArray.fromObject(user_briefs);
             retString=jsonString.toString();

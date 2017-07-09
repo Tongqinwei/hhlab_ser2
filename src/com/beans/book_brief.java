@@ -12,6 +12,7 @@ public class book_brief {
     private String image;
     private String isbn13;
     private String barcode;
+    private String[] author;
     private int storage;
     private int storage_cb;
 
@@ -82,5 +83,13 @@ public class book_brief {
 
     public void setStorage_cb(int storage_cb) {
         this.storage_cb = storage_cb;
+    }
+
+    public String[] getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String[] author) {
+        this.author = author;
     }
 }

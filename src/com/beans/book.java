@@ -346,6 +346,9 @@ public class book {
         Book_brief.setIsbn13(isbn13);
         Book_brief.setTitle(title);
         Book_brief.setBarcode(barcode);
+        Book_brief.setAuthor(author);
+        Book_brief.setStorage(storage);
+        Book_brief.setStorage_cb(storage_cb);
         return Book_brief;
     }
 }
