@@ -224,13 +224,22 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>autoFailureOF</servlet-name>
+        <servlet-name>showAllBooks</servlet-name>
+        <servlet-class>com.servlet.showAllBooks</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showAllBooks</servlet-name>
+        <url-pattern>/admin/showAllBooks</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>resident</servlet-name>
         <servlet-class>com.resident.servlet.resident</servlet-class>
          <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>autoFailureOF</servlet-name>
-        <url-pattern>/autoFailureOF</url-pattern>
+        <servlet-name>resident</servlet-name>
+        <url-pattern>/resident</url-pattern>
     </servlet-mapping>
 
 

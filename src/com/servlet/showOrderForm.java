@@ -74,10 +74,10 @@ public class showOrderForm extends HttpServlet {
         String mode = null;
         String orderid = null;
         String session_id = null;
+        String tel = null;
 
         try {
             mode = jsonObject.get("mode").getAsString();
-            if ("1".equals(mode))orderid = jsonObject.get("orderid").getAsString();
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
@@ -85,6 +85,16 @@ public class showOrderForm extends HttpServlet {
             out.close();
             response.flushBuffer();
             return;
+        }
+        try {
+            orderid = jsonObject.get("orderid").getAsString();
+        } catch (Exception e){
+            orderid = null;
+        }
+        try {
+            tel = jsonObject.get("tel").getAsString();
+        } catch (Exception e){
+            tel = null;
         }
         unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
 
@@ -97,11 +107,22 @@ public class showOrderForm extends HttpServlet {
             jsonString= JSONArray.fromObject(OrderForm);
             retString=jsonString.toString();
         }else if ("2".equals(mode)){
-            int aa123sdfkjsalifoe2;
             OrderForms= orderForm_dao.getOrderFormsByUnionid(unionid);
             jsonString= JSONArray.fromObject(OrderForms);
             retString=jsonString.toString();
-        }else {
+        }else if ("3".equals(mode)&&SessionManager.getInstance().getUser(session_id).isAdministrator()) {
+            //管理员功能
+            int userid = user_dao.isExistByTel(tel);
+            if (userid!=-1){
+                OrderForms= orderForm_dao.getOrderFormsByuserid(userid);
+                jsonString= JSONArray.fromObject(OrderForms);
+                retString=jsonString.toString();
+            }else {
+                //查无此人
+                retString = "The reader is not exist!";
+            }
+
+        }else{
             retString="the mode is error";
         }
 

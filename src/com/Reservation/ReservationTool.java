@@ -137,9 +137,13 @@ public class ReservationTool {
         abstruct_dao.close();
         JsonObject bookJson = new JsonObject();
         bookJson.addProperty("book_title", Book.getTitle());
-        bookJson.addProperty("book_content", "图书条码号为 ： " + order.getBarCode());
+        if(order.getBarCode() == null){
+            bookJson.addProperty("book_content", "图书ISBN编码为 ： " + order.getISBN());
+        } else {
+            bookJson.addProperty("book_content", "图书条码号为 ： " + order.getBarCode());
+        }
         bookJson.addProperty("book_img_url", Book.getImage());
-        bookJson.addProperty("book_url", order.getBarCode());
+        bookJson.addProperty("book_url", order.getISBN());
 
         object.add("books", bookJson);
 

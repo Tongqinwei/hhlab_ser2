@@ -62,6 +62,24 @@ public class book_dao extends abstruct_dao{
         }
     }
 
+    public ResultSet getAllbooks(int _begin,int _end){
+        /*
+        * 查询isbn13，返回结果集
+        * */
+        try {
+            Statement stat = conn.createStatement();
+            String sql = String.format("select * from %s order by subclass acs limit ?,?;",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,_begin-1);
+            ps.setInt(2,_end-1);
+            ResultSet rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public static book getBookByResultSet(ResultSet rs){
         /*
         * 根据结果集返回book
@@ -292,6 +310,23 @@ public class book_dao extends abstruct_dao{
         assert books != null;
         book[] array =new book[books.size()];
         return books.toArray(array);
+    }
+
+    public static book[] getAllBooks(int _begin,int _end){
+        book_dao Book_dao= new book_dao(new book());
+        List<book> books=getBooksByResultSet(Book_dao.getAllbooks(_begin,_end));
+        assert books != null;
+        book[] array =new book[books.size()];
+        return books.toArray(array);
+    }
+
+    public static book_brief[] getAllBook_briefs(int _begin,int _end){
+        book[] Books = getAllBooks(_begin,_end);
+        book_brief[] ans = new book_brief[Books.length];
+        for (int i=0;i<Books.length;i++){
+            ans[i]=Books[i].toBook_brief("");
+        }
+        return ans;
     }
 
     private static ResultSet searchToGetResultSet(String key,int _begin,int _end){
