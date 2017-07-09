@@ -1,7 +1,6 @@
 package com.resident.servlet;
 
 import com.dao.orderForm_dao;
-import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
 
 /**
  * Created by hasee on 2017/7/8.

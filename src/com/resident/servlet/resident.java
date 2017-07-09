@@ -17,6 +17,8 @@ public class resident extends HttpServlet{
         autofailureOrderForm AutofailureOF = new autofailureOrderForm();
         AutofailureOF.start();
 
-
+        //推荐
+        create_recommend Create_recommend = new create_recommend();
+        Create_recommend.start();
     }
 }

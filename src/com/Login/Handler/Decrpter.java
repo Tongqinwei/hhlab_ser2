@@ -36,7 +36,7 @@ public class Decrpter {
 
         String target = "bY7mTFgfa1+zSijSh8aLvX2wUR55wvda+uUmPpYzDtBZvc3yJlQVBdS5eqbY2DOHweSq5oPgdjRisDS1DT0LGQXW3hEduddORglJTYFaEi/FC9O3vfPEikeZXUYI+IQispM1WcttdOENltX7to0Vt/rc4sW2cYd0vmluRjFkxJE=";
 
-        byte[] cipherData = cipher.doFinal(Base64.decodeBase64(target));
+        byte[] cipherData = cipher.doFinal(Base64.decodeBase64(target.getBytes()));
         System.out.println(new String(cipherData));
     }
 }

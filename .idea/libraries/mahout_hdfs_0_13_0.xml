@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="mahout-hdfs-0.13.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-hdfs-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-integration-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-math-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-math-scala_2.10-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-mr-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-native-viennacl-omp_2.10-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-native-viennacl_2.10-0.13.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-mr-0.13.0-job.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/mathout/mahout-mr-0.13.0-job.jar!/" />
+    </SOURCES>
+  </library>
+</component>

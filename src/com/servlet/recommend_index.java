@@ -46,7 +46,7 @@ public class recommend_index extends HttpServlet {
             for (int  i=0;i< Books_b_rec.length;i++) {
                 Books_b_rec[i]=book_dao.getBookByIsbn13(strings[i]).toBook_brief("");
             }
-            recommendString=","+JSONArray.fromObject(Books_b_rec).toString();
+            recommendString=",recommend : "+JSONArray.fromObject(Books_b_rec).toString();
         } catch (Exception e){
 
         }

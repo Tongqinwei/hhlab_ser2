@@ -72,7 +72,7 @@ public class AESencryption {
      * @return 编码后的base 64 code
      */
     public static String base64Encode(byte[] bytes){
-        return Base64.encodeBase64String(bytes);
+        return new String(Base64.encodeBase64(bytes));
     }
 
     /**
@@ -82,7 +82,7 @@ public class AESencryption {
      * @throws Exception
      */
     public static byte[] base64Decode(String base64Code) throws Exception{
-        return StringUtils.isEmpty(base64Code) ? null : new BASE64Decoder().decodeBuffer(base64Code);
+        return Base64.decodeBase64(base64Code.getBytes());
     }
 
 
