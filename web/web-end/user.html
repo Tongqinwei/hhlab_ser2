@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta content="" name="description" />
     <meta content="webthemez" name="author" />
-    <title>霍哈图书馆系统</title>
+    <title>嚯哈图书馆系统</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -13,12 +13,13 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="all.css" />
 </head>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 霍哈图书馆</strong></a>
+                <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 嚯哈图书馆</strong></a>
 		
             </div>
         </nav>
@@ -58,7 +59,7 @@
         <div id="page-wrapper">
 		  <div class="header"> 
                     <h1 class="page-header">
-                       <small>霍哈图书馆</small>
+                       <small>嚯哈图书馆</small>
                     </h1>
 					<ol class="breadcrumb">
                       <li>目前所在位置： </li>
@@ -73,6 +74,9 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                              用户信息
+                            <button onclick="search()" class="search_btn">搜索</button>
+                            <input type="text" name="search" id="search" placeholder="输入用户信息" />
+                            <img src="images/search.png" class="search_icon"> 
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -81,9 +85,10 @@
                                         <tr>
                                             <th>用户名</th>
                                             <th>电话</th>
+                                            <th>邮箱</th>
                                             <th>证件类型</th>
                                             <th>证件号</th>
-                                            <th>邮箱</th>
+                                            <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody class="tbody">
@@ -96,7 +101,7 @@
                     <!--End Advanced Tables -->
                  </div>
                 </div>
-				 <footer><p>Copyright &copy; 霍哈图书馆管理系统</p></footer>
+				 <footer><p>Copyright &copy; 嚯哈图书馆管理系统</p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
          </div>
@@ -109,14 +114,7 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
+    
          <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     <script type="text/javascript" src="js/user.js"></script>

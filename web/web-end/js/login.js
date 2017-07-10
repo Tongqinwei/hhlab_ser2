@@ -2,13 +2,19 @@ $(function(){
   $("#login").on('click', function () {
       var username = $("#username").val();
       var password = $("#password").val();
+    
       $.ajax({
-        url: "",
+        url: "/hhlab/admin/login",
         type: "POST",
-        data: {username: username, password: password},
+        dataType: "json",
+        data: JSON.stringify(
+              {log_name:username, 
+               password:password
+             }),
+
         success: function (result) {
-          var items = result['data'];
-          //alert(items[0].username);
+          
+          sessionStorage.setItem('session',result.message);
           window.location.href="index.html";
         },
         error: function () {
