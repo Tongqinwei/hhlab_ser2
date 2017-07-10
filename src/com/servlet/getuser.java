@@ -64,7 +64,7 @@ public class getuser extends HttpServlet {
 
         }
 
-        out.write(retString);
+        out.write("["+retString+"]");
         //结尾
         out.flush();
         out.close();

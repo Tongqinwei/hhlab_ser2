@@ -68,7 +68,7 @@ public class book_dao extends abstruct_dao{
         * */
         try {
             Statement stat = conn.createStatement();
-            String sql = String.format("select * from %s order by subclass acs limit ?,?;",table_book);
+            String sql = String.format("select * from %s order by subclass asc limit ?,?;",table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,_begin-1);
             ps.setInt(2,_end-1);
