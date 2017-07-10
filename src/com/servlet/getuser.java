@@ -10,6 +10,7 @@ import com.dao.user_dao;
 import com.google.gson.JsonObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONString;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,20 +52,21 @@ public class getuser extends HttpServlet {
             return;
         }
         SessionUser sessionUser = SessionManager.getInstance().getUser(session_id);
+        user[] Users;
         if (sessionUser.isAdministrator()) {
             //if (true) {
             int userid = user_dao.isExistByTel(tel);
             if (userid!=-1) {
                 user User = user_dao.getUserByUserid(user_dao.isExistByTel(tel));
-                JSONObject jsonString= JSONObject.fromObject(User);
-                retString=jsonString.toString();
+                Users= new user[1];
+                Users[0]=User;
             }else {
-                retString="{}";
+                Users=new user[0];
             }
-
+            JSONArray jsonString= JSONArray.fromObject(Users);
+            retString= jsonString.toString();
         }
-
-        out.write("["+retString+"]");
+        out.write(retString);
         //结尾
         out.flush();
         out.close();
