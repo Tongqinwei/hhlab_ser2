@@ -36,8 +36,9 @@ public class importFile extends HttpServlet {
 
         //取参数
         String filename = request.getParameter("filename");
+        String OS = request.getParameter("OS");
 
-        book_dao.importFile(filename);
+        book_dao.importFile(OS,filename);
 
         retString="{\"success\":true}";
         out.write(retString);
@@ -59,9 +60,10 @@ public class importFile extends HttpServlet {
         //取参数
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
         String filename = null;
-
+        String OS =null;
         try {
             if (jsonObject.get("filename")!=null) filename=jsonObject.get("filename").getAsString();
+            if (jsonObject.get("OS")!=null) OS=jsonObject.get("OS").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
             out.flush();
@@ -70,7 +72,7 @@ public class importFile extends HttpServlet {
             response.flushBuffer();
             return;
         }
-        book_dao.importFile(filename);
+        book_dao.importFile(OS,filename);
 
 
         retString="{\"success\":true}";

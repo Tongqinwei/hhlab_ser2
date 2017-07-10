@@ -419,8 +419,9 @@ public class book_dao extends abstruct_dao{
         return Book_dao.addNewGrade(grade,isWork);
     }
 
-    public static void importFile(String filename){
-        abstruct_dao.importFileLinux(table_book,filename);
+    public static void importFile(String OS ,String filename){
+        if ("Linux".equals(OS)) abstruct_dao.importFileLinux(table_book,filename);
+        else if ("Windows".equals(OS)) abstruct_dao.importFileWindows(table_book,filename);
     }
 
     public ResultSet searchOfAdmin(int _begin,int _end){
