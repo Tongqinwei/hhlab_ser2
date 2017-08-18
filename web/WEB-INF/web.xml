@@ -244,11 +244,20 @@
     <servlet>
         <servlet-name>resident</servlet-name>
         <servlet-class>com.resident.servlet.resident</servlet-class>
-         <load-on-startup>0</load-on-startup>
+        <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>resident</servlet-name>
         <url-pattern>/resident</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>testforandroid</servlet-name>
+        <servlet-class>com.servlet.testforandroid</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testforandroid</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
 

@@ -23,5 +23,6 @@
     <orderEntry type="library" name="mahout-hdfs-0.13.0" level="project" />
     <orderEntry type="library" name="annotations-15.0" level="project" />
     <orderEntry type="library" name="commons-lang3-3.5" level="project" />
+    <orderEntry type="library" name="servlet-api" level="project" />
   </component>
 </module>

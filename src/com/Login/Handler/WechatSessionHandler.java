@@ -15,8 +15,8 @@ public class WechatSessionHandler {
 
 //    https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
 
-    private final static String AppID = "wxa91dffb4b955bb2f";
-    private final static String secret = "2bea0ecf3d80ae58b27185fd9904ebc0";
+    private final static String AppID = "wx4d48872cb59e4010";
+    private final static String secret = "390aa62f7b48d143f2591ec01122df91";
     private final static String grant_type = "authorization_code";
     private final static String TargetUrl = "https://api.weixin.qq.com/sns/jscode2session";
 
