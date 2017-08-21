@@ -260,5 +260,13 @@
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>price_compare</servlet-name>
+        <servlet-class>com.servlet.priceCompareServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>price_compare</servlet-name>
+        <url-pattern>/price</url-pattern>
+    </servlet-mapping>
 
 </web-app>
