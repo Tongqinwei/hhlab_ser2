@@ -41,7 +41,7 @@ public class priceCompareServlet extends HttpServlet {
             jsonObject = MyJsonParser.String2Json(data);
             isbn = jsonObject.get("isbn").getAsString();
         } catch (Exception e) {
-            out.write(PriceJsonHandler.getErrorJson("error json").getAsString());
+            out.write(PriceJsonHandler.getErrorJson("error json").toString());
             out.flush();
             out.close();
             response.flushBuffer();
@@ -57,7 +57,7 @@ public class priceCompareServlet extends HttpServlet {
 
 
         } catch (Exception e) {
-            out.write(PriceJsonHandler.getErrorJson("http failure").getAsString());
+            out.write(PriceJsonHandler.getErrorJson("http failure").toString());
             out.flush();
             out.close();
             response.flushBuffer();
@@ -70,7 +70,7 @@ public class priceCompareServlet extends HttpServlet {
             element = handler.getElement(result);
         } catch (Exception e) {
             e.printStackTrace();
-            out.write(PriceJsonHandler.getErrorJson("error parse html").getAsString());
+            out.write(PriceJsonHandler.getErrorJson("error parse html").toString());
             out.flush();
             out.close();
             response.flushBuffer();
@@ -80,7 +80,7 @@ public class priceCompareServlet extends HttpServlet {
         try {
             retJson = handler.parseElement(element);
         } catch (Exception e) {
-            out.write(PriceJsonHandler.getErrorJson("error when read price").getAsString());
+            out.write(PriceJsonHandler.getErrorJson("error when read price").toString());
             out.flush();
             out.close();
             response.flushBuffer();

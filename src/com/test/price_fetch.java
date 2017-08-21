@@ -1,6 +1,7 @@
 package com.test;
 
 import com.PriceFetch.PriceFetchException;
+import com.PriceFetch.PriceJsonHandler;
 import com.PriceFetch.priceHandler;
 
 import java.io.*;
@@ -30,5 +31,7 @@ public class price_fetch {
         read.close();
 
         parser.parseElement(parser.getElement(content));
+
+        System.out.println(PriceJsonHandler.getErrorJson("123123").toString());
     }
 }
