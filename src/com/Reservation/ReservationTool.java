@@ -90,16 +90,13 @@ public class ReservationTool {
         /**
          * 将订单按照订单状态降序排列，二级排序按预订时间排序
          * */
-        list.sort(new Comparator<ReservationOrder>() {
-            //            升序排列：obj1-obj2>0的话返回1，说明按照从小到大排序
-            @Override
-            public int compare(ReservationOrder o1, ReservationOrder o2) {
-                if(o1.getState() == o2.getState()){
-                    long tem = o1.getReserveTime().getTime() - o2.getReserveTime().getTime();
-                    return tem > 0 ? 1 : -1;
-                } else {
-                    return o1.getState() - o2.getState();
-                }
+        //            升序排列：obj1-obj2>0的话返回1，说明按照从小到大排序
+        list.sort((o1, o2) -> {
+            if(o1.getState() == o2.getState()){
+                long tem = o1.getReserveTime().getTime() - o2.getReserveTime().getTime();
+                return tem > 0 ? 1 : -1;
+            } else {
+                return o1.getState() - o2.getState();
             }
         });
     }
