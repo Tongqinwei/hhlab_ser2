@@ -60,8 +60,11 @@ public abstract class abstruct_dao {
     }
 
     public static void close(){
-        if (conn!=null) JDBC.close(conn,null);
-        conn=null;
+        /*
+        * 内测阶段，啥都不干。
+        * */
+        //if (conn!=null) JDBC.close(conn,null);
+        //conn=null;
     }
 
     public static void connect(){

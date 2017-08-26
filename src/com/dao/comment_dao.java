@@ -102,6 +102,7 @@ public class comment_dao extends abstruct_dao{
             while (rs.next()){
                 comment newcomment = new comment();
                 newcomment.setId(rs.getInt("id"));
+                newcomment.setName(user_dao.getTrueNameByUserid(newcomment.getUserid()));
                 newcomment.setIsbn13(rs.getString("isbn13"));
                 newcomment.setUserid(rs.getInt("userid"));
                 newcomment.setContent(rs.getString("comment"));

@@ -5,6 +5,7 @@ package com.beans;
  */
 public class comment {
     private int id;
+    private String name;
     private String user_name;
     private int userid;
     private String isbn13;
@@ -57,5 +58,13 @@ public class comment {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
