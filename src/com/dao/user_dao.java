@@ -227,21 +227,24 @@ public class user_dao extends abstruct_dao{
             Statement stat = conn.createStatement();
             String sql = String.format("select * from %s where unionid='%s';", table_user, unionId);
             ResultSet rs = stat.executeQuery(sql);
-            rs.last();
-            user User = new user();
-            User.setUserid(rs.getInt("userid"));
-            User.setTel(rs.getString("tel"));
-            User.setUnionid(rs.getString("unionid"));
-            User.setDegree(rs.getInt("degree"));
-            Date tempbir=rs.getDate("birthday");
-            if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
-            User.setEmail(rs.getString("email"));
-            User.setAddress(rs.getString("address"));
-            User.setPostcode(rs.getString("postcode"));
-            User.setName(rs.getString("name"));
-            User.setCertificate(rs.getInt("certificate"));
-            User.setCertificateid(rs.getString("certificateid"));
-            User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+//
+            user User = null;
+            while(rs.next()){
+                User = new user();
+                User.setUserid(rs.getInt("userid"));
+                User.setTel(rs.getString("tel"));
+                User.setUnionid(rs.getString("unionid"));
+                User.setDegree(rs.getInt("degree"));
+                Date tempbir=rs.getDate("birthday");
+                if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+                User.setEmail(rs.getString("email"));
+                User.setAddress(rs.getString("address"));
+                User.setPostcode(rs.getString("postcode"));
+                User.setName(rs.getString("name"));
+                User.setCertificate(rs.getInt("certificate"));
+                User.setCertificateid(rs.getString("certificateid"));
+                User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+            }
             return User;
 
         } catch (SQLException e) {

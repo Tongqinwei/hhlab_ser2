@@ -200,7 +200,7 @@ public class ReservationTool {
          * 发送超时短信
          * "【嚯哈借阅伴侣】您预订的#book#图书，超时未办理预定已失效，图书将不再为您保留，您可以选择重新预定。预订单号：#order#"
          * */
-        SMSHandler smsHandler = new SMSHandler(SMSHandlerManager.RESERVATION_ADD_TEXT);
+        SMSHandler smsHandler = new SMSHandler(SMSHandlerManager.RESERVATION_FAILED_TEXT);
         smsHandler.setTelNum(tel);
         smsHandler.setAttribute(BookSetter.BookTag, BookSetter.setBook(book_dao.getBookByIsbn13(order.getISBN()).getTitle()));
         smsHandler.setAttribute(OrderSetter.OrderTag,OrderSetter.setOrder(order.getOrderID()));

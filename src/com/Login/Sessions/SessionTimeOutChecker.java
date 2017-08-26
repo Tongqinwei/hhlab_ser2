@@ -57,6 +57,7 @@ public class SessionTimeOutChecker extends Thread {
                 sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                interrupted();
             }
 
         }

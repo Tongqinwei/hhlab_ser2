@@ -6,7 +6,6 @@ import com.PriceFetch.priceHandler;
 import com.google.gson.JsonObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
-import ssm.tools.HttpConnector;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
