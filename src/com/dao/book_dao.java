@@ -104,13 +104,16 @@ public class book_dao extends abstruct_dao{
                 _Book.setSummary(rs.getString("introduction"));
                 _Book.setStorage(rs.getInt("storage"));
                 _Book.setStorage_cb(rs.getInt("storage_cb"));
+                _Book.setGrade_times(rs.getInt("grade_times"));
+                _Book.setGrade_ave(rs.getDouble("grade_ave"));
+
             }
             return _Book;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-    }
+}
 
     public static List<book> getBooksByResultSet(ResultSet rs){
         /*
@@ -136,6 +139,8 @@ public class book_dao extends abstruct_dao{
                 _Book.setSummary(rs.getString("introduction"));
                 _Book.setStorage(rs.getInt("storage"));
                 _Book.setStorage_cb(rs.getInt("storage_cb"));
+                _Book.setGrade_times(rs.getInt("grade_times"));
+                _Book.setGrade_ave(rs.getDouble("grade_ave"));
                 Books.add(_Book);
             }
             return Books;

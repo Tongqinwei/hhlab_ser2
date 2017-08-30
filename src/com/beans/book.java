@@ -43,6 +43,9 @@ public class book {
 
     private String pinyin;
 
+    private int grade_times;
+    private double grade_ave;
+
     public int getStorage_cb() {
         return storage_cb;
     }
@@ -340,6 +343,22 @@ public class book {
         this.pinyin = pinyin;
     }
 
+    public int getGrade_times() {
+        return grade_times;
+    }
+
+    public void setGrade_times(int grade_times) {
+        this.grade_times = grade_times;
+    }
+
+    public double getGrade_ave() {
+        return grade_ave;
+    }
+
+    public void setGrade_ave(double grade_ave) {
+        this.grade_ave = grade_ave;
+    }
+
     public book_brief toBook_brief(String barcode){
         book_brief Book_brief =new book_brief();
         Book_brief.setImage(image);
@@ -349,6 +368,8 @@ public class book {
         Book_brief.setAuthor(author);
         Book_brief.setStorage(storage);
         Book_brief.setStorage_cb(storage_cb);
+        Book_brief.setGrade_ave(grade_ave);
+        Book_brief.setGrade_times(grade_times);
         return Book_brief;
     }
 }
