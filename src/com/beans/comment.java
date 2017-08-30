@@ -11,6 +11,7 @@ public class comment {
     private String isbn13;
     private double rate;
     private String content;
+    private String c_time;
     public comment(){}
     public int getId() {
         return id;
@@ -66,5 +67,13 @@ public class comment {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getC_time() {
+        return c_time;
+    }
+
+    public void setC_time(String c_time) {
+        this.c_time = c_time;
     }
 }

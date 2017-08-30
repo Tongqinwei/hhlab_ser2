@@ -269,4 +269,13 @@
         <url-pattern>/price</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>yearStatementServlet</servlet-name>
+        <servlet-class>com.servlet.yearStatementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearStatementServlet</servlet-name>
+        <url-pattern>/yearstatement</url-pattern>
+    </servlet-mapping>
+
 </web-app>

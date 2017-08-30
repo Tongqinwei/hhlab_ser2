@@ -1,5 +1,6 @@
 package com.resident.servlet;
 
+import com.dao.abstruct_dao;
 import com.dao.ubhvor_dao;
 
 /**
@@ -10,6 +11,7 @@ public class create_recommend extends Thread {
     @Override
     public void run(){
         while (true){
+            abstruct_dao.connect();
             ubhvor_dao.flush();
             try {
                 sleep(10000);
@@ -17,6 +19,7 @@ public class create_recommend extends Thread {
                 System.err.println("can not sleep");
                 e.printStackTrace();
             }
+            abstruct_dao.close();
         }
     }
 }

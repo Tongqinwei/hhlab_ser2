@@ -43,7 +43,7 @@ public class comment_dao extends abstruct_dao{
         Comment.setUserid(userid);
         try {
             if (isWork) abstruct_dao.work_begin();
-            String sql = String.format("insert into %s(userid , isbn13 , comment , grade )values (?,?,?,?);", table_comment);
+            String sql = String.format("insert into %s(userid , isbn13 , comment , grade , c_time )values (?,?,?,?,NOW());", table_comment);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, Comment.getUserid());
             ps.setString(2, Comment.getIsbn13());
@@ -108,6 +108,7 @@ public class comment_dao extends abstruct_dao{
                 newcomment.setContent(rs.getString("comment"));
                 newcomment.setRate(rs.getInt("grade"));
                 newcomment.setUser_name(user_dao.getTrueNameByUserid(newcomment.getUserid()));
+                newcomment.setC_time(rs.getString("c_time"));
 
                 comments.add(newcomment);
             }
