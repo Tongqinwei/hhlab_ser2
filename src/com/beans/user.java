@@ -15,6 +15,7 @@ public class user {
     private String name;
     private int certificate;
     private String certificateid;
+    private String image;
 
     private int recommendFrequency;
 
@@ -115,6 +116,14 @@ public class user {
         this.recommendFrequency = recommendFrequency;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public user_brief toBrief(){
         user_brief User_brief = new user_brief();
         User_brief.setCertificate(certificate);
@@ -125,5 +134,12 @@ public class user {
         User_brief.setUserid(userid);
         User_brief.setUnionid(unionid);
         return User_brief;
+    }
+
+    public user_brief2 toBrief2(){
+        user_brief2 User_brief2 = new user_brief2();
+        User_brief2.setName(name);
+        User_brief2.setName(image);
+        return User_brief2;
     }
 }

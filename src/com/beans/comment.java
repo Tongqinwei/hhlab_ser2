@@ -1,5 +1,7 @@
 package com.beans;
 
+import java.sql.Timestamp;
+
 /**
  * Created by hasee on 2017/5/19.
  */
@@ -11,7 +13,10 @@ public class comment {
     private String isbn13;
     private double rate;
     private String content;
-    private String c_time;
+    private Timestamp c_time;
+    private user_brief2 User;
+    private book_brief Book;
+
     public comment(){}
     public int getId() {
         return id;
@@ -69,11 +74,27 @@ public class comment {
         this.name = name;
     }
 
-    public String getC_time() {
+    public Timestamp getC_time() {
         return c_time;
     }
 
-    public void setC_time(String c_time) {
+    public void setC_time(Timestamp c_time) {
         this.c_time = c_time;
+    }
+
+    public user_brief2 getUser() {
+        return User;
+    }
+
+    public void setUser(user_brief2 user) {
+        User = user;
+    }
+
+    public book_brief getBook() {
+        return Book;
+    }
+
+    public void setBook(book_brief book) {
+        Book = book;
     }
 }

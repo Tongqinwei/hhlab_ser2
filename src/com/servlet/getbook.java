@@ -32,7 +32,7 @@ public class getbook extends HttpServlet {
         Writer out = response.getWriter();
         if (Book!=null) {
             bookpage_bean Bookpage_bean=Book.toBookpage_bean();
-            comment[] comments = comment_dao.getComments(isbn13,1,5);
+            comment[] comments = comment_dao.getComments(isbn13,1,5,false);
             Bookpage_bean.setComments(comments);
             Bookpage_bean.setStorage(storage_book_dao.count_transcript(isbn13));
             storage_book[] Storage_books =  storage_book_dao.getStorage_books(isbn13);
@@ -82,7 +82,7 @@ public class getbook extends HttpServlet {
         book Book = book_dao.getBookByIsbn13(isbn13);
         if (Book!=null) {
             bookpage_bean Bookpage_bean=Book.toBookpage_bean();
-            comment[] comments = comment_dao.getComments(isbn13,1,5);
+            comment[] comments = comment_dao.getComments(isbn13,1,6,false);
             Bookpage_bean.setComments(comments);
             Bookpage_bean.setStorage(storage_book_dao.count_transcript(isbn13));
             storage_book[] Storage_books =  storage_book_dao.getStorage_books(isbn13);
