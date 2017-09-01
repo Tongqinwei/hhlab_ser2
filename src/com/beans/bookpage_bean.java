@@ -19,6 +19,7 @@ public class bookpage_bean {
     private storage_book[] storage_books;
     private int grade_times;
     private double grade_ave;
+    private String grade_ave_f;
 
     public book toBook(){
         book Book = new book();
@@ -154,5 +155,13 @@ public class bookpage_bean {
 
     public void setGrade_ave(double grade_ave) {
         this.grade_ave = grade_ave;
+    }
+
+    public String getGrade_ave_f() {
+        return grade_ave_f;
+    }
+
+    public void setGrade_ave_f(String grade_ave_f) {
+        this.grade_ave_f = grade_ave_f;
     }
 }

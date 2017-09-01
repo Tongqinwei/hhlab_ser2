@@ -45,6 +45,7 @@ public class book {
 
     private int grade_times;
     private double grade_ave;
+    private String grade_ave_f;
 
     public int getStorage_cb() {
         return storage_cb;
@@ -68,6 +69,7 @@ public class book {
         Bookpage_bean.setGuide_read(summary);
         Bookpage_bean.setStorage(storage);
         Bookpage_bean.setGrade_ave(grade_ave);
+        Bookpage_bean.setGrade_ave_f(grade_ave_f);
         Bookpage_bean.setGrade_times(grade_times);
         return Bookpage_bean;
     }
@@ -361,6 +363,14 @@ public class book {
         this.grade_ave = grade_ave;
     }
 
+    public String getGrade_ave_f() {
+        return grade_ave_f;
+    }
+
+    public void setGrade_ave_f(String grade_ave_f) {
+        this.grade_ave_f = grade_ave_f;
+    }
+
     public book_brief toBook_brief(String barcode){
         book_brief Book_brief =new book_brief();
         Book_brief.setImage(image);
@@ -371,6 +381,7 @@ public class book {
         Book_brief.setStorage(storage);
         Book_brief.setStorage_cb(storage_cb);
         Book_brief.setGrade_ave(grade_ave);
+        Book_brief.setGrade_ave_f(grade_ave_f);
         Book_brief.setGrade_times(grade_times);
         return Book_brief;
     }

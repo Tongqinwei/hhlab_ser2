@@ -17,6 +17,9 @@ public class user {
     private String certificateid;
     private String image;
 
+    private int follow;
+    private int fan;
+
     private int recommendFrequency;
 
     public user(){}
@@ -139,7 +142,7 @@ public class user {
     public user_brief2 toBrief2(){
         user_brief2 User_brief2 = new user_brief2();
         User_brief2.setName(name);
-        User_brief2.setName(image);
+        User_brief2.setImage(image);
         return User_brief2;
     }
 }
