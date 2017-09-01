@@ -45,4 +45,14 @@ public class MyJsonParser {
         JsonParser jsonParser = new JsonParser();
         return (JsonObject) jsonParser.parse(json);
     }
+
+    public static JsonObject retObject(boolean state, String errMsg, String content, JsonElement attach ){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("state",state);
+        jsonObject.addProperty("errMsg",errMsg);
+        jsonObject.addProperty("content",content);
+        jsonObject.add("att",attach);
+
+        return jsonObject;
+    }
 }

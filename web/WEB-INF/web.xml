@@ -278,6 +278,16 @@
         <servlet-name>update_image</servlet-name>
         <url-pattern>/user/update_image</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>check_session</servlet-name>
+        <servlet-class>com.servlet.CheckSession</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>check_session</servlet-name>
+        <url-pattern>/user/check_session</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>yearStatementServlet</servlet-name>

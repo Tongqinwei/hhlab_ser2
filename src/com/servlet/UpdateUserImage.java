@@ -4,6 +4,7 @@ import com.Login.Bean.SessionUser;
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.user;
+import com.dao.UserImageDao;
 import com.dao.abstruct_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
@@ -65,11 +66,23 @@ public class UpdateUserImage extends HttpServlet {
         try {
 
             user userInfo = user_dao.getUserByUnionId(sessionUser.getOpenID());
+            if (userInfo.getUnionid().contentEquals(sessionUser.getOpenID())){
+                // match user
+                UserImageDao.UpdateUserImage(userInfo.getUnionid(),imgURL);
+            }
 
         } catch (Exception e){
             e.printStackTrace();
+            out.write(MyJsonParser.SetUserInfoModifyResult(false,"failed"));
+            out.flush();
+            response.flushBuffer();
+            return;
         }
 
+        out.write(MyJsonParser.SetUserInfoModifyResult(true,"success"));
+        out.flush();
+        response.flushBuffer();
+        return;
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
