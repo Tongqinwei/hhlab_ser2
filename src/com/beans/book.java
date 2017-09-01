@@ -67,6 +67,8 @@ public class book {
         Bookpage_bean.setTitle(title);
         Bookpage_bean.setGuide_read(summary);
         Bookpage_bean.setStorage(storage);
+        Bookpage_bean.setGrade_ave(grade_ave);
+        Bookpage_bean.setGrade_times(grade_times);
         return Bookpage_bean;
     }
 

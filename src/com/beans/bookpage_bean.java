@@ -17,6 +17,8 @@ public class bookpage_bean {
     private comment[] comments;
     private int storage;
     private storage_book[] storage_books;
+    private int grade_times;
+    private double grade_ave;
 
     public book toBook(){
         book Book = new book();
@@ -136,5 +138,21 @@ public class bookpage_bean {
 
     public void setSubclass(String subclass) {
         this.subclass = subclass;
+    }
+
+    public int getGrade_times() {
+        return grade_times;
+    }
+
+    public void setGrade_times(int grade_times) {
+        this.grade_times = grade_times;
+    }
+
+    public double getGrade_ave() {
+        return grade_ave;
+    }
+
+    public void setGrade_ave(double grade_ave) {
+        this.grade_ave = grade_ave;
     }
 }
