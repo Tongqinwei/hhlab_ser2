@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -106,6 +107,8 @@ public class book_dao extends abstruct_dao{
                 _Book.setStorage_cb(rs.getInt("storage_cb"));
                 _Book.setGrade_times(rs.getInt("grade_times"));
                 _Book.setGrade_ave(rs.getDouble("grade_ave"));
+                DecimalFormat df = new DecimalFormat("#.0");
+                _Book.setGrade_ave_f(df.format(_Book.getGrade_ave()));
 
             }
             return _Book;
@@ -141,6 +144,8 @@ public class book_dao extends abstruct_dao{
                 _Book.setStorage_cb(rs.getInt("storage_cb"));
                 _Book.setGrade_times(rs.getInt("grade_times"));
                 _Book.setGrade_ave(rs.getDouble("grade_ave"));
+                DecimalFormat df = new DecimalFormat("#.0");
+                _Book.setGrade_ave_f(df.format(_Book.getGrade_ave()));
                 Books.add(_Book);
             }
             return Books;
