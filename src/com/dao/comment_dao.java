@@ -86,14 +86,23 @@ public class comment_dao extends abstruct_dao{
         else return true;
     }
 
-    public comment[] getComments(int _begin, int _end){
+    public comment[] getComments(int _begin, int _end, boolean haveBookInfo,String key){
         /*
         * 返回userid 失败返回-1
         * */
         try {
-            String sql = String.format("select * from %s where isbn13 = ? and not (comment is null) limit ?,? ;", table_comment);
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,Comment.getIsbn13());
+            String sql;
+            PreparedStatement ps;
+            if (key.equals("isbn13")){
+                sql = String.format("select * from %s where isbn13 = ? and not (comment is null) order by c_time desc limit ?,? ;", table_comment);
+                ps = conn.prepareStatement(sql);
+                ps.setString(1,Comment.getIsbn13());
+            }else {
+                sql = String.format("select * from %s where userid = ? and not (comment is null) order by c_time desc limit ?,? ;", table_comment);
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1,Comment.getUserid());
+            }
+
             ps.setInt(2,_begin-1);
             ps.setInt(3,_end-1);
             ResultSet rs = ps.executeQuery();
@@ -102,12 +111,21 @@ public class comment_dao extends abstruct_dao{
             while (rs.next()){
                 comment newcomment = new comment();
                 newcomment.setId(rs.getInt("id"));
+                newcomment.setName(user_dao.getTrueNameByUserid(newcomment.getUserid()));
                 newcomment.setIsbn13(rs.getString("isbn13"));
                 newcomment.setUserid(rs.getInt("userid"));
                 newcomment.setContent(rs.getString("comment"));
                 newcomment.setRate(rs.getInt("grade"));
                 newcomment.setUser_name(user_dao.getTrueNameByUserid(newcomment.getUserid()));
-
+                newcomment.setC_time(rs.getTimestamp("c_time"));
+                if (haveBookInfo) {
+                    book Book=book_dao.getBookByIsbn13(newcomment.getIsbn13());
+                    newcomment.setBook(Book.toBook_brief(""));
+                }else {
+                    newcomment.setBook(null);
+                }
+                user User = user_dao.getUserByUserid(newcomment.getUserid());
+                newcomment.setUser(User.toBrief2());
                 comments.add(newcomment);
             }
             comment[] array =new comment[comments.size()];
@@ -118,11 +136,18 @@ public class comment_dao extends abstruct_dao{
         }
     }
 
-    public static comment[] getComments(String isbn13,int _begin,int _end){
+    public static comment[] getComments(String isbn13,int _begin,int _end,boolean haveBookInfo){
         comment Comment=new comment();
         Comment.setIsbn13(isbn13);
         comment_dao Comment_dao = new comment_dao(Comment);
-        return Comment_dao.getComments(_begin,_end);
+        return Comment_dao.getComments(_begin,_end,haveBookInfo,"isbn13");
+    }
+
+    public static comment[] getComments(int userid,int _begin,int _end,boolean haveBookInfo){
+        comment Comment=new comment();
+        Comment.setUserid(userid);
+        comment_dao Comment_dao = new comment_dao(Comment);
+        return Comment_dao.getComments(_begin,_end,haveBookInfo,"userid");
     }
 
     public static boolean add(comment Comment,boolean isWork){

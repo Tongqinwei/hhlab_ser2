@@ -279,4 +279,31 @@
         <url-pattern>/user/update_image</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>yearStatementServlet</servlet-name>
+        <servlet-class>com.servlet.yearStatementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>yearStatementServlet</servlet-name>
+        <url-pattern>/yearstatement</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getMoreComment</servlet-name>
+        <servlet-class>com.servlet.getMoreComment</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getMoreComment</servlet-name>
+        <url-pattern>/getMoreComment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userHome</servlet-name>
+        <servlet-class>com.servlet.userHome</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userHome</servlet-name>
+        <url-pattern>/userHome</url-pattern>
+    </servlet-mapping>
+
 </web-app>

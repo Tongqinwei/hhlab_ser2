@@ -166,7 +166,7 @@ public class user_dao extends abstruct_dao{
         if (User.getTel()==null||User.getTel()=="") return -1;
         try {
             Statement stat = conn.createStatement();
-            String sql = "select userid from "+table_user+" where tel=\'"+User.getTel()+"\';";
+            String sql = String.format("select userid from %s where tel='%s';", table_user, User.getTel());
             ResultSet rs = stat.executeQuery(sql);
             rs.last();
             if (rs.getRow()==0) return -1;
@@ -199,7 +199,7 @@ public class user_dao extends abstruct_dao{
     public String getTrueNameByUserid(){
         try {
             Statement stat = conn.createStatement();
-            String sql = "select * from "+table_user+" where userid="+User.getUserid()+";";
+            String sql = String.format("select * from %s where userid=%d;", table_user, User.getUserid());
             ResultSet rs = stat.executeQuery(sql);
             rs.last();
             if (rs.getRow()==0) return null;
@@ -244,6 +244,7 @@ public class user_dao extends abstruct_dao{
                 User.setCertificate(rs.getInt("certificate"));
                 User.setCertificateid(rs.getString("certificateid"));
                 User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+                User.setImage(rs.getString("image"));
             }
             return User;
 
@@ -280,6 +281,7 @@ public class user_dao extends abstruct_dao{
             User.setCertificate(rs.getInt("certificate"));
             User.setCertificateid(rs.getString("certificateid"));
             User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+            User.setImage(rs.getString("image"));
             return User;
 
         } catch (SQLException e) {
@@ -311,6 +313,7 @@ public class user_dao extends abstruct_dao{
                 User.setCertificate(rs.getInt("certificate"));
                 User.setCertificateid(rs.getString("certificateid"));
                 User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+                User.setImage(rs.getString("image"));
                 users.add(User);
             }
             user[] array =new user[users.size()];

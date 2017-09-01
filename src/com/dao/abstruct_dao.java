@@ -23,6 +23,8 @@ public abstract class abstruct_dao {
     protected static final String table_admin="admin_table";
     protected static final String table_ubhvor="ubhvor";
     protected static final String table_ubhvor_estimates="ubhvor_estimates";
+    protected static final String table_year_statement_s="year_statement_s";
+    protected static final String table_year_statement="year_statement";
 
     protected static Connection conn = null;
     public static Connection getConn(){
@@ -60,8 +62,11 @@ public abstract class abstruct_dao {
     }
 
     public static void close(){
-        if (conn!=null) JDBC.close(conn,null);
-        conn=null;
+        /*
+        * 内测阶段，啥都不干。
+        * */
+        //if (conn!=null) JDBC.close(conn,null);
+        //conn=null;
     }
 
     public static void connect(){

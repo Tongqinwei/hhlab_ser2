@@ -2,8 +2,12 @@ package com.servlet;
 
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
-import com.dao.*;
+import com.beans.year_statement;
+import com.dao.abstruct_dao;
+import com.dao.user_dao;
+import com.dao.year_statement_dao;
 import com.google.gson.JsonObject;
+import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +18,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Created by hasee on 2017/6/27.
+ * Created by hasee on 2017/8/27.
  */
-@WebServlet(name = "addComment")
-public class addComment extends HttpServlet{
+@WebServlet(name = "yearStatementServlet")
+public class yearStatementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //开头
         response.setContentType("text/html;charset=UTF-8");
@@ -29,18 +33,12 @@ public class addComment extends HttpServlet{
         String retString="failure";
 
         //取参数
-        String isbn13 = request.getParameter("isbn13");
-        String comment = request.getParameter("comment");
-        String unionid = request.getParameter("unionid");
-        double grade = 3.0;
-        if (request.getParameter("grade")!=null){
-            grade=Integer.parseInt(request.getParameter("grade"));
+        String key = request.getParameter("key");
+
+        if (key.equals("960522")){
+            year_statement_dao.init();
+            retString="已重新计算统计信息";
         }
-
-        int userid = user_dao.getUserByUnionId(unionid).getUserid();
-        String name=user_dao.getTrueNameByUserid(userid);
-
-        if(comment_dao.add(unionid,isbn13,comment,grade,true))retString=name;
 
         out.write(retString);
         //结尾
@@ -61,15 +59,9 @@ public class addComment extends HttpServlet{
         //取参数
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
         String unionid = null;
-        String isbn13 = null;
-        double grade = 0;
-        String comment = null;
         String session_id = null;
 
         try {
-            isbn13 = jsonObject.get("isbn13").getAsString();
-            grade = Integer.parseInt(jsonObject.get("grade").getAsString());
-            comment = jsonObject.get("comment").getAsString();
             session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
@@ -84,10 +76,11 @@ public class addComment extends HttpServlet{
 
         String name=user_dao.getTrueNameByUserid(userid);
 
-        if(comment_dao.add(unionid,isbn13,comment,grade,true))retString=name;
-
-        //添加用户行为
-        ubhvor_dao.bhv_comment(userid,isbn13, (float) grade);
+        year_statement ans= year_statement_dao.getYearStatementByUserid(userid);
+        if (ans!=null){
+            JSONObject book_json= JSONObject.fromObject(ans);
+            retString = book_json.toString();
+        }
 
         out.write(retString);
         //结尾

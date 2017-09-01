@@ -15,6 +15,8 @@ public class book_brief {
     private String[] author;
     private int storage;
     private int storage_cb;
+    private int grade_times;
+    private double grade_ave;
 
     public book_brief(){
 
@@ -91,5 +93,21 @@ public class book_brief {
 
     public void setAuthor(String[] author) {
         this.author = author;
+    }
+
+    public int getGrade_times() {
+        return grade_times;
+    }
+
+    public void setGrade_times(int grade_times) {
+        this.grade_times = grade_times;
+    }
+
+    public double getGrade_ave() {
+        return grade_ave;
+    }
+
+    public void setGrade_ave(double grade_ave) {
+        this.grade_ave = grade_ave;
     }
 }
