@@ -127,6 +127,22 @@ public class user {
         this.image = image;
     }
 
+    public int getFollow() {
+        return follow;
+    }
+
+    public void setFollow(int follow) {
+        this.follow = follow;
+    }
+
+    public int getFan() {
+        return fan;
+    }
+
+    public void setFan(int fan) {
+        this.fan = fan;
+    }
+
     public user_brief toBrief(){
         user_brief User_brief = new user_brief();
         User_brief.setCertificate(certificate);

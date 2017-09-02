@@ -245,6 +245,8 @@ public class user_dao extends abstruct_dao{
                 User.setCertificateid(rs.getString("certificateid"));
                 User.setRecommendFrequency(rs.getInt("recommendFrequency"));
                 User.setImage(rs.getString("image"));
+                User.setFollow(rs.getInt("follow"));
+                User.setFan(rs.getInt("fan"));
             }
             return User;
 
@@ -282,6 +284,8 @@ public class user_dao extends abstruct_dao{
             User.setCertificateid(rs.getString("certificateid"));
             User.setRecommendFrequency(rs.getInt("recommendFrequency"));
             User.setImage(rs.getString("image"));
+            User.setFollow(rs.getInt("follow"));
+            User.setFan(rs.getInt("fan"));
             return User;
 
         } catch (SQLException e) {
@@ -314,6 +318,8 @@ public class user_dao extends abstruct_dao{
                 User.setCertificateid(rs.getString("certificateid"));
                 User.setRecommendFrequency(rs.getInt("recommendFrequency"));
                 User.setImage(rs.getString("image"));
+                User.setFollow(rs.getInt("follow"));
+                User.setFan(rs.getInt("fan"));
                 users.add(User);
             }
             user[] array =new user[users.size()];
