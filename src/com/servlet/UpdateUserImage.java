@@ -68,7 +68,7 @@ public class UpdateUserImage extends HttpServlet {
             user userInfo = user_dao.getUserByUnionId(sessionUser.getOpenID());
             if (userInfo.getUnionid().contentEquals(sessionUser.getOpenID())){
                 // match user
-                UserImageDao.UpdateUserImage(userInfo.getUnionid(),imgURL);
+                UserImageDao.UpdateUserImage(sessionUser.getOpenID(),imgURL);
             }
 
         } catch (Exception e){

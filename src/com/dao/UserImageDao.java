@@ -19,7 +19,7 @@ public class UserImageDao extends abstruct_dao{
         abstruct_dao.connect();
 
         try {
-            String sql = String.format("UPDATE % SET image =  ? where unionid = ?;", table_user);
+            String sql = String.format("UPDATE %s SET image = ? where unionid = ?;", table_user);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, avatarURL);
             ps.setString(2, unionID);
