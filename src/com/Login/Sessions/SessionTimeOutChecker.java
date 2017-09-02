@@ -37,6 +37,9 @@ public class SessionTimeOutChecker extends Thread {
         Map.Entry<String, SessionUser> entry ;
         while(true){
 
+            System.out.println("ReserveThread : " + this.getId());
+
+
             Date now = new Date();
             Iterator<Map.Entry<String, SessionUser>> it = map.entrySet().iterator();
             while(it.hasNext()){

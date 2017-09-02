@@ -9,7 +9,11 @@ public class autofailureOrderForm extends Thread {
     public autofailureOrderForm(){}
     @Override
     public void run(){
+        System.out.println("autofailureOrderForm create " + this.getId());
+
         while (true){
+            System.out.println("autofailureOrderForm : " + this.getId());
+
             orderForm_dao.autofailure(20);
             try {
                 sleep(10000);

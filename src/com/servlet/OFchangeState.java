@@ -113,9 +113,9 @@ public class OFchangeState extends HttpServlet{
                             retString = ReservationTool.returnAsJson(true,"success to "+newState, "修改成功",null);
                         }
                         break;
-                        default:
-                            retString = ReservationTool.returnAsJson(false,"no such "+newState + " state", "修改失败",null);
-                            break;
+                    default:
+                        retString = ReservationTool.returnAsJson(false,"no such "+newState + " state", "修改失败",null);
+                        break;
                 }
 
             } else {

@@ -40,7 +40,7 @@ class ReserveThread extends Thread{
     public void run() {
         while (true){
             update();
-
+            System.out.println("ReserveThread : " + this.getId());
             for(ReservationOrder order : this.list){
                 System.out.println("check order " + order.getOrderID());
                 if(order.getState() == 1){

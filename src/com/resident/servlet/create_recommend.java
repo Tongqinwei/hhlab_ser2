@@ -10,7 +10,11 @@ public class create_recommend extends Thread {
     public create_recommend(){}
     @Override
     public void run(){
+        System.out.println("create_recommend create " + this.getId());
+
         while (true){
+            System.out.println("create_recommend : " + this.getId());
+
             abstruct_dao.connect();
             ubhvor_dao.flush();
             try {
