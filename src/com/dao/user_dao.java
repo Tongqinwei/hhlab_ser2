@@ -235,8 +235,7 @@ public class user_dao extends abstruct_dao{
                 User.setTel(rs.getString("tel"));
                 User.setUnionid(rs.getString("unionid"));
                 User.setDegree(rs.getInt("degree"));
-                Date tempbir=rs.getDate("birthday");
-                if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+                User.setBirthday(rs.getString("birthday"));
                 User.setEmail(rs.getString("email"));
                 User.setAddress(rs.getString("address"));
                 User.setPostcode(rs.getString("postcode"));
@@ -274,8 +273,7 @@ public class user_dao extends abstruct_dao{
             User.setTel(rs.getString("tel"));
             User.setUnionid(rs.getString("unionid"));
             User.setDegree(rs.getInt("degree"));
-            Date tempbir=rs.getDate("birthday");
-            if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+            User.setBirthday(rs.getString("birthday"));
             User.setEmail(rs.getString("email"));
             User.setAddress(rs.getString("address"));
             User.setPostcode(rs.getString("postcode"));
@@ -308,8 +306,7 @@ public class user_dao extends abstruct_dao{
                 User.setTel(rs.getString("tel"));
                 User.setUnionid(rs.getString("unionid"));
                 User.setDegree(rs.getInt("degree"));
-                Date tempbir=rs.getDate("birthday");
-                if (tempbir!=null) User.setBirthday(rs.getDate("birthday").toString());
+                User.setBirthday(rs.getString("birthday"));
                 User.setEmail(rs.getString("email"));
                 User.setAddress(rs.getString("address"));
                 User.setPostcode(rs.getString("postcode"));

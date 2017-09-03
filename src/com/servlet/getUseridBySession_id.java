@@ -2,10 +2,8 @@ package com.servlet;
 
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
-import com.beans.home;
 import com.beans.user;
 import com.dao.abstruct_dao;
-import com.dao.comment_dao;
 import com.dao.follow_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
@@ -22,8 +20,8 @@ import java.io.Writer;
 /**
  * Created by hasee on 2017/9/2.
  */
-@WebServlet(name = "follow")
-public class follow extends HttpServlet {
+@WebServlet(name = "getUseridBySession_id")
+public class getUseridBySession_id  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //开头
         response.setContentType("text/html;charset=UTF-8");
@@ -36,50 +34,27 @@ public class follow extends HttpServlet {
 
         //取参数
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
-        String mode;//add,del,show
-        int userid1=0;
-        int userid2=0;
+        int userid=0;
         String session_id="";
 
         try {
-            mode = jsonObject.get("mode").getAsString();
 
-            if (mode.equals("add")||mode.equals("del")){
-                session_id = jsonObject.get("session_id").getAsString();
-                String unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
-                user visitor =user_dao.getUserByUnionId(unionid);
-                userid1 = visitor.getUserid();
-            }
-            userid2 = jsonObject.get("userid").getAsInt();
+            session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
             out.flush();
             out.close();
             response.flushBuffer();
-            int i=2;
+            int i=3;
             return;
         }
 
+        String unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
+        user visitor = user_dao.getUserByUnionId(unionid);
+        userid = visitor.getUserid();
 
-        if (mode.equals("show_follow")){
-            user[] User=follow_dao.getFollowsOrFans(userid2,"follow");
-            JSONArray book_json= JSONArray.fromObject(User);
-            retString = book_json.toString();
-        }
-        else if (mode.equals("show_fan")){
-            user[] User=follow_dao.getFollowsOrFans(userid2,"fan");
-            JSONArray book_json= JSONArray.fromObject(User);
-            retString = book_json.toString();
-        }
-        else if (mode.equals("add")){
-            follow_dao.add(userid1,userid2);
-            retString = "add finish";
-        }
-        else if (mode.equals("del")){
-            follow_dao.del(userid1,userid2);
-            retString = "del finish";
-        }
-
+        JSONArray book_json= JSONArray.fromObject(userid);
+        retString = book_json.toString();
 
         out.write(retString);
         //结尾

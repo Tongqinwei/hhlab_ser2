@@ -15,103 +15,43 @@ public class myinputdata {
     static int usertot=0;
     public static void  main(String argc[]){
         abstruct_dao.connect();
-        //加入用户
-        String JSON_tong="{" +
-                "\"userid\": 1 ," +
-                "\"tel\":\"18210189279\"," +
-                "\"unionid\":\"novas_ghost\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1996-05-22\"," +
-                "\"email\":\"tongqinw@163.com\"," +
-                "\"address\":\"3#_114\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿花\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"150203199605222137\"" +
-                "}";
-        adduser(JSON_tong);
-        String JSON_liyu="{" +
-                "\"userid\": 2 ," +
-                "\"tel\":\"15624952046\"," +
-                "\"unionid\":\"liyu233\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1995-12-18\"," +
-                "\"email\":\"871858041@qq.com\"," +
-                "\"address\":\"3#_113\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿发\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"1234123434652342343\"" +
-                "}";
-        adduser(JSON_liyu);
-        String JSON_suchangqing="{" +
-                "\"userid\": 3 ," +
-                "\"tel\":\"18401669626\"," +
-                "\"unionid\":\"S_CQ\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1996-05-28\"," +
-                "\"email\":\"2831616471@qq.com\"," +
-                "\"address\":\"6#_113\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿虎\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"1234123434652342343\"" +
-                "}";
-        adduser(JSON_suchangqing);
-        String JSON_liyu2="{" +
-                "\"userid\": 4 ," +
-                "\"tel\":\"15624952046\"," +
-                "\"unionid\":\"liyu233_2\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1995-12-18\"," +
-                "\"email\":\"871858041@qq.com\"," +
-                "\"address\":\"3#_113\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿哈\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"1234123434652342343\"" +
-                "}";
-        adduser(JSON_liyu2);
-        String JSON_liyu3="{" +
-                "\"userid\": 5 ," +
-                "\"tel\":\"15624952046\"," +
-                "\"unionid\":\"liyu233_3\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1995-12-18\"," +
-                "\"email\":\"871858041@qq.com\"," +
-                "\"address\":\"3#_113\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿呜\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"1234123434652342343\"" +
-                "}";
-        adduser(JSON_liyu3);
-        String JSON_liyu4="{" +
-                "\"userid\": 6 ," +
-                "\"tel\":\"15624952046\"," +
-                "\"unionid\":\"liyu233_4\"," +
-                "\"degree\": 4 ," +
-                "\"birthday\":\"1995-12-18\"," +
-                "\"email\":\"871858041@qq.com\"," +
-                "\"address\":\"3#_113\"," +
-                "\"postcode\":\"100086\"," +
-                "\"name\":\"阿福\"," +
-                "\"certificate\":1," +
-                "\"certificateid\":\"1234123434652342343\"" +
-                "}";
-        adduser(JSON_liyu4);
 
-        addbook("A","A1","马克思");
-        addbook("B","B1","哲学");
-        addbook("C","C1","社会科学");
-        addbook("D","D1","法律");
-        addbook("E","E1","军事");
-        addbook("F","F1","经济");
-        addbook("G","G1","教育");
-        addbook("H","H1","语言");
-        addbook("I","I1","文学");
-        addbook("J","J1","历史");
-        addbook("K","K1","自然科学");
+//        addbook("A","A1","马克思");
+//        addbook("B","B1","哲学");
+//        addbook("C","C1","社会科学");
+//        addbook("D","D1","法律");
+//        addbook("E","E1","军事");
+//        addbook("F","F1","经济");
+//        addbook("G","G1","教育");
+//        addbook("H","H1","语言");
+//        addbook("I","I1","文学");
+//        addbook("J","J1","历史");
+        addbook("A","A2","列宁");
+        addbook("A","A3","斯大林");
+        addbook("A","A4","毛泽东");
+        addbook("A","A5","邓小平");
+        addbook("B","B2","中国哲学");
+        addbook("B","B3","亚洲哲学");
+        addbook("B","B4","非洲哲学");
+        addbook("B","B5","欧洲哲学");
+        addbook("C","C2","社会团体");
+        addbook("C","C3","社会研究");
+        addbook("C","C4","社会教育");
+        addbook("C","C5","社会丛书");
+        addbook("D","D2","中国共产党");
+        addbook("D","D3","外国共产党");
+        addbook("D","D4","工农组织");
+        addbook("D","D5","世界政治");
+        addbook("E","E2","中国军事");
+        addbook("E","E3","外国军事");
+        addbook("F","F2","经济管理");
+        addbook("F","F3","农业经济");
+        addbook("F","F4","工业经济");
+        addbook("F","F5","信息产业经济");
+        addbook("G","G2","信息知识传播");
+        addbook("G","G3","科学研究");
+        addbook("G","G4","教育");
+        addbook("G","G5","体育");
 
         abstruct_dao.close();
     }
@@ -148,7 +88,7 @@ public class myinputdata {
             for (int j=0;j<comment_sum;j++){
                 int userid=r.nextInt(6);
                 double grade=r.nextInt(50)/10.0;
-                comment_dao.add(Users[userid].getUnionid(),Book.getIsbn13(),"hahaha",grade,false);
+                comment_dao.add("novas_ghost",Book.getIsbn13(),"good for "+grade,grade,false);
             }
         }
     }
