@@ -21,6 +21,7 @@ public class SessionTimeOutChecker extends Thread {
     // 超时时间默认为 20分钟
     public static Long OutTime = 1200000L;
 
+    private SessionTimeOutChecker(){};
 
     SessionTimeOutChecker(Map map){
         this.map = map;
@@ -38,7 +39,7 @@ public class SessionTimeOutChecker extends Thread {
         while(true){
 
             System.out.println("ReserveThread : " + this.getId());
-
+            System.out.println("session manager size :" + this.map.size() + "   " + this.map.hashCode());
 
             Date now = new Date();
             Iterator<Map.Entry<String, SessionUser>> it = map.entrySet().iterator();

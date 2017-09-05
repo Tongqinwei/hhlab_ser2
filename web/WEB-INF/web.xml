@@ -278,7 +278,15 @@
         <servlet-name>update_image</servlet-name>
         <url-pattern>/user/update_image</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>user_logout</servlet-name>
+        <servlet-class>com.servlet.UpdateUserImage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>user_logout</servlet-name>
+        <url-pattern>/user/logout</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>check_session</servlet-name>
