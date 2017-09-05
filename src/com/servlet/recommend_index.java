@@ -42,9 +42,18 @@ public class recommend_index extends HttpServlet {
             unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
             int userid = user_dao.getUserByUnionId(unionid).getUserid();
             String[] strings=ubhvor_dao.getUserRecommendedIsbn13s(userid,1,6);
-            book_brief[] Books_b_rec = new book_brief[strings.length];
-            for (int  i=0;i< Books_b_rec.length;i++) {
-                Books_b_rec[i]=book_dao.getBookByIsbn13(strings[i]).toBook_brief("");
+            book_brief[] Books_b_rec;
+            if (strings.length>0){
+                Books_b_rec = new book_brief[strings.length];
+                for (int  i=0;i< Books_b_rec.length;i++) {
+                    Books_b_rec[i]=book_dao.getBookByIsbn13(strings[i]).toBook_brief("");
+                }
+            }else {
+                Books_b_rec = new book_brief[5];
+                book[] Books2 = book_dao.searchByRandom(1,6);
+                for (int  i=0;i< Books2.length;i++) {
+                    Books_b_rec[i]=Books2[i].toBook_brief("");
+                }
             }
             recommendString=",\"recommend\" : "+JSONArray.fromObject(Books_b_rec).toString();
         } catch (Exception e){

@@ -76,8 +76,8 @@ public class login extends HttpServlet {
                 user_dao.add(User);
                 int userid=user_dao.isExistByUnionid(openID);
                 if (userid!=-1){
-                    ubhvor_dao.change(userid,"9787305130779",0);
-                    ubhvor_dao.flush();
+                    //ubhvor_dao.change(userid,"9787305130779",0);
+                    //ubhvor_dao.flush();
                     retString="success";
                 }
             }
