@@ -345,13 +345,14 @@ public class book_dao extends abstruct_dao{
         * */
         abstruct_dao.connect();
         try {
-            String sql=String.format("select distinct * from %s where isbn13=? or title like ? or pinyin like ? limit ?,?",table_book);
+            String sql=String.format("select distinct * from %s where isbn13=? or title like ? or pinyin like ? or author like ? limit ?,?",table_book);
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,key);
             ps.setString(2,"%"+key+"%");
             ps.setString(3,"%"+key+"%");
-            ps.setInt(4,_begin-1);
-            ps.setInt(5,_end-1);
+            ps.setString(4,"%"+key+"%");
+            ps.setInt(5,_begin-1);
+            ps.setInt(6,_end-1);
             ResultSet rs = ps.executeQuery();
             return rs;
         } catch (SQLException e) {
