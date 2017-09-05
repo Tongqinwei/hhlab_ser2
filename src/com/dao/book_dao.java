@@ -380,6 +380,24 @@ public class book_dao extends abstruct_dao{
         }
     }
 
+    private static ResultSet searchByRandromToRs(int _begin,int _end){
+        /*
+        * 通过分类查找书籍
+        * */
+        abstruct_dao.connect();
+        try {
+            String sql=String.format("select * from %s order by rand() limit ?,?",table_book);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(2,_begin-1);
+            ps.setInt(3,_end-1);
+            ResultSet  rs = ps.executeQuery();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
     public static book[] search(String key,int _begin,int _end){
         /*
         * 查找书籍，按照isbn13，书名，书名首字母，书名拼音
@@ -393,6 +411,14 @@ public class book_dao extends abstruct_dao{
 
     public static book[] searchBySubclass(String subclass,int _begin,int _end){
         List<book> books = book_dao.getBooksByResultSet(searchBySubclassToRs(subclass,_begin,_end));
+
+        assert books != null;
+        book[] array =new book[books.size()];
+        return books.toArray(array);
+    }
+
+    public static book[] searchByRandom(int _begin,int _end){
+        List<book> books = book_dao.getBooksByResultSet(searchByRandromToRs(_begin,_end));
 
         assert books != null;
         book[] array =new book[books.size()];
