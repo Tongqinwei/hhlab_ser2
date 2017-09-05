@@ -7,6 +7,7 @@ import com.dao.abstruct_dao;
 import com.dao.user_dao;
 import com.dao.year_statement_dao;
 import com.google.gson.JsonObject;
+import com.util.myinputdata;
 import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -38,6 +39,10 @@ public class yearStatementServlet extends HttpServlet {
         if (key.equals("960522")){
             year_statement_dao.init();
             retString="已重新计算统计信息";
+        }
+        if (key.equals("960528")){
+            myinputdata.main(null);
+            retString="已加入新书";
         }
 
         out.write(retString);

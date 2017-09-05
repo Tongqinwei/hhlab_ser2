@@ -25,6 +25,7 @@ public abstract class abstruct_dao {
     protected static final String table_ubhvor_estimates="ubhvor_estimates";
     protected static final String table_year_statement_s="year_statement_s";
     protected static final String table_year_statement="year_statement";
+    protected static final String table_follow_fan="follow_fan";
 
     protected static Connection conn = null;
     public static Connection getConn(){

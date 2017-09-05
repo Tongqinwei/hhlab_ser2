@@ -2,11 +2,8 @@ package com.servlet;
 
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
-import com.beans.comment;
-import com.beans.home;
 import com.beans.user;
 import com.dao.abstruct_dao;
-import com.dao.comment_dao;
 import com.dao.follow_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
@@ -21,10 +18,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Created by hasee on 2017/8/31.
+ * Created by hasee on 2017/9/2.
  */
-@WebServlet(name = "userHome")
-public class userHome extends HttpServlet {
+@WebServlet(name = "getUseridBySession_id")
+public class getUseridBySession_id  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //开头
         response.setContentType("text/html;charset=UTF-8");
@@ -37,51 +34,27 @@ public class userHome extends HttpServlet {
 
         //取参数
         JsonObject jsonObject = MyJsonParser.String2Json(CreateSessionServlet.getBody(request));
-        int userid1;
-        int userid2;
-        int _begin;
-        int _end;
-        String session_id;
-        home Home=new home();
+        int userid=0;
+        String session_id="";
 
         try {
-            userid2 = jsonObject.get("userid").getAsInt();
-            _begin = jsonObject.get("_begin").getAsInt();
-            _end = jsonObject.get("_end").getAsInt();
-            Home.setOwner(user_dao.getUserByUserid(userid2));
-            Home.setComments(comment_dao.getComments(userid2,_begin,_end,true));
+
+            session_id = jsonObject.get("session_id").getAsString();
         } catch (Exception e){
             out.write("failure: error json type");
             out.flush();
             out.close();
             response.flushBuffer();
-            int i=1;
+            int i=3;
             return;
         }
 
-        try {
-            session_id = jsonObject.get("session_id").getAsString();
-            String unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
-            user visitor =user_dao.getUserByUnionId(unionid);
-            userid1 = visitor.getUserid();
-            Home.setVisitor(visitor);
-            if (userid1==userid2) {
-                Home.setHisOwn(true);
-                Home.setFollower(false);
-            } else {
-                Home.setHisOwn(false);
-                Home.setFollower(follow_dao.isFollower(userid1,userid2));
-            }
-        } catch (Exception e){
-            Home.setVisitor(null);
-            Home.setHisOwn(false);
-            Home.setFollower(false);
-        }
+        String unionid = SessionManager.getInstance().getUser(session_id).getOpenID();
+        user visitor = user_dao.getUserByUnionId(unionid);
+        userid = visitor.getUserid();
 
-
-        JSONArray book_json= JSONArray.fromObject(Home);
+        JSONArray book_json= JSONArray.fromObject(userid);
         retString = book_json.toString();
-
 
         out.write(retString);
         //结尾

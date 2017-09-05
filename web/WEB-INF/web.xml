@@ -324,4 +324,22 @@
         <url-pattern>/userHome</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>follow</servlet-name>
+        <servlet-class>com.servlet.follow</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>follow</servlet-name>
+        <url-pattern>/follow</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getUseridBySession_id</servlet-name>
+        <servlet-class>com.servlet.getUseridBySession_id</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getUseridBySession_id</servlet-name>
+        <url-pattern>/getUseridBySession_id</url-pattern>
+    </servlet-mapping>
+
 </web-app>
