@@ -1,0 +1,20 @@
+/*-- 信息查询模块 --*/
+#search{
+	float: right;
+	margin: 0px 5px 0 5px;
+}
+.search_icon{
+     float: right;
+     width: 25px;
+     height: 25px;
+}
+.search_btn{
+	float: right;
+}
+
+.select{
+	float: right;
+	margin-right: 5px;
+}
+
+/*-- 查询模块 end --*/

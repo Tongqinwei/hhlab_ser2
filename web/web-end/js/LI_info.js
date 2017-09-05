@@ -1,29 +1,17 @@
-// <tr class="odd gradeX">
-// <td>Trident</td>
-// <td>Internet Explorer 4.0</td>
-// <td>Win 95+</td>
-// <td class="center">4</td>
-// <td class="center">X</td>
-// </tr>
-// <tr class="even gradeC">
-// <td>Trident</td>
-// <td>Internet Explorer 5.0</td>
-// <td>Win 95+</td>
-// <td class="center">5</td>
-// <td class="center">C</td>
-// </tr>
-//信息： 图书编号 ISBN13 图书名 作者 馆藏地 藏书量 
-
-var username;
+//信息：封面  ISBN13 图书名 作者 藏书量 操作
+var session;
 $(function () {
-
+  session = sessionStorage.getItem('session');//获取session_id;
     $.ajax({
-    url:'',
-    type:'GET',
+    url:"/hhlab/admin/showAllBooks",
+    type:'POST',
+    data: JSON.stringify(
+              {session_id : session,
+             }),
     success:function(result){
       //初始化用户信息
-      console.log(username);
-      processData(result);
+      console.log(result);
+     processData(result);
       
     },
     error:function(){
@@ -33,52 +21,76 @@ $(function () {
     });
 
 function processData(result)
-{
-   //获取页面信息
-    $.ajax({
+{ 
+     if(result.length == 0){
+          $(".tbody").empty();//当前查询没有结果
+           $(".tbody").append("当前数据库没有相关数据");
+       }
 
-            url: "",
-            type: "POST",
-            data: {username: username},
-            success: function (result) {
-                
-                //打出每个时间段的大表格
-                for(var i = 0;i<result.data.length;i++)
-                {
-                    var unid,isbn13,title,author, place, used,total;
-                    var date;
 
-                    if (i%2==0) {
-                    $(".tbody").append(
-                        "<tr class=odd gradeX>"+
-                            "<td>"+unid+"</td>"+
+   //处理页面信息
+    for(var i = 0;i<result.length;i++)
+    {
+          var unid,isbn13,title,author, used,total, img;
+          isbn13 = result[i].isbn13;
+          title = result[i].title;
+          author = result[i].author;
+          img = result[i].image;
+          used = result[i].storage_cb;
+          total = result[i].storage;
+
+
+
+            if (i%2==0) {
+                   $(".tbody").append(
+                     "<tr class=odd gradeX>"+
+                            "<td><image style='max-height:120px;' src='"+img+"'/></td>"+
                             "<td>"+isbn13+"</td>"+
                             "<td>"+title+"</td>"+
                             "<td>"+author+"</td>"+
-                            "<td>"+place+"</td>"+
                             "<td>"+used+"/"+total+"</td>"+
+                            "<td><a href='book_Detail.html?unid=null&isbn="+isbn13+"'><button>查看详情</button></a></td>"+
                         "</tr>"
-                       )
+                       );
+                     
                     }
                     else{
                       $(".tbody").append(
-                        "<tr class=odd gradeC>"+
-                            "<td>"+unid+"</td>"+
+                       "<tr class=odd gradeX>"+
+                            "<td><image style='max-height:120px;' src='"+img+"'/></td>"+
                             "<td>"+isbn13+"</td>"+
                             "<td>"+title+"</td>"+
                             "<td>"+author+"</td>"+
-                            "<td>"+place+"</td>"+
                             "<td>"+used+"/"+total+"</td>"+
+                            "<td><a href='book_Detail.html?unid=null&isbn="+isbn13+"'><button>查看详情</button></a></td>"+
                         "</tr>"
                        )
                     }
                   
                 }
                
-                
-            },
-            error: function () {
-                alert("System error!");
-            }
-        });
+}
+
+function search(){
+
+  var inputValue = $("#search").val();
+  console.log(inputValue);
+  var url = "/hhlab/search_book?key="+encodeURI(inputValue);
+  console.log(url);
+  $.ajax({
+    url : url ,
+    type : 'GET',
+    success:function(result){
+      //初始化用户信息
+      console.log(result);
+       $(".tbody").empty();
+     processData(result);
+      
+    },
+    error:function(){
+      alert("System inner error!");
+    }
+  });
+
+
 }
