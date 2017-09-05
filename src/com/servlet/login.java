@@ -5,6 +5,7 @@ import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
 import com.beans.user;
 import com.dao.admin_dao;
+import com.dao.ubhvor_dao;
 import com.dao.user_dao;
 import com.google.gson.JsonObject;
 
@@ -75,6 +76,8 @@ public class login extends HttpServlet {
                 user_dao.add(User);
                 int userid=user_dao.isExistByUnionid(openID);
                 if (userid!=-1){
+                    ubhvor_dao.change(userid,"9787305130779",0);
+                    ubhvor_dao.flush();
                     retString="success";
                 }
             }

@@ -10,6 +10,26 @@ $(document).ready(function() {
 		}
 	});
 
+	// Waypoints
+	$('.work').waypoint(function() {
+		$('.work').addClass('animated fadeIn');
+	}, {
+		offset: '75%'
+	});
+	$('.download').waypoint(function() {
+		$('.download .btn').addClass('animated tada');
+	}, {
+		offset: '75%'
+	});
+
+	// Fancybox
+	$('.work-box').fancybox();
+
+	// Flexslider
+	$('.flexslider').flexslider({
+		animation: "fade",
+		directionNav: false,
+	});
 
 	// Page Scroll
 	var sections = $('section')

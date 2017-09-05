@@ -336,4 +336,48 @@ public class user_dao extends abstruct_dao{
         }
         return user_briefs;
     }
+
+    public static user[] searchUser(String key,int _begin,int _end){
+        /*
+        * by name,email,tel
+        * */
+        String sql = String.format("select * from  %s where email = ? or name like ? or tel = ? limit ?,? ;", table_user);
+        PreparedStatement ps = null;
+        try {
+            abstruct_dao.connect();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, key);
+            ps.setString(2, "%"+key+"%");
+            ps.setString(3, key);
+            ps.setInt(4, _begin-1);
+            ps.setInt(5, _end-1);
+            ResultSet rs = ps.executeQuery();
+            List<user> users=new Vector<user>();
+            users.clear();
+            while (rs.next()){
+                user User = new user();
+                User.setUserid(rs.getInt("userid"));
+                User.setUnionid(rs.getString("unionid"));
+                User.setDegree(rs.getInt("degree"));
+                User.setBirthday(rs.getString("birthday"));
+                User.setEmail(rs.getString("email"));
+                User.setTel(rs.getString("tel"));
+                User.setAddress(rs.getString("address"));
+                User.setPostcode(rs.getString("postcode"));
+                User.setName(rs.getString("name"));
+                User.setCertificate(rs.getInt("certificate"));
+                User.setCertificateid(rs.getString("certificateid"));
+                User.setRecommendFrequency(rs.getInt("recommendFrequency"));
+                User.setImage(rs.getString("image"));
+                User.setFollow(rs.getInt("follow"));
+                User.setFan(rs.getInt("fan"));
+                users.add(User);
+            }
+            user[] array =new user[users.size()];
+            return users.toArray(array);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }

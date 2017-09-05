@@ -1,8 +1,10 @@
 package com.servlet;
 
 import com.beans.book;
+import com.beans.user;
 import com.dao.abstruct_dao;
 import com.dao.book_dao;
+import com.dao.user_dao;
 import net.sf.json.JSONArray;
 
 import javax.servlet.ServletException;
@@ -36,9 +38,12 @@ public class search_book extends HttpServlet {
 
         abstruct_dao.connect();
         JSONArray book_json=null;
+        JSONArray user_json=null;
         if (mode.equals("0")){
             book[] books= book_dao.search(key,beginindex,endindex);
             book_json= JSONArray.fromObject(books);
+            user[] Users= user_dao.searchUser(key,beginindex,endindex);
+            user_json= JSONArray.fromObject(Users);
         }else if (mode.equals("1")){
             book[] books= book_dao.searchBySubclass(key,beginindex,endindex);
             book_json= JSONArray.fromObject(books);
@@ -49,7 +54,8 @@ public class search_book extends HttpServlet {
         response.setContentType("application/json");
         Writer out = response.getWriter();
         assert book_json != null;
-        out.write(book_json.toString());
+        assert user_json != null;
+        out.write("{\"books\":"+book_json.toString()+",\"users\":"+user_json.toString()+"}");
         out.flush();
         out.close();
         response.flushBuffer();

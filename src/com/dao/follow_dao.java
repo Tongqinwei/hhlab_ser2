@@ -64,18 +64,21 @@ public class follow_dao extends abstruct_dao {
 
     public static user[] getFollowsOrFans(int userid,String mode){
         String sql;
+        String getstring;
         switch (mode) {
             case "follows":
             case "Follows":
             case "follow":
             case "Follow":
                 sql = String.format("SELECT * FROM %s WHERE userid1=%d ;", table_follow_fan, userid);
+                getstring="userid2";
                 break;
             case "fans":
             case "Fans":
             case "fan":
             case "Fan":
                 sql = String.format("SELECT * FROM %s WHERE userid2=%d ;", table_follow_fan, userid);
+                getstring="userid1";
                 break;
             default:
                 return null;
@@ -86,7 +89,7 @@ public class follow_dao extends abstruct_dao {
             ResultSet rs = stat.executeQuery(sql);
             List<user> Users= new Vector();
             while (rs.next()){
-                Users.add(user_dao.getUserByUserid(rs.getInt("userid2")));
+                Users.add(user_dao.getUserByUserid(rs.getInt(getstring)));
             }
             abstruct_dao.close();
             user[] array =new user[Users.size()];

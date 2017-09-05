@@ -53,7 +53,7 @@ public class getUseridBySession_id  extends HttpServlet {
         user visitor = user_dao.getUserByUnionId(unionid);
         userid = visitor.getUserid();
 
-        JSONArray book_json= JSONArray.fromObject(userid);
+        JSONArray book_json= JSONArray.fromObject(visitor);
         retString = book_json.toString();
 
         out.write(retString);
