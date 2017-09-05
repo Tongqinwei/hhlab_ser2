@@ -281,7 +281,7 @@
 
     <servlet>
         <servlet-name>user_logout</servlet-name>
-        <servlet-class>com.servlet.UpdateUserImage</servlet-class>
+        <servlet-class>com.servlet.UserLogOut</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>user_logout</servlet-name>
