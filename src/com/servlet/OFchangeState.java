@@ -9,6 +9,11 @@ import com.dao.abstruct_dao;
 import com.dao.orderForm_dao;
 import com.google.gson.JsonObject;
 import net.sf.json.JSONArray;
+import ssm.SMSHandlerManager;
+import ssm.SMSHandlerPack.CodeSetter;
+import ssm.SMSHandlerPack.OrderSetter;
+import ssm.SMSHandlerPack.SMSHandler;
+import ssm.SMSHandlerPack.TimeSetter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -96,16 +101,24 @@ public class OFchangeState extends HttpServlet{
                     case "confirm" :
                         if (orderForm_dao.stateChange_noConfirm2comfirm(orderid)){
                             retString = ReservationTool.returnAsJson(true,"success to "+newState, "修改成功",null);
+                            SMSHandler handler = new SMSHandler(SMSHandlerManager.ORDER_CONFIRMED_TEXT);
+                            handler.setAttribute(OrderSetter.OrderTag,OrderSetter.setOrder(orderid));
+                            handler.send();
                         }
                         break;
                     case "pay" :
                         if (orderForm_dao.stateChange_confirm2pay(orderid)){
                             retString = ReservationTool.returnAsJson(true,"success to "+newState, "修改成功",null);
+                            SMSHandler handler = new SMSHandler(SMSHandlerManager.ORDER_BORROW_SUCCESS_TEXT);
+                            handler.setAttribute(OrderSetter.OrderTag,OrderSetter.setOrder(orderid));
+                            handler.setAttribute(TimeSetter.TimeTag,TimeSetter.setTime(ReservationTool.get30DaysLater()));
+                            handler.send();
                         }
                         break;
                     case "return":
                         if (orderForm_dao.stateChange_pay2finish(orderid)){
                             retString = ReservationTool.returnAsJson(true,"success to "+newState, "修改成功",null);
+
                         }
                         break;
                     case "failure" :

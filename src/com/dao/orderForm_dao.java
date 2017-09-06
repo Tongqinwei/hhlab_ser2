@@ -1,9 +1,14 @@
 package com.dao;
 
+import com.Reservation.ReservationTool;
 import com.beans.orderForm;
 import com.beans.storage_book;
 import com.beans.user;
 import com.util.OF_util;
+import ssm.SMSHandlerManager;
+import ssm.SMSHandlerPack.CodeSetter;
+import ssm.SMSHandlerPack.SMSHandler;
+import ssm.SMSHandlerPack.TimeSetter;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -255,7 +260,7 @@ public class orderForm_dao extends abstruct_dao {
     public static boolean stateChange_confirm2pay(String orderid){
         orderForm OrderForm = getOrderFormByOrderid(orderid);
         if (OrderForm==null||OrderForm.getOrderstate()!=2) {
-            System.err.println("OrderForm may not exist or its state is not 2(comfirm).");
+            System.err.println("OrderForm may not exist or its state is not 2(confirm).");
             return false;
         }
         orderForm_dao OrderForm_dao = new orderForm_dao(OrderForm);

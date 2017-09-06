@@ -211,6 +211,21 @@ public class ReservationTool {
         return cal.getTime();
     }
 
+    public static Date get30DaysLater(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 30);
+        return cal.getTime();
+    }
+
+    public static Date get30MinsLater(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.MINUTE, 30);
+        return cal.getTime();
+    }
+
+
     public static String returnAsJson(boolean state, String logInfo, String errMsg,JsonElement element){
         JsonObject object = new JsonObject();
         object.addProperty("state",state);
