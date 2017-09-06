@@ -4,21 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="" name="description" />
     <meta content="webthemez" name="author" />
-    <title>霍哈图书馆系统</title>
+    <title>嚯哈图书馆系统</title>
     <!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
         <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
-     <!-- Google Fonts-->
+    <link rel="stylesheet" type="text/css" href="all.css">
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 霍哈图书馆</strong></a>
+                <a class="navbar-brand" href="index.html"><strong><i class="icon fa fa-plane"></i> 嚯哈图书馆</strong></a>
                 <div id="sideNav" href="">
         <i class="fa fa-bars icon"></i> 
         </div>
@@ -33,7 +33,7 @@
                         <a href="index.html"><i class="fa fa-dashboard"></i>主页</a>
                     </li>
                      <li>
-                        <a  href="#"><i class="fa fa-sitemap"></i>图书管理<span class="fa arrow"></span></a>
+                        <a  href="LI_info.html"><i class="fa fa-sitemap"></i>图书管理<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="LI_info.html">图书信息查询</a>
@@ -60,7 +60,7 @@
         <div id="page-wrapper">
           <div class="header"> 
                       <h1 class="page-header">
-                       <small>霍哈图书馆</small>
+                       <small>嚯哈图书馆</small>
                     </h1>
                     <ol class="breadcrumb">
                       <li>目前所在位置： </li>
@@ -75,6 +75,13 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                              订单查询
+                            <button onclick="search()" class="search_btn">搜索</button>
+                           
+                            <input type="text" name="search" id="search" placeholder="订单编号或用户手机号" />
+                             <select class="select" onchange="selected(this)">
+                              <option value="order_id">订单编号</option>
+                              <option value="tel">电话</option>
+                            </select>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -98,7 +105,7 @@
                     <!--End Advanced Tables -->
                  </div>
                 </div>
-                 <footer><p>Copyright &copy; 霍哈图书馆管理系统</p></footer>
+                 <footer><p>Copyright &copy; 嚯哈图书馆管理系统</p></footer>
              <!-- /. PAGE INNER  -->
          </div>
          <!-- /. PAGE WRAPPER  -->
@@ -112,14 +119,6 @@
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
      <!-- DATA TABLE SCRIPTS -->
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
-         <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
     <script type="text/javascript" src="js/order.js"></script>
     
