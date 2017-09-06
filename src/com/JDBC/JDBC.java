@@ -10,7 +10,8 @@ import java.sql.Statement;
 public class JDBC {
     private static String myurl = "jdbc:mysql://127.0.0.1/hhlab?" +
             "useUnicode=true" +
-            "&characterEncoding=UTF-8";
+            "&characterEncoding=UTF-8" +
+            "&zeroDateTimeBehavior=convertToNull";
     //private static String user = "root";
     //private static String password = "";
     private static String user = "remote_user";
