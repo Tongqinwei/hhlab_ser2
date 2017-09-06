@@ -12,7 +12,7 @@ $(function () {
       //初始化用户信息
       console.log(result);
      processData(result);
-      
+
     },
     error:function(){
       alert("System inner error!");
@@ -21,7 +21,7 @@ $(function () {
     });
 
 function processData(result)
-{ 
+{
      if(result.length == 0){
           $(".tbody").empty();//当前查询没有结果
            $(".tbody").append("当前数据库没有相关数据");
@@ -52,7 +52,7 @@ function processData(result)
                             "<td><a href='book_Detail.html?unid=null&isbn="+isbn13+"'><button>查看详情</button></a></td>"+
                         "</tr>"
                        );
-                     
+
                     }
                     else{
                       $(".tbody").append(
@@ -66,9 +66,9 @@ function processData(result)
                         "</tr>"
                        )
                     }
-                  
+
                 }
-               
+
 }
 
 function search(){
@@ -84,8 +84,8 @@ function search(){
       //初始化用户信息
       console.log(result);
        $(".tbody").empty();
-     processData(result);
-      
+     processData(result.books);
+
     },
     error:function(){
       alert("System inner error!");

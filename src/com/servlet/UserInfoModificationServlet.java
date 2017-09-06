@@ -84,7 +84,7 @@ public class UserInfoModificationServlet extends HttpServlet {
                     user.setPostcode(formObject.get("post_code").getAsString());
 
                     if(user.getBirthday().contentEquals("")){
-                        user.setBirthday("0000-00-00");
+                        user.setBirthday("1900-01-01");
                     }
 
                     user_dao.update_user_byUnionID(user);

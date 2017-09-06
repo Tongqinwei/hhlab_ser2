@@ -95,11 +95,13 @@ public class GetUserINFOServlet extends HttpServlet {
         object.addProperty("mail_code",userData.getPostcode());
 
         if(userData.getBirthday() != null){
-            if(userData.getBirthday().contentEquals("0000-00-00")){
-                object.addProperty("birthday", "");
+            if(userData.getBirthday().contentEquals("1900-01-01")){
+                object.addProperty("birthday", "1900-01-01");
             } else {
                 object.addProperty("birthday",userData.getBirthday());
             }
+        } else {
+            object.addProperty("birthday", "1900-01-01");
         }
 
 
