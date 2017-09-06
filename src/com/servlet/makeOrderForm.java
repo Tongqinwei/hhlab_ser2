@@ -2,6 +2,7 @@ package com.servlet;
 
 import com.Login.Handler.MyJsonParser;
 import com.Login.Sessions.SessionManager;
+import com.Reservation.ReservationTool;
 import com.beans.book_brief;
 import com.beans.book_brw;
 import com.beans.orderForm;
@@ -13,6 +14,10 @@ import com.dao.user_dao;
 import com.google.gson.JsonObject;
 import com.util.OF_util;
 import net.sf.json.JSONArray;
+import ssm.SMSHandlerManager;
+import ssm.SMSHandlerPack.OrderSetter;
+import ssm.SMSHandlerPack.SMSHandler;
+import ssm.SMSHandlerPack.TimeSetter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,7 +68,14 @@ public class makeOrderForm  extends HttpServlet {
             orderForm OrderForm = of_util.toOrderForm();
             orderForm_dao OFD = new orderForm_dao(OrderForm);
             if (!OFD.add(true)) retString="create order form failure";
-            else retString=orderid;
+            else {
+                retString=orderid;
+                SMSHandler handler = new SMSHandler(SMSHandlerManager.ORDER_CREATE_TEXT);
+                handler.setAttribute(OrderSetter.OrderTag,OrderSetter.setOrder(orderid));
+                handler.setAttribute(TimeSetter.TimeTag,TimeSetter.setTime(ReservationTool.get30MinsLater()));
+                handler.send();
+            }
+
         }
 
         out.write(retString);

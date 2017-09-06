@@ -52,12 +52,17 @@ public class search_book extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Type","text/html;charset=UTF-8");
         response.setContentType("application/json");
-        Writer out = response.getWriter();
+        Writer out1 = response.getWriter();
         assert book_json != null;
-        assert user_json != null;
-        out.write("{\"books\":"+book_json.toString()+",\"users\":"+user_json.toString()+"}");
-        out.flush();
-        out.close();
+        if (user_json!=null){
+            out1.write("{\"books\":"+book_json.toString()+",\"users\":"+user_json.toString()+"}");
+        }else if (mode.equals("0")) {
+            out1.write("{\"books\":"+book_json.toString()+",\"users\":[]}");
+        }else{
+            out1.write(book_json.toString());
+        }
+        out1.flush();
+        out1.close();
         response.flushBuffer();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
